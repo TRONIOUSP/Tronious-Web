@@ -23,7 +23,7 @@ export default function Services() {
         </div>
       </section>
       <section className="split">
-        <div style={{ display: 'grid', gap: '10px' }}><h2>Not sure where to start?</h2><p>Most clients arrive with either a concept, a prototype, or a cleared design that needs a new manufacturer. We'll recommend the right starting point after one call.</p></div>
+        <div style={{ display: 'grid', gap: '10px' }}><h2>Not sure where to start?</h2><p>Most clients arrive with either a concept, a prototype, or a cleared design that needs a new manufacturer. We&apos;ll recommend the right starting point after one call.</p></div>
         <div className="btns" style={{ alignContent: 'center' }}><Link className="btn primary" href="/contact">Book a scoping call</Link><Link className="btn ghost" href="/engagement">Engagement models</Link></div>
       </section>
     </Sheet>
