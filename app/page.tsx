@@ -89,7 +89,7 @@ export default function Home() {
 
       <section>
         <blockquote className="quote">
-          <p><span className="ph">[Client quote: one or two sentences about speed, quality or regulatory success. Get written permission.]</span></p>
+          <p><span className="ph ph-wrap">[Client quote: one or two sentences about speed, quality or regulatory success. Get written permission.]</span></p>
           <footer><span className="ph">[Name]</span>, <span className="ph">[Title]</span>, <span className="ph">[Company or &quot;US recovery device brand&quot;]</span></footer>
         </blockquote>
       </section>

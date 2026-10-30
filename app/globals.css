@@ -25,6 +25,7 @@ p{margin:0;max-width:65ch}
 .eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .lead{font-size:1.15rem;color:var(--muted)}
 .ph{background:var(--ph-bg);color:var(--ph);font-family:var(--mono);font-size:.9em;padding:0 .3em;border-radius:3px;white-space:nowrap}
+.ph.ph-wrap{white-space:normal}
 
 /* header */
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--sheet);border-bottom:1px solid var(--rule)}
@@ -48,7 +49,7 @@ nav a.cta{background:var(--accent);color:var(--accent-ink);font-weight:600}
 
 /* sheet */
 main{padding-block:32px 48px}
-.page{background:var(--sheet);border:1px solid var(--rule);border-radius:2px}
+.page{background:var(--sheet);border:1px solid var(--rule);border-radius:2px;overflow:clip}
 .page>section{padding:clamp(20px,4vw,48px);border-bottom:1px solid var(--rule);display:grid;gap:20px}
 .page>section:last-of-type{border-bottom:0}
 .titleblock{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--rule);font-family:var(--mono);font-size:.72rem;color:var(--muted)}
@@ -214,7 +215,7 @@ header{box-shadow:var(--shadow-sm)}
 /* gradient accents */
 .btn.primary{background-image:linear-gradient(135deg,var(--accent),var(--accent-2))}
 .btn.hx-primary{background-image:linear-gradient(135deg,var(--signal),var(--signal-2))}
-.page>section.hx{background-image:linear-gradient(165deg,var(--band) 0%,var(--band-2) 100%),radial-gradient(900px circle at 88% -15%,rgba(79,195,230,.22),transparent 60%)}
+.page>section.hx{background-image:radial-gradient(900px circle at 88% -15%,rgba(79,195,230,.22),transparent 60%),linear-gradient(165deg,var(--band) 0%,var(--band-2) 100%)}
 
 /* bigger hero/heading type */
 h1{font-size:clamp(2.1rem,5.5vw,3.5rem);letter-spacing:-.015em}

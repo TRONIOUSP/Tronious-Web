@@ -19,7 +19,7 @@ export default function Engagement() {
       </section>
       <section>
         <h2>Intellectual property</h2>
-        <p>Every client asks who owns the design. State your standard position clearly here, for example: <span className="ph">[Client owns all device-specific IP and design files; we retain our pre-existing platform technology and general know-how.]</span> Have your legal team approve this wording.</p>
+        <p>Every client asks who owns the design. State your standard position clearly here, for example: <span className="ph ph-wrap">[Client owns all device-specific IP and design files; we retain our pre-existing platform technology and general know-how.]</span> Have your legal team approve this wording.</p>
       </section>
     </Sheet>
   )

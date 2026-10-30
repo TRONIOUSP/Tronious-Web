@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <header>
       <div className="wrap bar">
-        <Link href="/" className="brand">
+        <Link href="/" className="brand" onClick={() => setOpen(false)}>
           <span className="mark" aria-hidden="true"></span>
           <span>[Company Name]</span>
         </Link>
@@ -38,13 +38,22 @@ export default function Header() {
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} aria-current={pathname === link.href ? 'page' : undefined}>
+                <Link
+                  href={link.href}
+                  aria-current={pathname === link.href ? 'page' : undefined}
+                  onClick={() => setOpen(false)}
+                >
                   {link.label}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href={NAV_CTA.href} className="cta">
+              <Link
+                href={NAV_CTA.href}
+                className="cta"
+                aria-current={pathname === NAV_CTA.href ? 'page' : undefined}
+                onClick={() => setOpen(false)}
+              >
                 {NAV_CTA.label}
               </Link>
             </li>

@@ -14,7 +14,7 @@ export default function About() {
       <section><span className="eyebrow">About us</span><h1>Engineers and regulatory specialists who build therapy devices</h1><p className="lead"><span className="ph">[Founded in YYYY]</span>, we help medical device brands bring physical therapy and recovery devices to market in the US, EU and Australia.</p></section>
       <section>
         <h2>Our story</h2>
-        <p><span className="ph">[2–3 paragraphs: why the company started, how it grew, what makes you different. Write in plain language.]</span></p>
+        <p><span className="ph ph-wrap">[2–3 paragraphs: why the company started, how it grew, what makes you different. Write in plain language.]</span></p>
       </section>
       <section>
         <h2>Leadership</h2>
