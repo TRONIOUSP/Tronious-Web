@@ -1210,4 +1210,38 @@
   :root[data-placeholder-marking] :is([data-placeholder][data-wrap], .ph.ph-wrap) {
     white-space: normal;
   }
+
+  /* ---------- Reveal ----------
+     Read the selector carefully: content is hidden ONLY when the root carries
+     data-motion="on", which the head script sets exclusively when motion is
+     allowed and IntersectionObserver exists. No script, no attribute, nothing
+     hidden. This is what makes a broken bundle degrade to a readable page
+     rather than a blank one.
+
+     The transform is small on purpose - 14px, not a swoop. Someone scanning
+     for "IEC 60601-1" should never be waiting on it. */
+  :root[data-motion='on'] [data-reveal='pending'] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  :root[data-motion='on'] [data-reveal] {
+    transition:
+      opacity 0.5s var(--ease-out-soft),
+      transform 0.5s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  :root[data-motion='on'] [data-reveal='shown'] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Second guard, independent of the script: if the preference changes after
+     load, nothing stays hidden. */
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
 }
