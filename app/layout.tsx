@@ -7,19 +7,19 @@ import "./globals.css";
 const mono = IBM_Plex_Mono({
   weight: ["400", "500"],
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--ff-mono",
 });
 
 const display = IBM_Plex_Sans_Condensed({
   weight: ["500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--ff-display",
 });
 
 const body = IBM_Plex_Sans({
   weight: ["400", "500", "600"],
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--ff-body",
 });
 
 export const metadata: Metadata = {
