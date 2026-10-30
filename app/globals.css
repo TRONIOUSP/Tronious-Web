@@ -313,18 +313,8 @@
     font-size: 1.15rem;
     color: var(--muted);
   }
-  .ph {
-    background: var(--ph-bg);
-    color: var(--ph);
-    font-family: var(--mono);
-    font-size: 0.9em;
-    padding: 0 0.3em;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-  .ph.ph-wrap {
-    white-space: normal;
-  }
+  /* `.ph` styling moved to the components layer, where it shares the refined
+     annotation treatment with `[data-placeholder]` and the same launch flag. */
 
   /* `<main>` used to carry `.wrap`, which capped it at 1120px. New pages are
      full-bleed, so the cap moved here and is scoped to pages that still render
@@ -1192,5 +1182,32 @@
   }
   [data-numeric] {
     font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Placeholder annotation ----------
+     An editorial annotation, not a highlighter smear: mono, muted amber, a
+     fine dotted underline and a faint tint. Visible enough that it cannot
+     ship by accident, quiet enough that the page still reads as design.
+
+     Both selectors are listed because the rollout is mid-flight: new pages
+     use <Ph>, pages Phase 4 has not reached still use the legacy `.ph`.
+     Both are governed by the one launch flag on :root.
+
+     No ::before/::after glyphs on purpose — pseudo-element content is
+     announced by some screen readers, and the underline carries it. */
+  :root[data-placeholder-marking] :is([data-placeholder], .ph) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--color-placeholder-fg);
+    background-color: color-mix(in oklab, var(--color-placeholder-bg) 55%, transparent);
+    padding-inline: 0.2em;
+    border-radius: 2px;
+    text-decoration: underline dotted currentColor;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    white-space: nowrap;
+  }
+  :root[data-placeholder-marking] :is([data-placeholder][data-wrap], .ph.ph-wrap) {
+    white-space: normal;
   }
 }

@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, IBM_Plex_Sans_Condensed, IBM_Plex_Sans } from "next/font
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { NO_FLASH_SCRIPT } from "@/lib/theme";
+import { PLACEHOLDER_ATTRIBUTE, PLACEHOLDER_MARKING } from "@/lib/placeholders";
 import "./globals.css";
 
 const mono = IBM_Plex_Mono({
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
+      {...(PLACEHOLDER_MARKING ? { [PLACEHOLDER_ATTRIBUTE]: "" } : {})}
       className={`${mono.variable} ${display.variable} ${body.variable}`}
     >
       <head>
