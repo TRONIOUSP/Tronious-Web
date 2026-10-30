@@ -217,6 +217,19 @@
     background-color: var(--color-accent);
     color: var(--color-text-on-accent);
   }
+
+  /* Blanket guard. Individual components still gate their own animation, but
+     this means a component added later cannot forget to. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 /* ============================================================
@@ -1045,11 +1058,139 @@
     --color-surface: var(--color-band-raised);
     --color-surface-raised: var(--color-band-raised);
     --color-accent: var(--color-signal);
+    --color-accent-hover: var(--color-signal-300);
+    --color-accent-subtle: var(--color-band-raised);
+    /* Without this a primary button on the band would fill with cyan and keep
+       white text, which fails contrast badly. */
+    --color-text-on-accent: var(--color-band-base);
   }
 
   /* Hairline boundaries. In dark mode the tonal range is narrow, so the rule
      carries the section edge that colour alone no longer can. */
   [data-rule] {
     border-top: 1px solid var(--color-border-subtle);
+  }
+
+  /* ---------- Button ---------- */
+  .ui-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 0.2s var(--ease-out-soft),
+      border-color 0.2s var(--ease-out-soft),
+      color 0.2s var(--ease-out-soft),
+      box-shadow 0.2s var(--ease-out-soft),
+      transform 0.2s var(--ease-out-soft);
+  }
+  .ui-btn[data-size='md'] {
+    padding: 0.625rem 1.125rem;
+    font-size: 0.9375rem;
+  }
+  .ui-btn[data-size='lg'] {
+    padding: 0.8125rem 1.5rem;
+    font-size: 1rem;
+  }
+  .ui-btn[data-variant='primary'] {
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+    box-shadow: var(--shadow-sm);
+  }
+  .ui-btn[data-variant='primary']:hover {
+    background-color: var(--color-accent-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  .ui-btn[data-variant='ghost'] {
+    border-color: var(--color-border-default);
+    color: var(--color-text-primary);
+  }
+  .ui-btn[data-variant='ghost']:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .ui-btn[data-variant='subtle'] {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+  }
+  .ui-btn[data-variant='subtle']:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+  }
+
+  /* ---------- Card ---------- */
+  .ui-card {
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.625rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .ui-card[data-interactive] {
+    transition:
+      border-color 0.2s var(--ease-out-soft),
+      box-shadow 0.2s var(--ease-out-soft),
+      transform 0.2s var(--ease-out-soft);
+  }
+  .ui-card[data-interactive]:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  /* ---------- Badge, Chip ---------- */
+  .ui-badge {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    color: var(--color-text-primary);
+  }
+  .ui-chip {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.625rem;
+    background-color: var(--color-accent-subtle);
+    color: var(--color-text-primary);
+    border-radius: 999px;
+  }
+
+  /* ---------- Quote, Note, TickList, numerals ---------- */
+  .ui-quote {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding-left: 1.25rem;
+    border-left: 3px solid var(--color-accent);
+  }
+  .ui-note {
+    border-left: 3px solid var(--color-accent);
+    background-color: var(--color-accent-subtle);
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+  .ui-ticks {
+    display: grid;
+    gap: 0.375rem;
+    margin: 0;
+    padding-left: 1.15em;
+    list-style: disc;
+  }
+  .ui-ticks li::marker {
+    color: var(--color-accent);
+  }
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
   }
 }
