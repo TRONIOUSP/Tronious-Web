@@ -233,7 +233,9 @@ const display = IBM_Plex_Sans_Condensed({ weight: ['500', '600', '700'], subsets
 const body = IBM_Plex_Sans({ weight: ['400', '500', '600'], subsets: ['latin'], variable: '--font-body' })
 ```
 
-Apply all three `.variable` classes to `<html>` (or `<body>`) alongside the existing className.
+Apply all three `.variable` classes to `<html>` (or `<body>`) alongside the existing className. Also add `data-scroll-behavior="smooth"` to the `<html>` element.
+
+Note on `data-scroll-behavior`: Next.js 16 (confirmed installed: `node_modules/next/dist/docs/01-app/02-guides/upgrading/version-16.md`, "Scroll Behavior Override") stopped auto-disabling CSS `scroll-behavior: smooth` during client-side route navigation; without this attribute, Step 4's global smooth-scroll rule would also animate the scroll-to-top on every `next/link` page change (Home→Services, etc.), not just in-page jump links. The attribute restores the old behavior: instant scroll reset on route navigation, smooth scroll preserved for in-page anchors (e.g. the Engineering page's device-family jump links). Keep this attribute if any later task touches `<html>` in `app/layout.tsx` (Task 5 extends this file to add Header/Footer/metadata) — do not treat it as unused and remove it.
 
 - [ ] **Step 6: Map font variables onto the design tokens**
 

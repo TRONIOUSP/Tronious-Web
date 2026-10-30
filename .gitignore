@@ -1,6 +1,9 @@
 # sdd scratch workspace (not part of the project)
 .superpowers/
 
+# Claude Code harness-local state (not part of the project)
+.claude/
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
