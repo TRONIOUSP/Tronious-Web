@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans_Condensed, IBM_Plex_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { NO_FLASH_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 const mono = IBM_Plex_Mono({
@@ -34,9 +35,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       className={`${mono.variable} ${display.variable} ${body.variable}`}
     >
+      <head>
+        {/* Must run before first paint: it applies the stored theme so dark-mode
+            visitors never see a white flash, and opts motion in so that the
+            reveal CSS can hide content only when JS is actually working. */}
+        <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
+      </head>
       <body>
         <Header />
-        <main className="wrap">{children}</main>
+        <main id="main">{children}</main>
         <Footer />
       </body>
     </html>

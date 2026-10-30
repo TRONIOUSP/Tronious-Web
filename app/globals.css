@@ -300,8 +300,15 @@
     white-space: normal;
   }
 
-  main {
+  /* `<main>` used to carry `.wrap`, which capped it at 1120px. New pages are
+     full-bleed, so the cap moved here and is scoped to pages that still render
+     a legacy `.page` sheet. Reproduces the old `.wrap` gutter exactly. */
+  main:has(> .page) {
+    max-width: 1120px;
+    margin-inline: auto;
     padding-block: 32px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
   }
   .page {
     background: var(--sheet);
