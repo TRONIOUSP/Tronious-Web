@@ -82,6 +82,11 @@
   --color-signal: var(--color-signal-500);
   --color-placeholder-fg: var(--color-amber-fg);
   --color-placeholder-bg: var(--color-amber-bg);
+  /* The band is the one tone that inverts between themes: dramatic-dark in
+     light, and in dark merely the deepest surface — which is why it gains a
+     lit top edge there to keep the section boundary readable. */
+  --color-band-surface: var(--color-band-base);
+  --color-band-edge: transparent;
 
   /* ---------- typefaces ----------
      next/font exposes its families as --ff-*; these map them onto Tailwind's
@@ -111,6 +116,10 @@
   --container-narrow: 60rem;
   --container-wide: 90rem;
   --breakpoint-3xl: 120rem;
+  /* The single biggest change from the old design, whose section padding
+     topped out at 48px. Generates `py-section` and `px-gutter`. */
+  --spacing-section: clamp(4rem, 2rem + 7vw, 8rem);
+  --spacing-gutter: clamp(1.25rem, 5vw, 4rem);
 
   /* ---------- motion ---------- */
   --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -145,6 +154,8 @@
     --color-signal: var(--color-signal-400);
     --color-placeholder-fg: var(--color-amber-fg-dark);
     --color-placeholder-bg: var(--color-amber-bg-dark);
+    --color-band-surface: var(--color-band-deep);
+    --color-band-edge: var(--color-signal);
   }
 }
 
@@ -169,6 +180,8 @@
   --color-signal: var(--color-signal-400);
   --color-placeholder-fg: var(--color-amber-fg-dark);
   --color-placeholder-bg: var(--color-amber-bg-dark);
+  --color-band-surface: var(--color-band-deep);
+  --color-band-edge: var(--color-signal);
 }
 
 @layer base {
@@ -976,5 +989,67 @@
     .stats {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+  }
+}
+
+/* Declared after `legacy` on purpose: the layer statement at the top of this
+   file fixes the order, but a minifier that drops that statement falls back to
+   block order, and components must win over legacy either way. */
+@layer components {
+  /* ---------- Container ----------
+     Width and gutter live here rather than in utilities so the gutter can fold
+     in the safe-area insets, which a utility class cannot express. */
+  [data-container] {
+    width: 100%;
+    margin-inline: auto;
+    padding-left: max(var(--spacing-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--spacing-gutter), env(safe-area-inset-right, 0px));
+  }
+  [data-container='default'] {
+    max-width: var(--container-page);
+  }
+  [data-container='narrow'] {
+    max-width: var(--container-narrow);
+  }
+  [data-container='wide'] {
+    max-width: var(--container-wide);
+  }
+
+  /* ---------- Section tones ----------
+     A tone re-points the semantic aliases for its own subtree, so a child
+     written as `text-text-secondary` is correct on white and on navy alike,
+     with no `dark:` variants and no tone-aware props threaded through. */
+  [data-tone] {
+    background-color: var(--color-surface);
+  }
+  [data-tone='sunken'] {
+    background-color: var(--color-surface-sunken);
+  }
+  [data-tone='accent'] {
+    background-color: var(--color-accent-subtle);
+  }
+  [data-tone='band'] {
+    background-color: var(--color-band-surface);
+    background-image: radial-gradient(
+      900px circle at 88% -15%,
+      color-mix(in oklab, var(--color-signal) 22%, transparent),
+      transparent 60%
+    );
+    border-top: 1px solid var(--color-band-edge);
+
+    --color-text-primary: #eaf1f8;
+    --color-text-secondary: #a9bcd0;
+    --color-text-tertiary: #8fa3b8;
+    --color-border-subtle: var(--color-band-rule);
+    --color-border-default: var(--color-band-rule);
+    --color-surface: var(--color-band-raised);
+    --color-surface-raised: var(--color-band-raised);
+    --color-accent: var(--color-signal);
+  }
+
+  /* Hairline boundaries. In dark mode the tonal range is narrow, so the rule
+     carries the section edge that colour alone no longer can. */
+  [data-rule] {
+    border-top: 1px solid var(--color-border-subtle);
   }
 }

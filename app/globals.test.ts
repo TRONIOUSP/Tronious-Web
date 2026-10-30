@@ -28,6 +28,8 @@ const SEMANTIC_ALIASES = [
   'signal',
   'placeholder-fg',
   'placeholder-bg',
+  'band-surface',
+  'band-edge',
 ]
 
 const MEDIA_DARK = '@media (prefers-color-scheme: dark)'
