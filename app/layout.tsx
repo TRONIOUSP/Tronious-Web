@@ -44,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
       </head>
       <body>
+        <a href="#main" data-skip-link="">Skip to main content</a>
         <Header />
         <main id="main">{children}</main>
         <Footer />
