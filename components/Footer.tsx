@@ -47,11 +47,6 @@ export default function Footer() {
 
         <div className="foot-bottom">
           <span>&copy; {YEAR} [Company Name]. All rights reserved.</span>
-          <nav aria-label="Legal" className="foot-bottom-links">
-            {FOOTER_LEGAL_LINKS.map((link) => (
-              <Link key={link.label} href={link.href}>{link.label}</Link>
-            ))}
-          </nav>
         </div>
 
         {PLACEHOLDER_MARKING && (
