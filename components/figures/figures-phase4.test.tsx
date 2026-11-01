@@ -4,6 +4,8 @@ import ServiceAreaIcon from './ServiceAreaIcon'
 import DeviceComparisonFigure from './DeviceComparisonFigure'
 import DisciplineIcon from './DisciplineIcon'
 import ProductionFlowFigure from './ProductionFlowFigure'
+import ProcessGateFlow from './ProcessGateFlow'
+import MarketCoverageFigure from './MarketCoverageFigure'
 
 describe('ServiceAreaIcon', () => {
   const areas = [
@@ -79,5 +81,26 @@ describe('ProductionFlowFigure', () => {
     expect(screen.getByText('Labeling & packaging')).toBeInTheDocument()
     expect(screen.getByText('Final QC & release')).toBeInTheDocument()
     expect(screen.getByText('Shipping')).toBeInTheDocument()
+  })
+})
+
+describe('ProcessGateFlow', () => {
+  it('renders all six process gate headings', () => {
+    render(<ProcessGateFlow />)
+    expect(screen.getByText('Concept & feasibility')).toBeInTheDocument()
+    expect(screen.getByText('Design inputs & planning')).toBeInTheDocument()
+    expect(screen.getByText('Detailed design')).toBeInTheDocument()
+    expect(screen.getByText('Verification & validation')).toBeInTheDocument()
+    expect(screen.getByText('Regulatory submission')).toBeInTheDocument()
+    expect(screen.getByText('Design transfer & production')).toBeInTheDocument()
+  })
+})
+
+describe('MarketCoverageFigure', () => {
+  it('renders all three regulatory markets', () => {
+    render(<MarketCoverageFigure />)
+    expect(screen.getByText('United States')).toBeInTheDocument()
+    expect(screen.getByText('European Union')).toBeInTheDocument()
+    expect(screen.getByText('Australia')).toBeInTheDocument()
   })
 })

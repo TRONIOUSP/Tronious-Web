@@ -2072,4 +2072,73 @@
     font-size: 1.05rem;
     color: var(--color-text-primary);
   }
+
+  /* ---------- ProcessGateFlow ----------
+     Decorative overview of the six phase gates at the top of the process
+     page; the accessible, detailed breakdown is the card list that follows. */
+  [data-gate-flow-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  }
+  [data-gate-flow-list] li {
+    display: grid;
+    gap: 0.25rem;
+    align-content: start;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+  [data-gate-num] {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+  }
+  [data-gate-title] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+  }
+  [data-gate-deliv] {
+    font-size: 0.8125rem;
+    color: var(--color-text-tertiary);
+  }
+
+  /* ---------- MarketCoverageFigure ----------
+     Decorative three-market summary above the "Regulatory experience by
+     market" cards on the quality page. */
+  [data-market-coverage-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+  [data-market-coverage-list] li {
+    display: grid;
+    gap: 0.25rem;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+  [data-market-coverage-market] {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+  }
+  [data-market-coverage-agency] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-text-primary);
+  }
 }
