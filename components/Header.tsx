@@ -1,65 +1,107 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { NAV_LINKS, NAV_CTA } from '@/lib/nav'
+import ThemeToggle from '@/components/ui/ThemeToggle'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const menuBtnRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
   const [prevPathname, setPrevPathname] = useState(pathname)
 
-  // Close the mobile menu when the route changes. Adjusting state during
+  // Close the mobile drawer when the route changes. Adjusting state during
   // render (rather than in a useEffect) avoids an extra render/commit pass
-  // and a synchronous setState-in-effect, per React's "Adjusting state when
-  // a prop changes" pattern.
+  // and satisfies React's "Adjusting state when a prop changes" pattern.
   if (pathname !== prevPathname) {
     setPrevPathname(pathname)
     setOpen(false)
   }
 
+  // Body scroll lock — applied only while drawer is open; released on close
+  // and on unmount (cleanup handles unmounting-while-open).
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [open])
+
+  // Escape closes the drawer and returns focus to the trigger button.
+  useEffect(() => {
+    if (!open) return
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        menuBtnRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
+
+  function close() {
+    setOpen(false)
+  }
+
   return (
-    <header>
-      <div className="wrap bar">
-        <Link href="/" className="brand" onClick={() => setOpen(false)}>
-          <span className="mark" aria-hidden="true"></span>
+    <header data-header="">
+      <div data-header-bar="">
+        <Link href="/" className="brand" onClick={close} aria-label="[Company Name] home">
+          <span className="mark" aria-hidden="true" />
           <span>[Company Name]</span>
         </Link>
-        <button
-          id="menuBtn"
-          aria-expanded={open}
-          aria-controls="mainnav"
-          onClick={() => setOpen((o) => !o)}
-        >
-          Menu
-        </button>
-        <nav id="mainnav" aria-label="Main" className={open ? 'open' : undefined}>
-          <ul>
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  aria-current={pathname === link.href ? 'page' : undefined}
-                  onClick={() => setOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li>
+
+        <div data-header-actions="">
+          <ThemeToggle />
+          <button
+            ref={menuBtnRef}
+            id="menuBtn"
+            aria-expanded={open}
+            aria-controls="mainnav"
+            onClick={() => setOpen((o) => !o)}
+            data-header-menu-btn=""
+          >
+            Menu
+          </button>
+        </div>
+      </div>
+
+      {/* Single nav list — reflowed by CSS between bar (lg+) and drawer (<lg).
+          Never duplicated, so Header.test.tsx's getAllByRole('link') stays clean. */}
+      <nav
+        id="mainnav"
+        aria-label="Main"
+        data-open={open ? '' : undefined}
+      >
+        <ul>
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
               <Link
-                href={NAV_CTA.href}
-                className="cta"
-                aria-current={pathname === NAV_CTA.href ? 'page' : undefined}
-                onClick={() => setOpen(false)}
+                href={link.href}
+                aria-current={pathname === link.href ? 'page' : undefined}
+                onClick={close}
               >
-                {NAV_CTA.label}
+                {link.label}
               </Link>
             </li>
-          </ul>
-        </nav>
-      </div>
+          ))}
+          <li>
+            <Link
+              href={NAV_CTA.href}
+              className="cta"
+              aria-current={pathname === NAV_CTA.href ? 'page' : undefined}
+              onClick={close}
+            >
+              {NAV_CTA.label}
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   )
 }
