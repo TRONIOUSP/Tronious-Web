@@ -1,6 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Sheet from '@/components/Sheet'
+import Section from '@/components/ui/Section'
+import SectionHead from '@/components/ui/SectionHead'
+import Card from '@/components/ui/Card'
+import Button from '@/components/ui/Button'
+import TickList from '@/components/ui/TickList'
+import ServiceAreaIcon from '@/components/figures/ServiceAreaIcon'
 
 export const metadata: Metadata = {
   title: 'Services | [Company Name]',
@@ -8,24 +13,133 @@ export const metadata: Metadata = {
     "Use us for a single phase or the full journey. Each service runs under our ISO 13485 quality system, so documentation transfers cleanly into your design history file.",
 }
 
+const SERVICE_AREAS = [
+  {
+    area: 'design' as const,
+    eyebrow: '01 · Design',
+    title: 'Product design & engineering',
+    ticks: [
+      'Industrial design and human factors',
+      'Mechanical and pneumatic systems',
+      'Electronics and power design',
+      'Embedded firmware to IEC 62304',
+      'Mobile apps and wearable devices',
+      'Test equipment and production fixtures',
+    ],
+    more: { href: '/engineering', label: 'Engineering details →' },
+  },
+  {
+    area: 'regulatory' as const,
+    eyebrow: '02 · Regulatory',
+    title: 'Regulatory strategy & submissions',
+    ticks: [
+      'Classification and pathway strategy',
+      'FDA 510(k) preparation',
+      'EU MDR technical documentation',
+      'TGA / ARTG support',
+      'Labeling and IFU development',
+    ],
+  },
+  {
+    area: 'testing' as const,
+    eyebrow: '03 · Testing',
+    title: 'Verification & validation',
+    ticks: [
+      'IEC 60601-1, -1-2, -1-11 test planning',
+      'Test lab coordination and pre-compliance',
+      'Usability engineering to IEC 62366-1',
+      'Biocompatibility to ISO 10993',
+      'Software verification',
+    ],
+  },
+  {
+    area: 'manufacturing' as const,
+    eyebrow: '04 · Manufacturing',
+    title: 'Production',
+    ticks: [
+      'Prototypes and pilot builds',
+      'Design transfer and process validation',
+      'Volume assembly and test',
+      'Device history records per unit',
+    ],
+    more: { href: '/manufacturing', label: 'Manufacturing details →' },
+  },
+  {
+    area: 'supply' as const,
+    eyebrow: '05 · Supply chain',
+    title: 'Supply chain, packaging & labeling',
+    ticks: [
+      'Supplier qualification and audits',
+      'UDI labeling for US and EU',
+      'Packaging design and validation',
+      'Direct shipment to your distributors',
+    ],
+  },
+  {
+    area: 'postmarket' as const,
+    eyebrow: '06 · Post-market',
+    title: 'Sustaining engineering',
+    ticks: [
+      'Complaint investigation support',
+      'CAPA and design changes',
+      'Component obsolescence management',
+      'Cost-down redesigns',
+    ],
+  },
+]
+
 export default function Services() {
   return (
-    <Sheet doc="WEB-010">
-      <section><span className="eyebrow">Services</span><h1>Every stage, under one quality system</h1><p className="lead">Use us for a single phase or the full journey. Each service runs under our ISO 13485 quality system, so documentation transfers cleanly into your design history file.</p></section>
-      <section>
-        <div className="grid">
-          <div className="cell"><span className="eyebrow">01 · Design</span><h3>Product design &amp; engineering</h3><ul className="ticks"><li>Industrial design and human factors</li><li>Mechanical and pneumatic systems</li><li>Electronics and power design</li><li>Embedded firmware to IEC 62304</li><li>Mobile apps and wearable devices</li><li>Test equipment and production fixtures</li></ul><Link className="more" href="/engineering">Engineering details →</Link></div>
-          <div className="cell"><span className="eyebrow">02 · Regulatory</span><h3>Regulatory strategy &amp; submissions</h3><ul className="ticks"><li>Classification and pathway strategy</li><li>FDA 510(k) preparation</li><li>EU MDR technical documentation</li><li>TGA / ARTG support</li><li>Labeling and IFU development</li></ul></div>
-          <div className="cell"><span className="eyebrow">03 · Testing</span><h3>Verification &amp; validation</h3><ul className="ticks"><li>IEC 60601-1, -1-2, -1-11 test planning</li><li>Test lab coordination and pre-compliance</li><li>Usability engineering to IEC 62366-1</li><li>Biocompatibility to ISO 10993</li><li>Software verification</li></ul></div>
-          <div className="cell"><span className="eyebrow">04 · Manufacturing</span><h3>Production</h3><ul className="ticks"><li>Prototypes and pilot builds</li><li>Design transfer and process validation</li><li>Volume assembly and test</li><li>Device history records per unit</li></ul><Link className="more" href="/manufacturing">Manufacturing details →</Link></div>
-          <div className="cell"><span className="eyebrow">05 · Supply chain</span><h3>Supply chain, packaging &amp; labeling</h3><ul className="ticks"><li>Supplier qualification and audits</li><li>UDI labeling for US and EU</li><li>Packaging design and validation</li><li>Direct shipment to your distributors</li></ul></div>
-          <div className="cell"><span className="eyebrow">06 · Post-market</span><h3>Sustaining engineering</h3><ul className="ticks"><li>Complaint investigation support</li><li>CAPA and design changes</li><li>Component obsolescence management</li><li>Cost-down redesigns</li></ul></div>
+    <>
+      <Section tone="band" data-doc="WEB-010">
+        <SectionHead
+          as="h1"
+          eyebrow="Services"
+          title="Every stage, under one quality system"
+          lead="Use us for a single phase or the full journey. Each service runs under our ISO 13485 quality system, so documentation transfers cleanly into your design history file."
+        />
+      </Section>
+
+      <Section>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICE_AREAS.map(({ area, eyebrow, title, ticks, more }) => (
+            <Card key={area} className="flex flex-col gap-4 p-6">
+              <ServiceAreaIcon area={area} className="h-10 w-10 text-text-tertiary" />
+              <span
+                data-eyebrow=""
+                className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
+              >
+                {eyebrow}
+              </span>
+              <h3 className="font-display text-lg font-semibold text-text-primary">{title}</h3>
+              <TickList items={ticks} className="flex-1" />
+              {more ? (
+                <Link href={more.href} data-more-link="">
+                  {more.label}
+                </Link>
+              ) : null}
+            </Card>
+          ))}
         </div>
-      </section>
-      <section className="split">
-        <div style={{ display: 'grid', gap: '10px' }}><h2>Not sure where to start?</h2><p>Most clients arrive with either a concept, a prototype, or a cleared design that needs a new manufacturer. We&apos;ll recommend the right starting point after one call.</p></div>
-        <div className="btns" style={{ alignContent: 'center' }}><Link className="btn primary" href="/contact">Book a scoping call</Link><Link className="btn ghost" href="/engagement">Engagement models</Link></div>
-      </section>
-    </Sheet>
+      </Section>
+
+      <Section tone="sunken">
+        <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+          <SectionHead
+            as="h2"
+            title="Not sure where to start?"
+            lead="Most clients arrive with either a concept, a prototype, or a cleared design that needs a new manufacturer. We'll recommend the right starting point after one call."
+          />
+          <div className="flex flex-wrap gap-3">
+            <Button href="/contact" variant="primary">
+              Book a scoping call
+            </Button>
+            <Button href="/engagement" variant="ghost">
+              Engagement models
+            </Button>
+          </div>
+        </div>
+      </Section>
+    </>
   )
 }
