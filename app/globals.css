@@ -1244,4 +1244,36 @@
       transform: none !important;
     }
   }
+
+  /* ---------- HeroCompression figure ----------
+     Four chambers inflate on a stagger; trace bars illuminate in sequence.
+     All gated on prefers-reduced-motion so the guard lives in one place. */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes chamber-inflate {
+      0%, 100% { fill: transparent; opacity: 0.4; }
+      25%, 75% { fill: color-mix(in oklab, currentColor 18%, transparent); opacity: 1; }
+    }
+    @keyframes trace-light {
+      0%, 100% { fill: transparent; opacity: 0.25; }
+      25%, 75% { fill: color-mix(in oklab, currentColor 30%, transparent); opacity: 1; }
+    }
+
+    .chamber-1 { animation: chamber-inflate 4.8s ease-in-out 0s infinite; }
+    .chamber-2 { animation: chamber-inflate 4.8s ease-in-out 0.6s infinite; }
+    .chamber-3 { animation: chamber-inflate 4.8s ease-in-out 1.2s infinite; }
+    .chamber-4 { animation: chamber-inflate 4.8s ease-in-out 1.8s infinite; }
+
+    .trace-1 { animation: trace-light 4.8s ease-in-out 0s infinite; }
+    .trace-2 { animation: trace-light 4.8s ease-in-out 0.6s infinite; }
+    .trace-3 { animation: trace-light 4.8s ease-in-out 1.2s infinite; }
+    .trace-4 { animation: trace-light 4.8s ease-in-out 1.8s infinite; }
+
+    .hose {
+      stroke-dashoffset: 0;
+      animation: hose-flow 2s linear infinite;
+    }
+    @keyframes hose-flow {
+      to { stroke-dashoffset: -14; }
+    }
+  }
 }
