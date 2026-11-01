@@ -36,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       {...(PLACEHOLDER_MARKING ? { [PLACEHOLDER_ATTRIBUTE]: "" } : {})}
       className={`${mono.variable} ${display.variable} ${body.variable}`}
+      suppressHydrationWarning
     >
       <head>
         {/* Must run before first paint: it applies the stored theme so dark-mode
