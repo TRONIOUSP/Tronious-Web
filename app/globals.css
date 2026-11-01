@@ -2162,16 +2162,16 @@
     border-radius: 0.5rem;
     padding: 0.875rem 1rem;
   }
+  [data-facility-schematic-num] {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+  }
   [data-facility-schematic-title] {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 0.9375rem;
     color: var(--color-text-primary);
-  }
-  [data-facility-schematic-count] {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--color-text-tertiary);
   }
 
   /* ---------- EngagementModelsFigure ----------
