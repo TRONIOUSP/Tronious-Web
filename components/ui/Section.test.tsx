@@ -35,6 +35,11 @@ describe('Section', () => {
     const { container } = render(<Section id="m-flow">body</Section>)
     expect(container.querySelector('section')).toHaveAttribute('id', 'm-flow')
   })
+
+  it('forwards data-doc onto the rendered section element', () => {
+    const { container } = render(<Section data-doc="WEB-001">body</Section>)
+    expect(container.querySelector('section')).toHaveAttribute('data-doc', 'WEB-001')
+  })
 })
 
 describe('Container', () => {

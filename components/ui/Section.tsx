@@ -17,6 +17,7 @@ export default function Section({
   contain = true,
   id,
   className,
+  'data-doc': dataDoc,
   children,
 }: {
   tone?: SectionTone
@@ -25,11 +26,13 @@ export default function Section({
   contain?: boolean
   id?: string
   className?: string
+  'data-doc'?: string
   children: ReactNode
 }) {
   return (
     <section
       id={id}
+      data-doc={dataDoc}
       data-tone={tone}
       data-rule={rule ? '' : undefined}
       className={cx('relative py-section', className)}
