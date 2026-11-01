@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
-import Sheet from '@/components/Sheet'
+import Section from '@/components/ui/Section'
+import SectionHead from '@/components/ui/SectionHead'
+import Card from '@/components/ui/Card'
+import Ph from '@/components/ui/Ph'
 import ContactForm from '@/components/ContactForm'
+import RFQFlowFigure from '@/components/figures/RFQFlowFigure'
 
 export const metadata: Metadata = {
   title: 'Start a Project | [Company Name]',
@@ -10,15 +14,56 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <Sheet doc="WEB-100">
-      <section><span className="eyebrow">Start a project</span><h1>Tell us about your device</h1><p className="lead">We reply within <span className="ph">[2]</span> business days. We sign an NDA before any detailed technical discussion. Please don&apos;t include confidential drawings in this form.</p></section>
-      <section>
-        <ContactForm />
-      </section>
-      <section className="split">
-        <div className="cell"><span className="eyebrow">Business development</span><p><span className="ph">[email@company.com]</span><br/><span className="ph">[+00 000 000 0000]</span></p></div>
-        <div className="cell"><span className="eyebrow">Facility address</span><p><span className="ph">[Street, City, Postcode, Country]</span></p></div>
-      </section>
-    </Sheet>
+    <>
+      <Section tone="band" data-doc="WEB-100">
+        <SectionHead
+          as="h1"
+          eyebrow="Start a project"
+          title="Tell us about your device"
+          lead={
+            <>
+              We reply within <Ph>[2]</Ph> business days. We sign an NDA before any detailed
+              technical discussion. Please don&apos;t include confidential drawings in this form.
+            </>
+          }
+        />
+      </Section>
+
+      <Section>
+        <RFQFlowFigure />
+        <div className="mt-8">
+          <ContactForm />
+        </div>
+      </Section>
+
+      <Section tone="sunken">
+        <div className="grid gap-6 sm:grid-cols-2">
+          <Card className="p-6">
+            <span
+              data-eyebrow=""
+              className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
+            >
+              Business development
+            </span>
+            <p className="mt-3 text-text-secondary">
+              <Ph>[email@company.com]</Ph>
+              <br />
+              <Ph>[+00 000 000 0000]</Ph>
+            </p>
+          </Card>
+          <Card className="p-6">
+            <span
+              data-eyebrow=""
+              className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
+            >
+              Facility address
+            </span>
+            <p className="mt-3 text-text-secondary">
+              <Ph>[Street, City, Postcode, Country]</Ph>
+            </p>
+          </Card>
+        </div>
+      </Section>
+    </>
   )
 }

@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
-import Sheet from '@/components/Sheet'
+import Section from '@/components/ui/Section'
+import SectionHead from '@/components/ui/SectionHead'
+import Card from '@/components/ui/Card'
+import TopicMapFigure from '@/components/figures/TopicMapFigure'
 
 export const metadata: Metadata = {
   title: 'Insights | [Company Name]',
@@ -7,20 +10,63 @@ export const metadata: Metadata = {
     'Practical articles that show your expertise and bring in buyers through search. Suggested first articles:',
 }
 
+const TOPICS = [
+  {
+    eyebrow: 'Regulatory',
+    title: '510(k) or De Novo? Choosing a pathway for a new traction device',
+  },
+  {
+    eyebrow: 'Testing',
+    title: 'IEC 60601 testing for pneumatic compression devices: common failures',
+  },
+  {
+    eyebrow: 'EU MDR',
+    title: 'Technical documentation pitfalls for physical therapy devices',
+  },
+  {
+    eyebrow: 'Design',
+    title: 'Designing heat therapy devices to IEC 80601-2-35',
+  },
+  {
+    eyebrow: 'Manufacturing',
+    title: 'Moving production to a new contract manufacturer without re-clearance',
+  },
+  {
+    eyebrow: 'Australia',
+    title: 'Getting a device onto the ARTG using MDSAP evidence',
+  },
+]
+
 export default function Insights() {
   return (
-    <Sheet doc="WEB-090">
-      <section><span className="eyebrow">Insights</span><h1>Guides for device brands</h1><p className="lead">Practical articles that show your expertise and bring in buyers through search. Suggested first articles:</p></section>
-      <section>
-        <div className="grid">
-          <div className="cell"><span className="eyebrow">Regulatory</span><h3>510(k) or De Novo? Choosing a pathway for a new traction device</h3></div>
-          <div className="cell"><span className="eyebrow">Testing</span><h3>IEC 60601 testing for pneumatic compression devices: common failures</h3></div>
-          <div className="cell"><span className="eyebrow">EU MDR</span><h3>Technical documentation pitfalls for physical therapy devices</h3></div>
-          <div className="cell"><span className="eyebrow">Design</span><h3>Designing heat therapy devices to IEC 80601-2-35</h3></div>
-          <div className="cell"><span className="eyebrow">Manufacturing</span><h3>Moving production to a new contract manufacturer without re-clearance</h3></div>
-          <div className="cell"><span className="eyebrow">Australia</span><h3>Getting a device onto the ARTG using MDSAP evidence</h3></div>
+    <>
+      <Section tone="band" data-doc="WEB-090">
+        <SectionHead
+          as="h1"
+          eyebrow="Insights"
+          title="Guides for device brands"
+          lead="Practical articles that show your expertise and bring in buyers through search. Suggested first articles:"
+        />
+      </Section>
+
+      <Section>
+        <TopicMapFigure />
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {TOPICS.map((topic) => (
+            <Card key={topic.title} className="p-6">
+              <span
+                data-eyebrow=""
+                className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
+              >
+                {topic.eyebrow}
+              </span>
+              <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">
+                {topic.title}
+              </h3>
+            </Card>
+          ))}
         </div>
-      </section>
-    </Sheet>
+      </Section>
+    </>
   )
 }

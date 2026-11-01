@@ -1,6 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import Button from '@/components/ui/Button'
+import Note from '@/components/ui/Note'
+
+const fieldClass =
+  'w-full rounded-md border border-border-default bg-surface px-3 py-2.5 text-[0.95rem] text-text-primary placeholder:text-text-tertiary focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20'
+const labelClass = 'grid gap-1.5 text-[0.88rem] font-medium text-text-primary'
+const row2Class = 'grid gap-4 sm:grid-cols-2'
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
@@ -8,35 +15,36 @@ export default function ContactForm() {
   return (
     <form
       id="rfq"
+      className="grid max-w-[720px] gap-4"
       onSubmit={(e) => {
         e.preventDefault()
         setSubmitted(true)
       }}
     >
-      <div className="row2">
-        <label htmlFor="f-name">
+      <div className={row2Class}>
+        <label htmlFor="f-name" className={labelClass}>
           Name
-          <input id="f-name" required />
+          <input id="f-name" required className={fieldClass} />
         </label>
-        <label htmlFor="f-company">
+        <label htmlFor="f-company" className={labelClass}>
           Company
-          <input id="f-company" required />
+          <input id="f-company" required className={fieldClass} />
         </label>
       </div>
-      <div className="row2">
-        <label htmlFor="f-email">
+      <div className={row2Class}>
+        <label htmlFor="f-email" className={labelClass}>
           Work email
-          <input id="f-email" type="email" required />
+          <input id="f-email" type="email" required className={fieldClass} />
         </label>
-        <label htmlFor="f-country">
+        <label htmlFor="f-country" className={labelClass}>
           Country
-          <input id="f-country" />
+          <input id="f-country" className={fieldClass} />
         </label>
       </div>
-      <div className="row2">
-        <label htmlFor="f-type">
+      <div className={row2Class}>
+        <label htmlFor="f-type" className={labelClass}>
           Device type
-          <select id="f-type">
+          <select id="f-type" className={fieldClass}>
             <option>Spinal traction</option>
             <option>Knee traction / rehab</option>
             <option>Pneumatic compression</option>
@@ -45,9 +53,9 @@ export default function ContactForm() {
             <option>Other</option>
           </select>
         </label>
-        <label htmlFor="f-stage">
+        <label htmlFor="f-stage" className={labelClass}>
           Project stage
-          <select id="f-stage">
+          <select id="f-stage" className={fieldClass}>
             <option>Idea / concept</option>
             <option>Prototype</option>
             <option>Design complete, not cleared</option>
@@ -55,51 +63,53 @@ export default function ContactForm() {
           </select>
         </label>
       </div>
-      <fieldset>
-        <legend>Target markets</legend>
-        <label htmlFor="m-us">
-          <input type="checkbox" id="m-us" /> United States
+      <fieldset className="grid gap-2 rounded-md border border-border-default p-4 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2">
+        <legend className="px-1 text-[0.88rem] font-medium text-text-primary">Target markets</legend>
+        <label htmlFor="m-us" className="flex items-center gap-2 font-normal text-text-secondary">
+          <input type="checkbox" id="m-us" className="w-auto" /> United States
         </label>
-        <label htmlFor="m-eu">
-          <input type="checkbox" id="m-eu" /> European Union
+        <label htmlFor="m-eu" className="flex items-center gap-2 font-normal text-text-secondary">
+          <input type="checkbox" id="m-eu" className="w-auto" /> European Union
         </label>
-        <label htmlFor="m-au">
-          <input type="checkbox" id="m-au" /> Australia
+        <label htmlFor="m-au" className="flex items-center gap-2 font-normal text-text-secondary">
+          <input type="checkbox" id="m-au" className="w-auto" /> Australia
         </label>
-        <label htmlFor="m-ot">
-          <input type="checkbox" id="m-ot" /> Other
+        <label htmlFor="m-ot" className="flex items-center gap-2 font-normal text-text-secondary">
+          <input type="checkbox" id="m-ot" className="w-auto" /> Other
         </label>
       </fieldset>
-      <div className="row2">
-        <label htmlFor="f-vol">
+      <div className={row2Class}>
+        <label htmlFor="f-vol" className={labelClass}>
           Expected annual volume
-          <select id="f-vol">
+          <select id="f-vol" className={fieldClass}>
             <option>Under 1,000</option>
             <option>1,000–10,000</option>
             <option>10,000–50,000</option>
             <option>Over 50,000</option>
           </select>
         </label>
-        <label htmlFor="f-time">
+        <label htmlFor="f-time" className={labelClass}>
           Target launch
-          <input id="f-time" placeholder="e.g. Q3 2027" />
+          <input id="f-time" placeholder="e.g. Q3 2027" className={fieldClass} />
         </label>
       </div>
-      <label htmlFor="f-msg">
+      <label htmlFor="f-msg" className={labelClass}>
         Project description
-        <textarea id="f-msg" placeholder="What the device does, who uses it, and what you need from us" />
+        <textarea
+          id="f-msg"
+          placeholder="What the device does, who uses it, and what you need from us"
+          className={`${fieldClass} min-h-[110px] resize-y`}
+        />
       </label>
-      <label htmlFor="f-nda" style={{ display: 'flex', gap: '8px', alignItems: 'center', fontWeight: 400 }}>
-        <input type="checkbox" id="f-nda" style={{ width: 'auto' }} /> Send me your mutual NDA first
+      <label htmlFor="f-nda" className="flex items-center gap-2 font-normal text-text-secondary">
+        <input type="checkbox" id="f-nda" className="w-auto" /> Send me your mutual NDA first
       </label>
-      <div className="btns">
-        <button className="btn primary" type="submit">
-          Send inquiry
-        </button>
+      <div className="flex flex-wrap gap-3">
+        <Button type="submit">Send inquiry</Button>
       </div>
-      <p id="formMsg" className="note" hidden={!submitted}>
+      <Note id="formMsg" hidden={!submitted}>
         This is a preview form. When the site goes live, your developer connects it to your email or CRM.
-      </p>
+      </Note>
     </form>
   )
 }

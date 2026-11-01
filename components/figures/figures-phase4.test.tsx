@@ -10,6 +10,9 @@ import FacilitySchematic from './FacilitySchematic'
 import EngagementModelsFigure from './EngagementModelsFigure'
 import CaseStudyFigure from './CaseStudyFigure'
 import DisciplinesConvergingFigure from './DisciplinesConvergingFigure'
+import TopicMapFigure from './TopicMapFigure'
+import RoleMapFigure from './RoleMapFigure'
+import RFQFlowFigure from './RFQFlowFigure'
 
 describe('ServiceAreaIcon', () => {
   const areas = [
@@ -148,5 +151,60 @@ describe('DisciplinesConvergingFigure', () => {
     const svg = container.querySelector('svg')
     expect(svg).not.toBeNull()
     expect(svg?.innerHTML.length).toBeGreaterThan(0)
+  })
+})
+
+describe('TopicMapFigure', () => {
+  it('renders all six suggested insight topics', () => {
+    render(<TopicMapFigure />)
+    expect(screen.getByText('Regulatory')).toBeInTheDocument()
+    expect(screen.getByText('Testing')).toBeInTheDocument()
+    expect(screen.getByText('EU MDR')).toBeInTheDocument()
+    expect(screen.getByText('Design')).toBeInTheDocument()
+    expect(screen.getByText('Manufacturing')).toBeInTheDocument()
+    expect(screen.getByText('Australia')).toBeInTheDocument()
+  })
+
+  it('marks the figure as decorative', () => {
+    const { container } = render(<TopicMapFigure />)
+    expect(container.querySelector('figure')).toHaveAttribute('aria-hidden', 'true')
+  })
+})
+
+describe('RoleMapFigure', () => {
+  it('renders all six process gates', () => {
+    render(<RoleMapFigure />)
+    expect(screen.getByText('Concept & feasibility')).toBeInTheDocument()
+    expect(screen.getByText('Design inputs & planning')).toBeInTheDocument()
+    expect(screen.getByText('Detailed design')).toBeInTheDocument()
+    expect(screen.getByText('Verification & validation')).toBeInTheDocument()
+    expect(screen.getByText('Regulatory submission')).toBeInTheDocument()
+    expect(screen.getByText('Design transfer & production')).toBeInTheDocument()
+  })
+
+  it('renders the open-role teams against the gates', () => {
+    render(<RoleMapFigure />)
+    expect(screen.getByText('Engineering')).toBeInTheDocument()
+    expect(screen.getByText('Quality & Regulatory')).toBeInTheDocument()
+    expect(screen.getByText('Manufacturing')).toBeInTheDocument()
+  })
+
+  it('marks the figure as decorative', () => {
+    const { container } = render(<RoleMapFigure />)
+    expect(container.querySelector('figure')).toHaveAttribute('aria-hidden', 'true')
+  })
+})
+
+describe('RFQFlowFigure', () => {
+  it('renders the NDA, scoping and response-window stages', () => {
+    render(<RFQFlowFigure />)
+    expect(screen.getByText('Response window')).toBeInTheDocument()
+    expect(screen.getByText('NDA')).toBeInTheDocument()
+    expect(screen.getByText('Scoping discussion')).toBeInTheDocument()
+  })
+
+  it('marks the figure as decorative', () => {
+    const { container } = render(<RFQFlowFigure />)
+    expect(container.querySelector('figure')).toHaveAttribute('aria-hidden', 'true')
   })
 })

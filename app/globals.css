@@ -2244,6 +2244,103 @@
     color: var(--color-text-tertiary);
   }
 
+  /* ---------- TopicMapFigure ----------
+     Decorative topic/lifecycle-stage summary above the article card grid on
+     the insights page; the accessible, full topic titles are the cards that
+     follow. */
+  [data-topic-map-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+  [data-topic-map-list] li {
+    display: grid;
+    gap: 0.25rem;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+  [data-topic-map-category] {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+  }
+  [data-topic-map-stage] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+  }
+
+  /* ---------- RoleMapFigure ----------
+     Decorative open-role/process-gate summary above the roles table on the
+     careers page; the accessible, full role detail is the table that
+     follows. */
+  [data-role-map-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+  [data-role-map-list] li {
+    display: grid;
+    gap: 0.25rem;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+  [data-role-map-gate] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+  }
+  [data-role-map-team] {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-accent);
+  }
+
+  /* ---------- RFQFlowFigure ----------
+     Decorative NDA / scoping / response-window summary above the inquiry
+     form on the contact page; the full sentence is the lead paragraph above
+     this figure. */
+  [data-rfq-flow-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+  [data-rfq-flow-list] li {
+    display: grid;
+    gap: 0.25rem;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+  [data-rfq-flow-title] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+  }
+  [data-rfq-flow-detail] {
+    font-size: 0.8125rem;
+    color: var(--color-text-tertiary);
+  }
+
   /* ---------- Case-study fact lists ----------
      The timeline/clearance/market/etc. facts at the foot of each case-study
      card on the cases page. */
