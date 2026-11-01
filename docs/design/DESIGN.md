@@ -115,11 +115,13 @@ Pages compose from a small shared primitive layer rather than hand-rolled markup
 - **`JumpNav`** — a labelled in-page anchor nav; its link targets get `scroll-margin-top` matching the sticky header's height so a clicked anchor never lands under it.
 
 ### Interactive (client) primitives
-- **`Reveal`** — fades/lifts children into view once, on `IntersectionObserver`; fails open (content simply renders) under reduced motion, a missing observer, or disabled JS — never fails closed.
+- **`Reveal`** — fades/lifts children into view once, on `IntersectionObserver`; fails open (content simply renders) under reduced motion, a missing observer, or disabled JS — never fails closed. Used on every route (not just Home): each section's head gets one `Reveal`, and each item in a repeated list or card grid — including the `<li>` cards inside a decorative figure such as `ProcessGateFlow` — gets its own `Reveal` with a small per-index `delay`, so the group animates in as a stagger rather than one block.
 - **`ThemeToggle`** — a three-state `system → light → dark` cycle (not a binary switch, so a visitor can return to following the OS), persisted via `lib/theme.ts`; current state rides in the accessible name rather than `aria-pressed`, which ARIA defines as binary.
 
 ### Figures — `components/figures/`
 One bespoke inline SVG (or, for the one page where a diagram would be meaningless, a plain typographic index — see `LegalStructureFigure`) per page, drawn from content already on that page. No photography, no invented specificity: a figure never shows a number, count, duration or measurement that isn't already real page copy. Decorative figures are `aria-hidden="true"`; the rare figure that is the page's only rendering of some content (e.g. `ProductionFlowFigure`) is not. Figures theme automatically via `currentColor` or the semantic aliases in §2.2.
+
+`DisciplinesConvergingFigure` (About) is the one figure with its own bespoke interaction, layered on top of the standard `Reveal` pattern rather than replacing it: its six nodes rotate into place around the shared center on scroll-in (gated the same way `Reveal` gates entrance — `html[data-motion='on']` plus its own `IntersectionObserver`, so it degrades to the static diagram without JS or under reduced motion), and hovering, keyboard-focusing or tapping a node opens a floating card with that discipline's description — reusing the Engineering page's own copy verbatim — and a link to its section there.
 
 ### Global chrome
 - **`Header`** (`components/Header.tsx`) — sticky, frosted/blurred background that gains elevation past ~8px of scroll; single nav list that reflows between a horizontal bar (`lg`+) and a slide-in drawer (below `lg`) — never both in the DOM at once; `ThemeToggle`; CTA link styled distinctly from the rest of the nav.
