@@ -1905,4 +1905,41 @@
     font-size: 0.8125rem;
     color: var(--color-placeholder-fg);
   }
+
+  /* ---------- DataTable ----------
+     Scroll container for a page's own table; the table itself stays unstyled markup. */
+  [data-table-wrap] {
+    overflow-x: auto;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.625rem;
+  }
+
+  /* ---------- JumpNav ----------
+     scroll-margin-top mirrors the sticky header height ([data-header-bar]) so an
+     anchor lands below the header rather than under it. */
+  [data-jump-nav] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  [data-jump-nav] a {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    padding: 0.3125rem 0.75rem;
+    border: 1px solid var(--color-border-default);
+    border-radius: 999px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    scroll-margin-top: 64px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  [data-jump-nav] a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  @media (min-width: 960px) {
+    [data-jump-nav] a {
+      scroll-margin-top: 68px;
+    }
+  }
 }
