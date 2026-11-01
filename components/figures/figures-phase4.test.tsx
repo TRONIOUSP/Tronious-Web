@@ -13,6 +13,7 @@ import DisciplinesConvergingFigure from './DisciplinesConvergingFigure'
 import TopicMapFigure from './TopicMapFigure'
 import RoleMapFigure from './RoleMapFigure'
 import RFQFlowFigure from './RFQFlowFigure'
+import LegalStructureFigure from './LegalStructureFigure'
 
 describe('ServiceAreaIcon', () => {
   const areas = [
@@ -206,5 +207,18 @@ describe('RFQFlowFigure', () => {
   it('marks the figure as decorative', () => {
     const { container } = render(<RFQFlowFigure />)
     expect(container.querySelector('figure')).toHaveAttribute('aria-hidden', 'true')
+  })
+})
+
+describe('LegalStructureFigure', () => {
+  it('renders all four section names as links to their in-page anchors', () => {
+    render(<LegalStructureFigure />)
+    expect(screen.getByRole('link', { name: 'Privacy policy' })).toHaveAttribute('href', '#privacy')
+    expect(screen.getByRole('link', { name: 'Terms of use' })).toHaveAttribute('href', '#terms')
+    expect(screen.getByRole('link', { name: 'Cookie policy' })).toHaveAttribute('href', '#cookies')
+    expect(screen.getByRole('link', { name: 'Accessibility statement' })).toHaveAttribute(
+      'href',
+      '#accessibility',
+    )
   })
 })
