@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Services() {
   return (
-    <Sheet doc="WEB-010" sheetTitle="Every stage, under one quality system">
+    <Sheet doc="WEB-010">
       <section><span className="eyebrow">Services</span><h1>Every stage, under one quality system</h1><p className="lead">Use us for a single phase or the full journey. Each service runs under our ISO 13485 quality system, so documentation transfers cleanly into your design history file.</p></section>
       <section>
         <div className="grid">

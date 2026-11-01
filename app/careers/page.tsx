@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Careers() {
   return (
-    <Sheet doc="WEB-110" sheetTitle="Build devices that help people recover">
+    <Sheet doc="WEB-110">
       <section><span className="eyebrow">Careers</span><h1>Build devices that help people recover</h1><p className="lead">We hire people who care about getting the details right.</p></section>
       <section>
         <div className="tablewrap"><table>

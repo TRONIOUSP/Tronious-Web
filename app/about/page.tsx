@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <Sheet doc="WEB-080" sheetTitle="Engineers and regulatory specialists who build therapy devices">
+    <Sheet doc="WEB-080">
       <section><span className="eyebrow">About us</span><h1>Engineers and regulatory specialists who build therapy devices</h1><p className="lead"><span className="ph">[Founded in YYYY]</span>, we help medical device brands bring physical therapy and recovery devices to market in the US, EU and Australia.</p></section>
       <section>
         <h2>Our story</h2>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Cases() {
   return (
-    <Sheet doc="WEB-070" sheetTitle="Projects we've delivered">
+    <Sheet doc="WEB-070">
       <section><span className="eyebrow">Case studies</span><h1>Projects we&apos;ve delivered</h1><p className="lead">Client names are shared only with permission. The examples below are templates: replace them with your real projects.</p></section>
       <section className="split">
         <div className="case">

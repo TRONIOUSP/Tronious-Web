@@ -3,12 +3,19 @@ import { render, screen } from '@testing-library/react'
 import Sheet from './Sheet'
 
 describe('Sheet', () => {
-  it('renders the doc number, truncated sheet title, rev and status', () => {
-    render(<Sheet doc="WEB-001" sheetTitle={'a'.repeat(40)}><p>content</p></Sheet>)
-    expect(screen.getByText('WEB-001')).toBeInTheDocument()
-    expect(screen.getByText('a'.repeat(32) + '…')).toBeInTheDocument()
-    expect(screen.getByText('A · Draft')).toBeInTheDocument()
-    expect(screen.getByText('Content placeholders')).toBeInTheDocument()
+  it('renders its children', () => {
+    render(<Sheet doc="WEB-001"><p>content</p></Sheet>)
     expect(screen.getByText('content')).toBeInTheDocument()
+  })
+
+  it('exposes the document number as a data attribute', () => {
+    const { container } = render(<Sheet doc="WEB-001"><p>content</p></Sheet>)
+    expect(container.firstElementChild).toHaveAttribute('data-doc', 'WEB-001')
+  })
+
+  it('renders no title block', () => {
+    render(<Sheet doc="WEB-001"><p>content</p></Sheet>)
+    expect(screen.queryByText('A · Draft')).not.toBeInTheDocument()
+    expect(screen.queryByText('Content placeholders')).not.toBeInTheDocument()
   })
 })

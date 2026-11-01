@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Process() {
   return (
-    <Sheet doc="WEB-030" sheetTitle="Phase-gated, with a deliverable at every gate">
+    <Sheet doc="WEB-030">
       <section><span className="eyebrow">Development process</span><h1>Phase-gated, with a deliverable at every gate</h1><p className="lead">Six phases, each closed by a gate review that you approve. Nothing moves forward on assumptions, and every phase produces documentation that goes straight into your design history file.</p></section>
       <section>
         <ol className="steps">

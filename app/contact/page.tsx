@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <Sheet doc="WEB-100" sheetTitle="Tell us about your device">
+    <Sheet doc="WEB-100">
       <section><span className="eyebrow">Start a project</span><h1>Tell us about your device</h1><p className="lead">We reply within <span className="ph">[2]</span> business days. We sign an NDA before any detailed technical discussion. Please don&apos;t include confidential drawings in this form.</p></section>
       <section>
         <ContactForm />

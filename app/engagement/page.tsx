@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function Engagement() {
   return (
-    <Sheet doc="WEB-060" sheetTitle="Choose how we work together">
+    <Sheet doc="WEB-060">
       <section><span className="eyebrow">Engagement models</span><h1>Choose how we work together</h1></section>
       <section>
         <div className="grid">

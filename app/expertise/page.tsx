@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Expertise() {
   return (
-    <Sheet doc="WEB-020" sheetTitle="Specialists in physical therapy and recovery devices">
+    <Sheet doc="WEB-020">
       <section><span className="eyebrow">Device expertise</span><h1>Specialists in physical therapy and recovery devices</h1><p className="lead">We focus on five device families. That focus means fewer surprises in testing, faster submissions and manufacturing processes already proven on similar products.</p></section>
       <section>
         <div className="tablewrap"><table>

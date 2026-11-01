@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Engineering() {
   return (
-    <Sheet doc="WEB-015" sheetTitle="Mechanical, electronics, firmware, apps and test systems">
+    <Sheet doc="WEB-015">
       <section>
         <span className="eyebrow">Engineering</span>
         <h1>Mechanical, electronics, firmware, apps and test systems</h1>

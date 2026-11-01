@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <Sheet doc="WEB-001" sheetTitle="Your device. Designed, cleared and built by one team.">
+    <Sheet doc="WEB-001">
       <section className="hx">
         <div className="hx-grid">
           <div className="hx-copy">

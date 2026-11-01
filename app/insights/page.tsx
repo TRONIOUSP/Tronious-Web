@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Insights() {
   return (
-    <Sheet doc="WEB-090" sheetTitle="Guides for device brands">
+    <Sheet doc="WEB-090">
       <section><span className="eyebrow">Insights</span><h1>Guides for device brands</h1><p className="lead">Practical articles that show your expertise and bring in buyers through search. Suggested first articles:</p></section>
       <section>
         <div className="grid">

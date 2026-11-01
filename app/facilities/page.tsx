@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Facilities() {
   return (
-    <Sheet doc="WEB-050" sheetTitle="Where your device gets built">
+    <Sheet doc="WEB-050">
       <section><span className="eyebrow">Facilities &amp; capabilities</span><h1>Where your device gets built</h1><p className="lead">Add photos of your production floor, test lab and engineering office here. Real photos matter more than any stock image.</p></section>
       <section>
         <div className="tablewrap"><table style={{ minWidth: 0 }}>

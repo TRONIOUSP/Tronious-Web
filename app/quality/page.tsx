@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Quality() {
   return (
-    <Sheet doc="WEB-040" sheetTitle="Built for audits in three markets">
+    <Sheet doc="WEB-040">
       <section><span className="eyebrow">Quality &amp; Regulatory</span><h1>Built for audits in three markets</h1><p className="lead">Supplier qualification teams usually start here. Certificates are available on request or in our supplier pack.</p></section>
       <section>
         <h2>Certifications &amp; registrations</h2>
