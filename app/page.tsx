@@ -1,6 +1,16 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Sheet from '@/components/Sheet'
+import Section from '@/components/ui/Section'
+import SectionHead from '@/components/ui/SectionHead'
+import Button from '@/components/ui/Button'
+import Badge from '@/components/ui/Badge'
+import Stat from '@/components/ui/Stat'
+import Quote from '@/components/ui/Quote'
+import Ph from '@/components/ui/Ph'
+import Reveal from '@/components/ui/Reveal'
+import HeroCompression from '@/components/figures/HeroCompression'
+import DeviceFamilyIcon from '@/components/figures/DeviceFamilyIcon'
+import ConceptFlow from '@/components/figures/ConceptFlow'
 
 export const metadata: Metadata = {
   title: 'Home | [Company Name]',
@@ -8,99 +18,200 @@ export const metadata: Metadata = {
     'We take traction, compression, massage and thermal therapy devices from first sketch to production, ready for the US, EU and Australian markets.',
 }
 
+const CERTS = [
+  'ISO 13485:2016',
+  'MDSAP',
+  'FDA Registered Facility',
+  'QMSR · 21 CFR 820',
+  'EU MDR',
+  'TGA',
+  'IEC 60601-1',
+]
+
+const FAMILIES = [
+  { family: 'spinal' as const, name: 'Spinal traction', desc: 'Cervical and lumbar tables, force controllers' },
+  { family: 'knee' as const, name: 'Knee traction & rehab', desc: 'Distraction, CPM and rehab devices' },
+  { family: 'pneumatic' as const, name: 'Pneumatic compression', desc: 'Sequential pumps and multi-chamber garments' },
+  { family: 'massage' as const, name: 'Massage & mechanical compression', desc: 'Percussive, vibration and mechanical' },
+  { family: 'thermal' as const, name: 'Thermal therapy', desc: 'Heat, cold and contrast therapy' },
+]
+
+const ENGINEERING = [
+  { title: 'Mechanical & pneumatic', desc: 'Frames, enclosures, bladders, garments' },
+  { title: 'PCB & electronics', desc: 'Isolation, motor and heater control, EMC' },
+  { title: 'Embedded firmware', desc: 'IEC 62304 control and safety software' },
+  { title: 'Mobile apps', desc: 'iOS and Android, BLE, cybersecurity' },
+  { title: 'Wearables', desc: 'Body-worn compression and heat' },
+  { title: 'Test equipment', desc: 'V&V rigs and end-of-line testers' },
+]
+
 export default function Home() {
   return (
-    <Sheet doc="WEB-001">
-      <section className="hx">
-        <div className="hx-grid">
-          <div className="hx-copy">
-            <span className="hx-eyebrow">Contract design &amp; manufacturing · Therapy and recovery devices</span>
-            <h1>Your device. <span className="hx-hl">Designed, cleared and built</span> by one team.</h1>
-            <p className="hx-lead">We take traction, compression, massage and thermal therapy devices from first sketch to production, ready for the US, EU and Australian markets.</p>
-            <div className="btns"><Link className="btn hx-primary" href="/contact">Start a project</Link><Link className="btn hx-ghost" href="/process">How we work</Link></div>
-            <ul className="hx-markets" aria-label="Markets">
-              <li><b>US</b> FDA 510(k)</li><li><b>EU</b> MDR 2017/745</li><li><b>AU</b> TGA · ARTG</li>
-            </ul>
+    <>
+      {/* Hero — band tone */}
+      <Section tone="band" data-doc="WEB-001">
+        <div data-hero-grid="">
+          <div data-hero-copy="">
+            <Reveal>
+              <span data-eyebrow="">Contract design &amp; manufacturing · Therapy and recovery devices</span>
+              <h1>
+                Your device.{' '}
+                <span data-hero-hl="">Designed, cleared and built</span> by one team.
+              </h1>
+              <p data-hero-lead="">
+                We take traction, compression, massage and thermal therapy devices from first sketch to
+                production, ready for the US, EU and Australian markets.
+              </p>
+              <div data-btns="">
+                <Button href="/contact" variant="primary" size="lg">Start a project</Button>
+                <Button href="/process" variant="ghost" size="lg">How we work</Button>
+              </div>
+              <ul data-markets="" aria-label="Markets">
+                <li><b>US</b> FDA 510(k)</li>
+                <li><b>EU</b> MDR 2017/745</li>
+                <li><b>AU</b> TGA · ARTG</li>
+              </ul>
+            </Reveal>
+          </div>
+          <div data-hero-figure="" aria-hidden="true">
+            <HeroCompression />
           </div>
         </div>
-      </section>
+      </Section>
 
-      <section className="hx-cert">
-        <span className="eyebrow">Certified to the standards your buyers check first</span>
-        <div className="badges">
-          <span className="badge">ISO 13485:2016</span><span className="badge">MDSAP</span><span className="badge">FDA Registered Facility</span><span className="badge">QMSR · 21 CFR 820</span><span className="badge">EU MDR</span><span className="badge">TGA</span><span className="badge">IEC 60601-1</span>
+      {/* Certifications — sunken tone */}
+      <Section tone="sunken">
+        <Reveal>
+          <SectionHead
+            eyebrow="Certified to the standards your buyers check first"
+            title=""
+            align="center"
+          />
+          <div data-badges="">
+            {CERTS.map((cert) => (
+              <Badge key={cert}>{cert}</Badge>
+            ))}
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* Device families — default tone */}
+      <Section>
+        <Reveal>
+          <SectionHead
+            eyebrow="Device expertise"
+            title="Five device families. Nothing else."
+            lead="Focus means our test plans, suppliers and production lines are already proven on devices like yours."
+          />
+        </Reveal>
+        <div data-fam-grid="">
+          {FAMILIES.map(({ family, name, desc }, i) => (
+            <Reveal key={family} delay={i * 60}>
+              <Link href="/expertise" data-fam-card="">
+                <DeviceFamilyIcon family={family} data-fam-icon="" />
+                <h3>{name}</h3>
+                <p>{desc}</p>
+              </Link>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      <section>
-        <div className="sec-head"><span className="eyebrow">Device expertise</span><h2>Five device families. Nothing else.</h2><p>Focus means our test plans, suppliers and production lines are already proven on devices like yours.</p></div>
-        <div className="fam">
-          <Link className="fam-card" href="/expertise">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="18" y="4" width="12" height="7" rx="2" /><rect x="17" y="14" width="14" height="7" rx="2" /><rect x="16" y="24" width="16" height="7" rx="2" /><rect x="15" y="34" width="18" height="8" rx="2" /><path d="M8 4v38M4 8l4-4 4 4M4 38l4 4 4-4" /></svg>
-            <h3>Spinal traction</h3><p>Cervical and lumbar tables, force controllers</p></Link>
-          <Link className="fam-card" href="/expertise">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M20 4l4 18M28 26l-4 18" /><circle cx="24" cy="24" r="5" /><path d="M36 14v20M32 18l4-4 4 4M32 30l4 4 4-4" /></svg>
-            <h3>Knee traction &amp; rehab</h3><p>Distraction, CPM and rehab devices</p></Link>
-          <Link className="fam-card" href="/expertise">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="14" y="4" width="20" height="9" rx="3" /><rect x="16" y="15" width="16" height="9" rx="3" /><rect x="18" y="26" width="12" height="9" rx="3" /><rect x="19" y="37" width="10" height="7" rx="3" /></svg>
-            <h3>Pneumatic compression</h3><p>Sequential pumps and multi-chamber garments</p></Link>
-          <Link className="fam-card" href="/expertise">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="16" y="6" width="16" height="22" rx="4" /><path d="M24 28v8" /><circle cx="24" cy="40" r="4" /><path d="M8 34c3-3 3-7 0-10M40 34c-3-3-3-7 0-10" /></svg>
-            <h3>Massage &amp; mechanical compression</h3><p>Percussive, vibration and mechanical</p></Link>
-          <Link className="fam-card" href="/expertise">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="30" width="36" height="12" rx="3" /><path d="M14 24c-3-4 3-6 0-10s3-6 0-10M24 24c-3-4 3-6 0-10s3-6 0-10M34 24c-3-4 3-6 0-10s3-6 0-10" /></svg>
-            <h3>Thermal therapy</h3><p>Heat, cold and contrast therapy</p></Link>
+      {/* Engineering disciplines — sunken tone */}
+      <Section tone="sunken">
+        <Reveal>
+          <SectionHead
+            eyebrow="Engineering under one roof"
+            title="Every discipline your device needs"
+          />
+        </Reveal>
+        <div data-cap-grid="">
+          {ENGINEERING.map(({ title, desc }, i) => (
+            <Reveal key={title} delay={i * 50}>
+              <Link href="/engineering" data-cap-item="">
+                <b>{title}</b>
+                <span>{desc}</span>
+              </Link>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      <section>
-        <div className="sec-head"><span className="eyebrow">Engineering under one roof</span><h2>Every discipline your device needs</h2></div>
-        <div className="capgrid">
-          <Link href="/engineering"><b>Mechanical &amp; pneumatic</b><span>Frames, enclosures, bladders, garments</span></Link>
-          <Link href="/engineering"><b>PCB &amp; electronics</b><span>Isolation, motor and heater control, EMC</span></Link>
-          <Link href="/engineering"><b>Embedded firmware</b><span>IEC 62304 control and safety software</span></Link>
-          <Link href="/engineering"><b>Mobile apps</b><span>iOS and Android, BLE, cybersecurity</span></Link>
-          <Link href="/engineering"><b>Wearables</b><span>Body-worn compression and heat</span></Link>
-          <Link href="/engineering"><b>Test equipment</b><span>V&amp;V rigs and end-of-line testers</span></Link>
+      {/* Process flow — band tone */}
+      <Section tone="band">
+        <Reveal>
+          <SectionHead
+            eyebrow="One partner, start to finish"
+            title="From concept to shipped units"
+          />
+        </Reveal>
+        <Reveal delay={100}>
+          <ConceptFlow />
+        </Reveal>
+        <Reveal delay={200}>
+          <Link href="/process" data-more-link="">See every phase and its deliverables →</Link>
+        </Reveal>
+      </Section>
+
+      {/* Stats — default tone */}
+      <Section>
+        <Reveal>
+          <SectionHead
+            eyebrow="Track record"
+            title="Numbers that matter to a device brand"
+          />
+        </Reveal>
+        <div data-stats-grid="">
+          <Reveal delay={0}>
+            <Stat value={<Ph>[XX]</Ph>} label="Regulatory submissions supported" />
+          </Reveal>
+          <Reveal delay={60}>
+            <Stat value={<Ph>[XX]</Ph>} label="Devices in commercial production" />
+          </Reveal>
+          <Reveal delay={120}>
+            <Stat value={<Ph>[XX] mo</Ph>} label="Average concept to clearance" />
+          </Reveal>
+          <Reveal delay={180}>
+            <Stat value={<Ph>[XXk]</Ph>} label="Units shipped per year" />
+          </Reveal>
         </div>
-      </section>
+      </Section>
 
-      <section className="band-soft">
-        <div className="sec-head"><span className="eyebrow">One partner, start to finish</span><h2>From concept to shipped units</h2></div>
-        <ol className="flow">
-          <li><span className="flow-k">Concept</span><span>Needs, feasibility and regulatory pathway</span></li>
-          <li><span className="flow-k">Design</span><span>Mechanical, electronics, firmware, pneumatics</span></li>
-          <li><span className="flow-k">Test</span><span>IEC 60601, usability, biocompatibility</span></li>
-          <li><span className="flow-k">Submit</span><span>510(k), MDR technical file, TGA</span></li>
-          <li><span className="flow-k">Build</span><span>Pilot runs to volume production</span></li>
-        </ol>
-        <Link className="more" href="/process">See every phase and its deliverables →</Link>
-      </section>
+      {/* Quote — sunken tone */}
+      <Section tone="sunken">
+        <Reveal>
+          <Quote
+            attribution={
+              <>
+                <Ph>[Name]</Ph>, <Ph>[Title]</Ph>,{' '}
+                <Ph>[Company or &quot;US recovery device brand&quot;]</Ph>
+              </>
+            }
+          >
+            <Ph wrap>
+              [Client quote: one or two sentences about speed, quality or regulatory success. Get
+              written permission.]
+            </Ph>
+          </Quote>
+        </Reveal>
+      </Section>
 
-      <section>
-        <div className="sec-head"><span className="eyebrow">Track record</span><h2>Numbers that matter to a device brand</h2></div>
-        <div className="stats">
-          <div><span className="stat-n"><span className="ph">[XX]</span></span><span className="stat-l">Regulatory submissions supported</span></div>
-          <div><span className="stat-n"><span className="ph">[XX]</span></span><span className="stat-l">Devices in commercial production</span></div>
-          <div><span className="stat-n"><span className="ph">[XX] mo</span></span><span className="stat-l">Average concept to clearance</span></div>
-          <div><span className="stat-n"><span className="ph">[XXk]</span></span><span className="stat-l">Units shipped per year</span></div>
-        </div>
-      </section>
-
-      <section>
-        <blockquote className="quote">
-          <p><span className="ph ph-wrap">[Client quote: one or two sentences about speed, quality or regulatory success. Get written permission.]</span></p>
-          <footer><span className="ph">[Name]</span>, <span className="ph">[Title]</span>, <span className="ph">[Company or &quot;US recovery device brand&quot;]</span></footer>
-        </blockquote>
-      </section>
-
-      <section className="hx hx-end">
-        <div className="hx-end-in">
-          <h2>Have a device idea, or a design that needs a new manufacturer?</h2>
-          <p className="hx-lead">Tell us your stage. We reply within <span className="ph">[2]</span> business days and sign an NDA before any technical discussion.</p>
-          <div className="btns"><Link className="btn hx-primary" href="/contact">Start a project</Link><Link className="btn hx-ghost" href="/engagement">Engagement models</Link></div>
-        </div>
-      </section>
-    </Sheet>
+      {/* Closing CTA — band tone */}
+      <Section tone="band">
+        <Reveal>
+          <div data-cta-end="">
+            <h2>Have a device idea, or a design that needs a new manufacturer?</h2>
+            <p data-hero-lead="">
+              Tell us your stage. We reply within <Ph>[2]</Ph> business days and sign an NDA before
+              any technical discussion.
+            </p>
+            <div data-btns="">
+              <Button href="/contact" variant="primary" size="lg">Start a project</Button>
+              <Button href="/engagement" variant="ghost" size="lg">Engagement models</Button>
+            </div>
+          </div>
+        </Reveal>
+      </Section>
+    </>
   )
 }
