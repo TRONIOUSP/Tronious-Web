@@ -8,6 +8,8 @@ import ProcessGateFlow from './ProcessGateFlow'
 import MarketCoverageFigure from './MarketCoverageFigure'
 import FacilitySchematic from './FacilitySchematic'
 import EngagementModelsFigure from './EngagementModelsFigure'
+import CaseStudyFigure from './CaseStudyFigure'
+import DisciplinesConvergingFigure from './DisciplinesConvergingFigure'
 
 describe('ServiceAreaIcon', () => {
   const areas = [
@@ -123,5 +125,28 @@ describe('EngagementModelsFigure', () => {
     expect(screen.getByText('Model B')).toBeInTheDocument()
     expect(screen.getByText('Model C')).toBeInTheDocument()
     expect(screen.getByText('Model D')).toBeInTheDocument()
+  })
+})
+
+describe('CaseStudyFigure', () => {
+  it('renders the shared challenge/approach structure', () => {
+    render(<CaseStudyFigure />)
+    expect(screen.getByText('Challenge')).toBeInTheDocument()
+    expect(screen.getByText('Approach')).toBeInTheDocument()
+  })
+})
+
+describe('DisciplinesConvergingFigure', () => {
+  it('marks the figure as decorative', () => {
+    const { container } = render(<DisciplinesConvergingFigure />)
+    const svg = container.querySelector('svg')
+    expect(svg).toHaveAttribute('aria-hidden', 'true')
+  })
+
+  it('renders a non-empty svg', () => {
+    const { container } = render(<DisciplinesConvergingFigure />)
+    const svg = container.querySelector('svg')
+    expect(svg).not.toBeNull()
+    expect(svg?.innerHTML.length).toBeGreaterThan(0)
   })
 })

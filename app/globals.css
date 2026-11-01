@@ -2207,4 +2207,88 @@
     font-size: 1.05rem;
     color: var(--color-text-primary);
   }
+
+  /* ---------- CaseStudyFigure ----------
+     Decorative overview of the challenge/approach/metrics structure shared
+     by the three case-study templates on the cases page; the accessible,
+     case-specific detail lives in the cards that follow. */
+  [data-case-study-figure-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+  [data-case-study-figure-list] li {
+    display: grid;
+    gap: 0.25rem;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+  [data-case-study-figure-num] {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+  }
+  [data-case-study-figure-title] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+  }
+  [data-case-study-figure-detail] {
+    font-size: 0.8125rem;
+    color: var(--color-text-tertiary);
+  }
+
+  /* ---------- Case-study fact lists ----------
+     The timeline/clearance/market/etc. facts at the foot of each case-study
+     card on the cases page. */
+  [data-case-facts] {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: 1rem;
+  }
+  [data-case-facts] > div {
+    padding: 0 0.75rem;
+    border-right: 1px solid var(--color-border-subtle);
+  }
+  [data-case-facts] > div:first-child {
+    padding-left: 0;
+  }
+  [data-case-facts] > div:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+  [data-case-facts] dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+  }
+  [data-case-facts] dd {
+    margin: 0.25rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  /* ---------- DisciplinesConvergingFigure ----------
+     Decorative illustration of the six engineering disciplines converging on
+     one device, supporting the "one team" claim on the about page. No
+     discipline is otherwise described on this page, so the figure is marked
+     decorative rather than given an accessible name. */
+  [data-disciplines-converging] {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 }
