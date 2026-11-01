@@ -158,7 +158,7 @@ export default function Manufacturing() {
       </Section>
 
       <Section id="m-qc">
-        <SectionHead title="Built-in quality, every unit" />
+        <SectionHead eyebrow="Quality controls" title="Built-in quality, every unit" />
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {QUALITY_CONTROLS.map((item) => (
             <Card key={item.title} className="p-6">
