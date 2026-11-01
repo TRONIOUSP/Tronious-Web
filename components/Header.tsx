@@ -65,6 +65,38 @@ export default function Header() {
           <span>[Company Name]</span>
         </Link>
 
+        {/* Single nav list — reflowed by CSS between bar (lg+) and drawer (<lg).
+            Never duplicated, so Header.test.tsx's getAllByRole('link') stays clean. */}
+        <nav
+          id="mainnav"
+          aria-label="Main"
+          data-open={open ? '' : undefined}
+        >
+          <ul>
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  aria-current={pathname === link.href ? 'page' : undefined}
+                  onClick={close}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href={NAV_CTA.href}
+                className="cta"
+                aria-current={pathname === NAV_CTA.href ? 'page' : undefined}
+                onClick={close}
+              >
+                {NAV_CTA.label}
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
         <div data-header-actions="">
           <ThemeToggle />
           <button
@@ -79,38 +111,6 @@ export default function Header() {
           </button>
         </div>
       </div>
-
-      {/* Single nav list — reflowed by CSS between bar (lg+) and drawer (<lg).
-          Never duplicated, so Header.test.tsx's getAllByRole('link') stays clean. */}
-      <nav
-        id="mainnav"
-        aria-label="Main"
-        data-open={open ? '' : undefined}
-      >
-        <ul>
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                aria-current={pathname === link.href ? 'page' : undefined}
-                onClick={close}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-          <li>
-            <Link
-              href={NAV_CTA.href}
-              className="cta"
-              aria-current={pathname === NAV_CTA.href ? 'page' : undefined}
-              onClick={close}
-            >
-              {NAV_CTA.label}
-            </Link>
-          </li>
-        </ul>
-      </nav>
     </header>
   )
 }

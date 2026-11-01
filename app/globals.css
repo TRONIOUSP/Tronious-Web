@@ -645,9 +645,13 @@
       overflow: visible;
     }
     [data-header-bar] { height: 68px; }
+    [data-header] nav {
+      flex: 1;
+    }
     [data-header] nav ul {
       flex-direction: row;
       align-items: center;
+      justify-content: flex-end;
       padding: 0;
       gap: 0;
     }
