@@ -6,6 +6,8 @@ import DisciplineIcon from './DisciplineIcon'
 import ProductionFlowFigure from './ProductionFlowFigure'
 import ProcessGateFlow from './ProcessGateFlow'
 import MarketCoverageFigure from './MarketCoverageFigure'
+import FacilitySchematic from './FacilitySchematic'
+import EngagementModelsFigure from './EngagementModelsFigure'
 
 describe('ServiceAreaIcon', () => {
   const areas = [
@@ -102,5 +104,24 @@ describe('MarketCoverageFigure', () => {
     expect(screen.getByText('United States')).toBeInTheDocument()
     expect(screen.getByText('European Union')).toBeInTheDocument()
     expect(screen.getByText('Australia')).toBeInTheDocument()
+  })
+})
+
+describe('FacilitySchematic', () => {
+  it('renders the three equipment-category headings', () => {
+    render(<FacilitySchematic />)
+    expect(screen.getByText('Test & measurement')).toBeInTheDocument()
+    expect(screen.getByText('Prototyping')).toBeInTheDocument()
+    expect(screen.getByText('Production')).toBeInTheDocument()
+  })
+})
+
+describe('EngagementModelsFigure', () => {
+  it('renders all four engagement models', () => {
+    render(<EngagementModelsFigure />)
+    expect(screen.getByText('Model A')).toBeInTheDocument()
+    expect(screen.getByText('Model B')).toBeInTheDocument()
+    expect(screen.getByText('Model C')).toBeInTheDocument()
+    expect(screen.getByText('Model D')).toBeInTheDocument()
   })
 })

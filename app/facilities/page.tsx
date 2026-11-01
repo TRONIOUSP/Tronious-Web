@@ -1,5 +1,11 @@
 import type { Metadata } from 'next'
-import Sheet from '@/components/Sheet'
+import Section from '@/components/ui/Section'
+import SectionHead from '@/components/ui/SectionHead'
+import Card from '@/components/ui/Card'
+import TickList from '@/components/ui/TickList'
+import DataTable from '@/components/ui/DataTable'
+import Ph from '@/components/ui/Ph'
+import FacilitySchematic from '@/components/figures/FacilitySchematic'
 
 export const metadata: Metadata = {
   title: 'Facilities | [Company Name]',
@@ -9,29 +15,102 @@ export const metadata: Metadata = {
 
 export default function Facilities() {
   return (
-    <Sheet doc="WEB-050">
-      <section><span className="eyebrow">Facilities &amp; capabilities</span><h1>Where your device gets built</h1><p className="lead">Add photos of your production floor, test lab and engineering office here. Real photos matter more than any stock image.</p></section>
-      <section>
-        <div className="tablewrap"><table style={{ minWidth: 0 }}>
-          <tbody>
-            <tr><td>Location</td><td><span className="ph">[City, Country]</span></td></tr>
-            <tr><td>Total floor area</td><td className="num"><span className="ph">[XX,XXX m²]</span></td></tr>
-            <tr><td>Production lines</td><td className="num"><span className="ph">[X] assembly lines</span></td></tr>
-            <tr><td>Controlled environments</td><td><span className="ph">[ESD-protected areas / cleanroom class]</span></td></tr>
-            <tr><td>Annual capacity</td><td className="num"><span className="ph">[XXX,XXX units]</span></td></tr>
-            <tr><td>Engineering team</td><td className="num"><span className="ph">[XX] engineers</span></td></tr>
-          </tbody>
-        </table></div>
-      </section>
-      <section>
-        <h2>In-house equipment</h2>
-        <div className="grid">
-          <div className="cell"><h3>Test &amp; measurement</h3><ul className="ticks"><li>Electrical safety and hipot testers</li><li>Pressure and flow calibration</li><li>Thermal chambers and data loggers</li><li>Force and load testing</li></ul></div>
-          <div className="cell"><h3>Prototyping</h3><ul className="ticks"><li>3D printing (SLA, FDM)</li><li>CNC machining</li><li>PCB assembly and rework</li></ul></div>
-          <div className="cell"><h3>Production</h3><ul className="ticks"><li>Final assembly and functional test</li><li>RF welding for pneumatic garments</li><li>Packaging and UDI labeling</li></ul></div>
+    <>
+      <Section tone="band" data-doc="WEB-050">
+        <SectionHead
+          as="h1"
+          eyebrow="Facilities & capabilities"
+          title="Where your device gets built"
+          lead="Add photos of your production floor, test lab and engineering office here. Real photos matter more than any stock image."
+        />
+      </Section>
+
+      <Section>
+        <FacilitySchematic />
+        <DataTable className="mt-8">
+          <table style={{ minWidth: 0 }}>
+            <tbody>
+              <tr>
+                <td>Location</td>
+                <td>
+                  <Ph>[City, Country]</Ph>
+                </td>
+              </tr>
+              <tr>
+                <td>Total floor area</td>
+                <td data-numeric="">
+                  <Ph>[XX,XXX m²]</Ph>
+                </td>
+              </tr>
+              <tr>
+                <td>Production lines</td>
+                <td data-numeric="">
+                  <Ph>[X] assembly lines</Ph>
+                </td>
+              </tr>
+              <tr>
+                <td>Controlled environments</td>
+                <td>
+                  <Ph>[ESD-protected areas / cleanroom class]</Ph>
+                </td>
+              </tr>
+              <tr>
+                <td>Annual capacity</td>
+                <td data-numeric="">
+                  <Ph>[XXX,XXX units]</Ph>
+                </td>
+              </tr>
+              <tr>
+                <td>Engineering team</td>
+                <td data-numeric="">
+                  <Ph>[XX] engineers</Ph>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </DataTable>
+      </Section>
+
+      <Section tone="sunken">
+        <SectionHead title="In-house equipment" />
+        <div className="mt-8 grid gap-6 sm:grid-cols-3">
+          <Card className="p-6">
+            <h3 className="font-display text-lg font-semibold text-text-primary">
+              Test &amp; measurement
+            </h3>
+            <TickList
+              className="mt-4"
+              items={[
+                'Electrical safety and hipot testers',
+                'Pressure and flow calibration',
+                'Thermal chambers and data loggers',
+                'Force and load testing',
+              ]}
+            />
+          </Card>
+          <Card className="p-6">
+            <h3 className="font-display text-lg font-semibold text-text-primary">Prototyping</h3>
+            <TickList
+              className="mt-4"
+              items={['3D printing (SLA, FDM)', 'CNC machining', 'PCB assembly and rework']}
+            />
+          </Card>
+          <Card className="p-6">
+            <h3 className="font-display text-lg font-semibold text-text-primary">Production</h3>
+            <TickList
+              className="mt-4"
+              items={[
+                'Final assembly and functional test',
+                'RF welding for pneumatic garments',
+                'Packaging and UDI labeling',
+              ]}
+            />
+          </Card>
         </div>
-        <p style={{ fontSize: '.88rem', color: 'var(--muted)' }}>Edit this list to match your actual equipment.</p>
-      </section>
-    </Sheet>
+        <p className="mt-6 text-[0.88rem] text-text-tertiary">
+          Edit this list to match your actual equipment.
+        </p>
+      </Section>
+    </>
   )
 }

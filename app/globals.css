@@ -2141,4 +2141,70 @@
     font-size: 1.05rem;
     color: var(--color-text-primary);
   }
+
+  /* ---------- FacilitySchematic ----------
+     Decorative three-zone summary above the key-facts table and equipment
+     cards on the facilities page; the accessible, detailed equipment lists
+     are the cards that follow. */
+  [data-facility-schematic-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+  [data-facility-schematic-list] li {
+    display: grid;
+    gap: 0.25rem;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+  [data-facility-schematic-title] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+  }
+  [data-facility-schematic-count] {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-text-tertiary);
+  }
+
+  /* ---------- EngagementModelsFigure ----------
+     Decorative quick-reference strip above the four model cards on the
+     engagement page; the accessible, detailed description of each model is
+     the card that follows. */
+  [data-engagement-models-list] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+  [data-engagement-models-list] li {
+    display: grid;
+    gap: 0.25rem;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+  }
+  [data-engagement-models-letter] {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+  }
+  [data-engagement-models-title] {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-text-primary);
+  }
 }
