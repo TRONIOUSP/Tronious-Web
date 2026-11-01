@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { FOOTER_COMPANY_LINKS, FOOTER_WORK_LINKS, FOOTER_LEGAL_LINKS } from '@/lib/nav'
 import { PLACEHOLDER_MARKING } from '@/lib/placeholders'
 
+const YEAR = 2025
+
 export default function Footer() {
   return (
     <footer>
@@ -42,6 +44,16 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
+        <div className="foot-bottom">
+          <span>&copy; {YEAR} [Company Name]. All rights reserved.</span>
+          <nav aria-label="Legal" className="foot-bottom-links">
+            {FOOTER_LEGAL_LINKS.map((link) => (
+              <Link key={link.label} href={link.href}>{link.label}</Link>
+            ))}
+          </nav>
+        </div>
+
         {PLACEHOLDER_MARKING && (
           <p className="legend-ph">
             <span data-placeholder="">Highlighted text</span> marks placeholders to replace with

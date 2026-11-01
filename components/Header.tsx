@@ -8,6 +8,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const menuBtnRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
   const [prevPathname, setPrevPathname] = useState(pathname)
@@ -19,6 +20,14 @@ export default function Header() {
     setPrevPathname(pathname)
     setOpen(false)
   }
+
+  // Elevate header shadow once the page scrolls past the bar height.
+  useEffect(() => {
+    function onScroll() { setScrolled(window.scrollY > 8) }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Body scroll lock — applied only while drawer is open; released on close
   // and on unmount (cleanup handles unmounting-while-open).
@@ -49,7 +58,7 @@ export default function Header() {
   }
 
   return (
-    <header data-header="">
+    <header data-header="" data-scrolled={scrolled ? '' : undefined}>
       <div data-header-bar="">
         <Link href="/" className="brand" onClick={close} aria-label="[Company Name] home">
           <span className="mark" aria-hidden="true" />
