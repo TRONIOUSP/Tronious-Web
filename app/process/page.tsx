@@ -7,6 +7,7 @@ import TickList from '@/components/ui/TickList'
 import Note from '@/components/ui/Note'
 import Ph from '@/components/ui/Ph'
 import ProcessGateFlow from '@/components/figures/ProcessGateFlow'
+import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
   title: 'Process | [Company Name]',
@@ -105,44 +106,50 @@ export default function Process() {
   return (
     <>
       <Section tone="band" data-doc="WEB-030">
-        <SectionHead
-          as="h1"
-          eyebrow="Development process"
-          title="Phase-gated, with a deliverable at every gate"
-          lead="Six phases, each closed by a gate review that you approve. Nothing moves forward on assumptions, and every phase produces documentation that goes straight into your design history file."
-        />
+        <Reveal>
+          <SectionHead
+            as="h1"
+            eyebrow="Development process"
+            title="Phase-gated, with a deliverable at every gate"
+            lead="Six phases, each closed by a gate review that you approve. Nothing moves forward on assumptions, and every phase produces documentation that goes straight into your design history file."
+          />
+        </Reveal>
         <ProcessGateFlow className="mt-8" />
       </Section>
 
       <Section>
         <ol className="grid gap-6">
           {GATES.map((gate, index) => (
-            <li key={gate.title}>
-              <Card className="p-6">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="flex items-baseline gap-2 font-display text-lg font-semibold text-text-primary">
-                    <span aria-hidden="true" className="font-mono text-text-tertiary">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    {gate.title}
-                  </h3>
-                  <span className="font-mono text-eyebrow text-text-tertiary">{gate.duration}</span>
-                </div>
-                <p className="mt-2 text-text-secondary">{gate.lead}</p>
-                <TickList items={gate.ticks} className="mt-4" />
-                <p className="mt-4 font-mono text-sm text-text-tertiary">{gate.deliverables}</p>
-              </Card>
-            </li>
+            <Reveal key={gate.title} delay={index * 70}>
+              <li>
+                <Card className="p-6">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="flex items-baseline gap-2 font-display text-lg font-semibold text-text-primary">
+                      <span aria-hidden="true" className="font-mono text-text-tertiary">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      {gate.title}
+                    </h3>
+                    <span className="font-mono text-eyebrow text-text-tertiary">{gate.duration}</span>
+                  </div>
+                  <p className="mt-2 text-text-secondary">{gate.lead}</p>
+                  <TickList items={gate.ticks} className="mt-4" />
+                  <p className="mt-4 font-mono text-sm text-text-tertiary">{gate.deliverables}</p>
+                </Card>
+              </li>
+            </Reveal>
           ))}
         </ol>
       </Section>
 
       <Section tone="sunken">
-        <Note>
-          Our quality system follows ISO 13485:2016 and FDA&apos;s Quality Management System
-          Regulation (QMSR, 21 CFR 820), which took effect in February 2026. Timelines are typical
-          ranges and depend on device complexity and classification.
-        </Note>
+        <Reveal>
+          <Note>
+            Our quality system follows ISO 13485:2016 and FDA&apos;s Quality Management System
+            Regulation (QMSR, 21 CFR 820), which took effect in February 2026. Timelines are typical
+            ranges and depend on device complexity and classification.
+          </Note>
+        </Reveal>
       </Section>
     </>
   )

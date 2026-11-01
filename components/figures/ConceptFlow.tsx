@@ -1,3 +1,5 @@
+import Reveal from '@/components/ui/Reveal'
+
 const STEPS = [
   { key: 'Concept', detail: 'Needs, feasibility and regulatory pathway' },
   { key: 'Design', detail: 'Mechanical, electronics, firmware, pneumatics' },
@@ -10,13 +12,13 @@ export default function ConceptFlow({ className }: { className?: string }) {
   return (
     <ol className={className} data-concept-flow="">
       {STEPS.map((step, i) => (
-        <li key={step.key} data-step={i + 1}>
+        <Reveal as="li" key={step.key} delay={i * 60}>
           <span data-step-num="" aria-hidden="true">
             {String(i + 1).padStart(2, '0')}
           </span>
           <span data-step-name="">{step.key}</span>
           <span data-step-detail="">{step.detail}</span>
-        </li>
+        </Reveal>
       ))}
     </ol>
   )

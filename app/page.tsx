@@ -145,9 +145,7 @@ export default function Home() {
             title="From concept to shipped units"
           />
         </Reveal>
-        <Reveal delay={100}>
-          <ConceptFlow />
-        </Reveal>
+        <ConceptFlow />
         <Reveal delay={200}>
           <Link href="/process" data-more-link="">See every phase and its deliverables →</Link>
         </Reveal>

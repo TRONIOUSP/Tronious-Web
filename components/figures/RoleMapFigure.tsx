@@ -1,4 +1,5 @@
 import { cx } from '@/lib/cx'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * A decorative recap of the open roles against the six process gates,
@@ -29,11 +30,11 @@ export default function RoleMapFigure({ className }: { className?: string }) {
   return (
     <figure data-role-map="" aria-hidden="true" className={cx(className)}>
       <ol data-role-map-list="">
-        {GATES.map((gate) => (
-          <li key={gate}>
+        {GATES.map((gate, i) => (
+          <Reveal as="li" key={gate} delay={i * 60}>
             <span data-role-map-gate="">{gate}</span>
             <span data-role-map-team="">{GATE_TEAMS[gate] ?? '—'}</span>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </figure>

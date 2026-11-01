@@ -4,6 +4,7 @@ import SectionHead from '@/components/ui/SectionHead'
 import Card from '@/components/ui/Card'
 import DataTable from '@/components/ui/DataTable'
 import DeviceComparisonFigure from '@/components/figures/DeviceComparisonFigure'
+import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
   title: 'Device Expertise | [Company Name]',
@@ -15,17 +16,20 @@ export default function Expertise() {
   return (
     <>
       <Section tone="band" data-doc="WEB-020">
-        <SectionHead
-          as="h1"
-          eyebrow="Device expertise"
-          title="Specialists in physical therapy and recovery devices"
-          lead="We focus on five device families. That focus means fewer surprises in testing, faster submissions and manufacturing processes already proven on similar products."
-        />
+        <Reveal>
+          <SectionHead
+            as="h1"
+            eyebrow="Device expertise"
+            title="Specialists in physical therapy and recovery devices"
+            lead="We focus on five device families. That focus means fewer surprises in testing, faster submissions and manufacturing processes already proven on similar products."
+          />
+        </Reveal>
       </Section>
 
       <Section>
         <DeviceComparisonFigure className="mb-8" />
-        <DataTable>
+        <Reveal>
+          <DataTable>
           <table>
             <thead>
               <tr>
@@ -109,34 +113,41 @@ export default function Expertise() {
               </tr>
             </tbody>
           </table>
-        </DataTable>
-        <p className="mt-4 text-[0.88rem] text-text-tertiary">
-          Your RA team should confirm the standards list for each device. Applicable standards
-          depend on intended use and classification.
-        </p>
+          </DataTable>
+          <p className="mt-4 text-[0.88rem] text-text-tertiary">
+            Your RA team should confirm the standards list for each device. Applicable standards
+            depend on intended use and classification.
+          </p>
+        </Reveal>
       </Section>
 
       <Section tone="sunken">
-        <SectionHead as="h2" title="Home-use and clinical devices" />
+        <Reveal>
+          <SectionHead as="h2" title="Home-use and clinical devices" />
+        </Reveal>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          <Card className="p-6">
-            <h3 className="font-display text-lg font-semibold text-text-primary">
-              Clinical devices
-            </h3>
-            <p className="mt-2 text-text-secondary">
-              For chiropractors, physical therapists and clinics. Designed for continuous duty,
-              cleaning between patients, and professional-use labeling.
-            </p>
-          </Card>
-          <Card className="p-6">
-            <h3 className="font-display text-lg font-semibold text-text-primary">
-              Home-use devices
-            </h3>
-            <p className="mt-2 text-text-secondary">
-              For patients and athletes. Designed to IEC 60601-1-11 for the home environment, with
-              lay-user usability validation.
-            </p>
-          </Card>
+          <Reveal>
+            <Card className="p-6">
+              <h3 className="font-display text-lg font-semibold text-text-primary">
+                Clinical devices
+              </h3>
+              <p className="mt-2 text-text-secondary">
+                For chiropractors, physical therapists and clinics. Designed for continuous duty,
+                cleaning between patients, and professional-use labeling.
+              </p>
+            </Card>
+          </Reveal>
+          <Reveal delay={80}>
+            <Card className="p-6">
+              <h3 className="font-display text-lg font-semibold text-text-primary">
+                Home-use devices
+              </h3>
+              <p className="mt-2 text-text-secondary">
+                For patients and athletes. Designed to IEC 60601-1-11 for the home environment, with
+                lay-user usability validation.
+              </p>
+            </Card>
+          </Reveal>
         </div>
       </Section>
     </>

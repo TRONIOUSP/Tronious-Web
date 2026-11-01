@@ -1620,11 +1620,104 @@
      Decorative illustration of the six engineering disciplines converging on
      one device, supporting the "one team" claim on the about page. No
      discipline is otherwise described on this page, so the figure is marked
-     decorative rather than given an accessible name. */
+     decorative rather than given an accessible name.
+
+     Nodes swing into place around the shared center the first time the
+     figure scrolls into view — gated the same way Reveal gates its entrance
+     (html[data-motion='on'] plus data-arrived, set by the component's own
+     IntersectionObserver), so without JS/IO/reduced-motion the diagram
+     simply renders in its final position, never stuck invisible. Hovering,
+     focusing or tapping a node then opens a floating card with that
+     discipline's description. */
+  [data-disciplines-converging-wrap] {
+    position: relative;
+    display: block;
+  }
   [data-disciplines-converging] {
     display: block;
     width: 100%;
     height: auto;
+  }
+  [data-discipline-node] {
+    cursor: pointer;
+  }
+  [data-discipline-circle] {
+    transition: stroke 160ms ease-out, stroke-width 160ms ease-out;
+  }
+  [data-discipline-node]:hover [data-discipline-circle],
+  [data-discipline-node]:focus-visible [data-discipline-circle],
+  [data-discipline-node][data-active] [data-discipline-circle] {
+    stroke: var(--color-accent);
+    stroke-width: 2.5px;
+  }
+
+  :root[data-motion='on'] [data-disciplines-converging-wrap]:not([data-arrived]) [data-discipline-node] {
+    opacity: 0;
+    transform: rotate(calc(var(--arrive-sign, 1) * 55deg)) scale(0.4);
+  }
+  :root[data-motion='on'] [data-disciplines-converging-wrap]:not([data-arrived]) [data-discipline-line] {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-discipline-node] {
+      transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: var(--arrive-delay, 0ms);
+    }
+    [data-discipline-line] {
+      transition: opacity 0.5s ease-out;
+      transition-delay: var(--arrive-delay, 0ms);
+    }
+  }
+
+  [data-discipline-card] {
+    position: absolute;
+    z-index: 20;
+    width: min(230px, 68%);
+    padding: 0.875rem 1rem;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.625rem;
+    box-shadow: var(--shadow-md);
+    transform: translate(-50%, -60%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  [data-discipline-card][data-open] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-discipline-card] {
+      transform: translate(-50%, -42%) scale(0.92);
+      transition: opacity 0.2s var(--ease-out-soft), transform 0.2s var(--ease-out-soft);
+    }
+    [data-discipline-card][data-open] {
+      transform: translate(-50%, -62%) scale(1);
+    }
+  }
+  [data-discipline-card-title] {
+    margin: 0 0 0.375rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+  }
+  [data-discipline-card-lead] {
+    margin: 0 0 0.625rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--color-text-secondary);
+  }
+  [data-discipline-card-link] {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  [data-discipline-card-link]:hover,
+  [data-discipline-card-link]:focus-visible {
+    text-decoration: underline;
   }
 
   /* ---------- LegalStructureFigure ----------

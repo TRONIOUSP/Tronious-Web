@@ -1,4 +1,5 @@
 import { cx } from '@/lib/cx'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * A decorative overview of the challenge / approach / metrics structure
@@ -19,11 +20,11 @@ export default function CaseStudyFigure({ className }: { className?: string }) {
     <figure data-case-study-figure="" aria-hidden="true" className={cx(className)}>
       <ol data-case-study-figure-list="">
         {STAGES.map((stage, index) => (
-          <li key={stage.title}>
+          <Reveal as="li" key={stage.title} delay={index * 80}>
             <span data-case-study-figure-num="">{String(index + 1).padStart(2, '0')}</span>
             <span data-case-study-figure-title="">{stage.title}</span>
             <span data-case-study-figure-detail="">{stage.detail}</span>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </figure>

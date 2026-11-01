@@ -3,6 +3,7 @@ import Section from '@/components/ui/Section'
 import SectionHead from '@/components/ui/SectionHead'
 import DataTable from '@/components/ui/DataTable'
 import Ph from '@/components/ui/Ph'
+import Reveal from '@/components/ui/Reveal'
 import RoleMapFigure from '@/components/figures/RoleMapFigure'
 
 export const metadata: Metadata = {
@@ -25,12 +26,14 @@ export default function Careers() {
   return (
     <>
       <Section tone="band" data-doc="WEB-110">
-        <SectionHead
-          as="h1"
-          eyebrow="Careers"
-          title="Build devices that help people recover"
-          lead="We hire people who care about getting the details right."
-        />
+        <Reveal>
+          <SectionHead
+            as="h1"
+            eyebrow="Careers"
+            title="Build devices that help people recover"
+            lead="We hire people who care about getting the details right."
+          />
+        </Reveal>
       </Section>
 
       <Section>
@@ -46,8 +49,8 @@ export default function Careers() {
               </tr>
             </thead>
             <tbody>
-              {ROLES.map((role) => (
-                <tr key={role.title}>
+              {ROLES.map((role, i) => (
+                <Reveal as="tr" key={role.title} delay={i * 80}>
                   <td>
                     <Ph>{role.title}</Ph>
                   </td>
@@ -56,14 +59,16 @@ export default function Careers() {
                     <Ph>{role.city}</Ph>
                   </td>
                   <td>{role.type}</td>
-                </tr>
+                </Reveal>
               ))}
             </tbody>
           </table>
         </DataTable>
-        <p className="mt-6 text-text-secondary">
-          No matching role? Send your CV to <Ph>[careers@company.com]</Ph>.
-        </p>
+        <Reveal>
+          <p className="mt-6 text-text-secondary">
+            No matching role? Send your CV to <Ph>[careers@company.com]</Ph>.
+          </p>
+        </Reveal>
       </Section>
     </>
   )

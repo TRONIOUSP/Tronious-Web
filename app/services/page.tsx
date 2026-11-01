@@ -6,6 +6,7 @@ import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import TickList from '@/components/ui/TickList'
 import ServiceAreaIcon from '@/components/figures/ServiceAreaIcon'
+import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
   title: 'Services | [Company Name]',
@@ -92,53 +93,59 @@ export default function Services() {
   return (
     <>
       <Section tone="band" data-doc="WEB-010">
-        <SectionHead
-          as="h1"
-          eyebrow="Services"
-          title="Every stage, under one quality system"
-          lead="Use us for a single phase or the full journey. Each service runs under our ISO 13485 quality system, so documentation transfers cleanly into your design history file."
-        />
+        <Reveal>
+          <SectionHead
+            as="h1"
+            eyebrow="Services"
+            title="Every stage, under one quality system"
+            lead="Use us for a single phase or the full journey. Each service runs under our ISO 13485 quality system, so documentation transfers cleanly into your design history file."
+          />
+        </Reveal>
       </Section>
 
       <Section>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICE_AREAS.map(({ area, eyebrow, title, ticks, more }) => (
-            <Card key={area} className="flex flex-col gap-4 p-6">
-              <ServiceAreaIcon area={area} className="h-10 w-10 text-text-tertiary" />
-              <span
-                data-eyebrow=""
-                className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
-              >
-                {eyebrow}
-              </span>
-              <h3 className="font-display text-lg font-semibold text-text-primary">{title}</h3>
-              <TickList items={ticks} className="flex-1" />
-              {more ? (
-                <Link href={more.href} data-more-link="">
-                  {more.label}
-                </Link>
-              ) : null}
-            </Card>
+          {SERVICE_AREAS.map(({ area, eyebrow, title, ticks, more }, i) => (
+            <Reveal key={area} delay={i * 50}>
+              <Card className="flex flex-col gap-4 p-6">
+                <ServiceAreaIcon area={area} className="h-10 w-10 text-text-tertiary" />
+                <span
+                  data-eyebrow=""
+                  className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
+                >
+                  {eyebrow}
+                </span>
+                <h3 className="font-display text-lg font-semibold text-text-primary">{title}</h3>
+                <TickList items={ticks} className="flex-1" />
+                {more ? (
+                  <Link href={more.href} data-more-link="">
+                    {more.label}
+                  </Link>
+                ) : null}
+              </Card>
+            </Reveal>
           ))}
         </div>
       </Section>
 
       <Section tone="sunken">
-        <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
-          <SectionHead
-            as="h2"
-            title="Not sure where to start?"
-            lead="Most clients arrive with either a concept, a prototype, or a cleared design that needs a new manufacturer. We'll recommend the right starting point after one call."
-          />
-          <div className="flex flex-wrap gap-3">
-            <Button href="/contact" variant="primary">
-              Book a scoping call
-            </Button>
-            <Button href="/engagement" variant="ghost">
-              Engagement models
-            </Button>
+        <Reveal>
+          <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+            <SectionHead
+              as="h2"
+              title="Not sure where to start?"
+              lead="Most clients arrive with either a concept, a prototype, or a cleared design that needs a new manufacturer. We'll recommend the right starting point after one call."
+            />
+            <div className="flex flex-wrap gap-3">
+              <Button href="/contact" variant="primary">
+                Book a scoping call
+              </Button>
+              <Button href="/engagement" variant="ghost">
+                Engagement models
+              </Button>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </Section>
     </>
   )

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { cx } from '@/lib/cx'
 import Ph from '@/components/ui/Ph'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * The ten-step production flow from the manufacturing page (spec §9.3). This
@@ -60,11 +61,11 @@ const STEPS: { title: string; detail: ReactNode }[] = [
 export default function ProductionFlowFigure({ className }: { className?: string }) {
   return (
     <ol data-production-flow="" className={cx('ui-pflow', className)}>
-      {STEPS.map((step) => (
-        <li key={step.title}>
+      {STEPS.map((step, i) => (
+        <Reveal as="li" key={step.title} delay={i * 40}>
           <b>{step.title}</b>
           <span>{step.detail}</span>
-        </li>
+        </Reveal>
       ))}
     </ol>
   )

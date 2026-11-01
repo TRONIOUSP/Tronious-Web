@@ -1,4 +1,5 @@
 import { cx } from '@/lib/cx'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * A decorative overview of the three in-house equipment categories, placed
@@ -18,10 +19,10 @@ export default function FacilitySchematic({ className }: { className?: string })
     <figure data-facility-schematic="" aria-hidden="true" className={cx(className)}>
       <ol data-facility-schematic-list="">
         {ZONES.map((title, index) => (
-          <li key={title}>
+          <Reveal as="li" key={title} delay={index * 80}>
             <span data-facility-schematic-num="">{String(index + 1).padStart(2, '0')}</span>
             <span data-facility-schematic-title="">{title}</span>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </figure>

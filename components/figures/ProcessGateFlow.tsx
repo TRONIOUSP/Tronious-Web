@@ -1,4 +1,5 @@
 import { cx } from '@/lib/cx'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * A visual overview of the six phase gates, placed near the top of the
@@ -30,11 +31,11 @@ export default function ProcessGateFlow({ className }: { className?: string }) {
     <figure data-gate-flow="" aria-hidden="true" className={cx(className)}>
       <ol data-gate-flow-list="">
         {GATES.map((gate, index) => (
-          <li key={gate.title}>
+          <Reveal as="li" key={gate.title} delay={index * 70}>
             <span data-gate-num="">{String(index + 1).padStart(2, '0')}</span>
             <span data-gate-title="">{gate.title}</span>
             <span data-gate-deliv="">{gate.deliverables}</span>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </figure>

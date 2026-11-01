@@ -3,6 +3,7 @@ import Section from '@/components/ui/Section'
 import SectionHead from '@/components/ui/SectionHead'
 import Card from '@/components/ui/Card'
 import TopicMapFigure from '@/components/figures/TopicMapFigure'
+import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
   title: 'Insights | [Company Name]',
@@ -41,29 +42,33 @@ export default function Insights() {
   return (
     <>
       <Section tone="band" data-doc="WEB-090">
-        <SectionHead
-          as="h1"
-          eyebrow="Insights"
-          title="Guides for device brands"
-          lead="Practical articles that show your expertise and bring in buyers through search. Suggested first articles:"
-        />
+        <Reveal>
+          <SectionHead
+            as="h1"
+            eyebrow="Insights"
+            title="Guides for device brands"
+            lead="Practical articles that show your expertise and bring in buyers through search. Suggested first articles:"
+          />
+        </Reveal>
       </Section>
 
       <Section>
         <TopicMapFigure />
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {TOPICS.map((topic) => (
-            <Card key={topic.title} className="p-6">
-              <span
-                data-eyebrow=""
-                className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
-              >
-                {topic.eyebrow}
-              </span>
-              <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">
-                {topic.title}
-              </h3>
-            </Card>
+          {TOPICS.map((topic, i) => (
+            <Reveal key={topic.title} delay={i * 60}>
+              <Card className="p-6">
+                <span
+                  data-eyebrow=""
+                  className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
+                >
+                  {topic.eyebrow}
+                </span>
+                <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">
+                  {topic.title}
+                </h3>
+              </Card>
+            </Reveal>
           ))}
         </div>
       </Section>

@@ -1,4 +1,5 @@
 import { cx } from '@/lib/cx'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * Per spec §9.3, a policy-structure map is navigational, not illustrative —
@@ -19,14 +20,14 @@ export default function LegalStructureFigure({ className }: { className?: string
     <nav aria-label="Legal sections" data-legal-structure="" className={cx(className)}>
       <ol data-legal-structure-list="">
         {SECTIONS.map(({ href, label }, index) => (
-          <li key={href}>
+          <Reveal as="li" key={href} delay={index * 70}>
             <a href={href} data-legal-structure-link="">
               <span data-legal-structure-index="" aria-hidden="true">
                 {String(index + 1).padStart(2, '0')}
               </span>
               {label}
             </a>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </nav>

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { cx } from '@/lib/cx'
 import Ph from '@/components/ui/Ph'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * A decorative recap of the NDA / scoping / response-window flow already
@@ -27,11 +28,11 @@ export default function RFQFlowFigure({ className }: { className?: string }) {
   return (
     <figure data-rfq-flow="" aria-hidden="true" className={cx(className)}>
       <ol data-rfq-flow-list="">
-        {STAGES.map((stage) => (
-          <li key={stage.title}>
+        {STAGES.map((stage, i) => (
+          <Reveal as="li" key={stage.title} delay={i * 80}>
             <span data-rfq-flow-title="">{stage.title}</span>
             <span data-rfq-flow-detail="">{stage.detail}</span>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </figure>

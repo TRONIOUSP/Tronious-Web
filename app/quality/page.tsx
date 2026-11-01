@@ -5,6 +5,7 @@ import Card from '@/components/ui/Card'
 import DataTable from '@/components/ui/DataTable'
 import Ph from '@/components/ui/Ph'
 import MarketCoverageFigure from '@/components/figures/MarketCoverageFigure'
+import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
   title: 'Quality & Regulatory | [Company Name]',
@@ -34,15 +35,18 @@ export default function Quality() {
   return (
     <>
       <Section tone="band" data-doc="WEB-040">
-        <SectionHead
-          as="h1"
-          eyebrow="Quality & Regulatory"
-          title="Built for audits in three markets"
-          lead="Supplier qualification teams usually start here. Certificates are available on request or in our supplier pack."
-        />
+        <Reveal>
+          <SectionHead
+            as="h1"
+            eyebrow="Quality & Regulatory"
+            title="Built for audits in three markets"
+            lead="Supplier qualification teams usually start here. Certificates are available on request or in our supplier pack."
+          />
+        </Reveal>
       </Section>
 
       <Section>
+        <Reveal>
         <SectionHead title="Certifications & registrations" />
         <DataTable className="mt-8">
           <table>
@@ -92,34 +96,41 @@ export default function Quality() {
             </tbody>
           </table>
         </DataTable>
+        </Reveal>
       </Section>
 
       <Section tone="sunken">
-        <SectionHead title="Regulatory experience by market" />
+        <Reveal>
+          <SectionHead title="Regulatory experience by market" />
+        </Reveal>
         <MarketCoverageFigure className="mt-8" />
         <div className="mt-8 grid gap-6 sm:grid-cols-3">
-          {MARKETS.map((market) => (
-            <Card key={market.eyebrow} className="p-6">
-              <span
-                data-eyebrow=""
-                className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
-              >
-                {market.eyebrow}
-              </span>
-              <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">{market.title}</h3>
-              <p className="mt-2 text-text-secondary">{market.lead}</p>
-            </Card>
+          {MARKETS.map((market, i) => (
+            <Reveal key={market.eyebrow} delay={i * 80}>
+              <Card className="p-6">
+                <span
+                  data-eyebrow=""
+                  className="font-mono text-eyebrow uppercase tracking-[0.12em] text-text-tertiary"
+                >
+                  {market.eyebrow}
+                </span>
+                <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">{market.title}</h3>
+                <p className="mt-2 text-text-secondary">{market.lead}</p>
+              </Card>
+            </Reveal>
           ))}
         </div>
       </Section>
 
       <Section>
-        <SectionHead title="Who holds the clearance?" />
-        <p className="mt-6 max-w-[68ch] text-text-secondary">
-          In most engagements, our client is the legal manufacturer and holds the 510(k), CE
-          certificate and ARTG entry. We prepare the evidence and documentation, and manufacture
-          under our certified quality system. We can discuss other arrangements case by case.
-        </p>
+        <Reveal>
+          <SectionHead title="Who holds the clearance?" />
+          <p className="mt-6 max-w-[68ch] text-text-secondary">
+            In most engagements, our client is the legal manufacturer and holds the 510(k), CE
+            certificate and ARTG entry. We prepare the evidence and documentation, and manufacture
+            under our certified quality system. We can discuss other arrangements case by case.
+          </p>
+        </Reveal>
       </Section>
     </>
   )

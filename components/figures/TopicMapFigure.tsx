@@ -1,4 +1,5 @@
 import { cx } from '@/lib/cx'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * A decorative recap of the six suggested insight topics against the
@@ -24,11 +25,11 @@ export default function TopicMapFigure({ className }: { className?: string }) {
   return (
     <figure data-topic-map="" aria-hidden="true" className={cx(className)}>
       <ul data-topic-map-list="">
-        {TOPICS.map((topic) => (
-          <li key={topic.category}>
+        {TOPICS.map((topic, i) => (
+          <Reveal as="li" key={topic.category} delay={i * 60}>
             <span data-topic-map-category="">{topic.category}</span>
             <span data-topic-map-stage="">{topic.stage}</span>
-          </li>
+          </Reveal>
         ))}
       </ul>
     </figure>

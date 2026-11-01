@@ -1,4 +1,5 @@
 import { cx } from '@/lib/cx'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * A decorative quick-reference strip for the four engagement models, placed
@@ -17,11 +18,11 @@ export default function EngagementModelsFigure({ className }: { className?: stri
   return (
     <figure data-engagement-models="" aria-hidden="true" className={cx(className)}>
       <ol data-engagement-models-list="">
-        {MODELS.map((model) => (
-          <li key={model.letter}>
+        {MODELS.map((model, i) => (
+          <Reveal as="li" key={model.letter} delay={i * 70}>
             <span data-engagement-models-letter="">{`Model ${model.letter}`}</span>
             <span data-engagement-models-title="">{model.title}</span>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </figure>

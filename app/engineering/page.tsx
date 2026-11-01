@@ -7,6 +7,7 @@ import TickList from '@/components/ui/TickList'
 import JumpNav from '@/components/ui/JumpNav'
 import Ph from '@/components/ui/Ph'
 import DisciplineIcon from '@/components/figures/DisciplineIcon'
+import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
   title: 'Engineering | [Company Name]',
@@ -132,29 +133,37 @@ export default function Engineering() {
   return (
     <>
       <Section tone="band" data-doc="WEB-015">
-        <SectionHead
-          as="h1"
-          eyebrow="Engineering"
-          title="Mechanical, electronics, firmware, apps and test systems"
-          lead="Every discipline a connected therapy device needs, in one team, working under one design control process. Each discipline produces documentation that drops straight into your design history file."
-        />
-        <JumpNav links={JUMP_LINKS} className="mt-8" />
+        <Reveal>
+          <SectionHead
+            as="h1"
+            eyebrow="Engineering"
+            title="Mechanical, electronics, firmware, apps and test systems"
+            lead="Every discipline a connected therapy device needs, in one team, working under one design control process. Each discipline produces documentation that drops straight into your design history file."
+          />
+          <JumpNav links={JUMP_LINKS} className="mt-8" />
+        </Reveal>
       </Section>
 
       {DISCIPLINES.map(({ id, discipline, eyebrow, title, lead, ticks, chips }) => (
         <Section key={id} id={id} rule>
           <div data-cap="">
-            <div data-cap-h="">
-              <DisciplineIcon discipline={discipline} className="h-10 w-10 text-text-tertiary" />
-              <SectionHead eyebrow={eyebrow} title={title} lead={lead} />
-            </div>
+            <Reveal>
+              <div data-cap-h="">
+                <DisciplineIcon discipline={discipline} className="h-10 w-10 text-text-tertiary" />
+                <SectionHead eyebrow={eyebrow} title={title} lead={lead} />
+              </div>
+            </Reveal>
             <div data-cap-b="">
-              <h3>What we do</h3>
-              <TickList items={ticks} />
+              <Reveal>
+                <h3>What we do</h3>
+                <TickList items={ticks} />
+              </Reveal>
               <h3>You receive</h3>
               <div className="flex flex-wrap gap-2">
-                {chips.map((chip) => (
-                  <Chip key={chip}>{chip}</Chip>
+                {chips.map((chip, i) => (
+                  <Reveal key={chip} delay={i * 40}>
+                    <Chip>{chip}</Chip>
+                  </Reveal>
                 ))}
               </div>
             </div>
@@ -164,19 +173,23 @@ export default function Engineering() {
 
       <Section tone="sunken">
         <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
-          <SectionHead
-            as="h2"
-            title="See how the disciplines fit together"
-            lead="All six disciplines work through the same phase-gated process and hand over to production through a formal design transfer."
-          />
-          <div className="flex flex-wrap gap-3">
-            <Button href="/process" variant="primary">
-              Development process
-            </Button>
-            <Button href="/manufacturing" variant="ghost">
-              Manufacturing
-            </Button>
-          </div>
+          <Reveal>
+            <SectionHead
+              as="h2"
+              title="See how the disciplines fit together"
+              lead="All six disciplines work through the same phase-gated process and hand over to production through a formal design transfer."
+            />
+          </Reveal>
+          <Reveal>
+            <div className="flex flex-wrap gap-3">
+              <Button href="/process" variant="primary">
+                Development process
+              </Button>
+              <Button href="/manufacturing" variant="ghost">
+                Manufacturing
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </Section>
     </>

@@ -8,6 +8,7 @@ import JumpNav from '@/components/ui/JumpNav'
 import Note from '@/components/ui/Note'
 import Ph from '@/components/ui/Ph'
 import ProductionFlowFigure from '@/components/figures/ProductionFlowFigure'
+import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
   title: 'Manufacturing | [Company Name]',
@@ -113,102 +114,120 @@ export default function Manufacturing() {
   return (
     <>
       <Section tone="band" data-doc="WEB-055">
-        <SectionHead
-          as="h1"
-          eyebrow="Manufacturing"
-          title="From released design to thousands of units a month"
-          lead="A controlled design transfer, then volume production where every unit is tested, traceable and released against a device history record."
-        />
-        <JumpNav links={JUMP_LINKS} className="mt-8" />
+        <Reveal>
+          <SectionHead
+            as="h1"
+            eyebrow="Manufacturing"
+            title="From released design to thousands of units a month"
+            lead="A controlled design transfer, then volume production where every unit is tested, traceable and released against a device history record."
+          />
+          <JumpNav links={JUMP_LINKS} className="mt-8" />
+        </Reveal>
       </Section>
 
       <Section id="m-dt">
-        <SectionHead
-          eyebrow="Stage 1"
-          title="Design transfer"
-          lead="Design transfer turns a verified design into a process that produces the same device every time. Rushing it is the most common cause of production problems and recalls, so we treat it as its own phase with its own gate."
-        />
+        <Reveal>
+          <SectionHead
+            eyebrow="Stage 1"
+            title="Design transfer"
+            lead="Design transfer turns a verified design into a process that produces the same device every time. Rushing it is the most common cause of production problems and recalls, so we treat it as its own phase with its own gate."
+          />
+        </Reveal>
         <ol className="mt-8 grid gap-6">
           {TRANSFER_STEPS.map((step, index) => (
-            <li key={step.title} className="flex gap-4">
-              <span
-                data-numeric=""
-                className="font-mono text-eyebrow text-text-tertiary"
-                aria-hidden="true"
-              >
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <div>
-                <h3 className="font-display text-lg font-semibold text-text-primary">{step.title}</h3>
-                <p className="mt-1 text-text-secondary">{step.detail}</p>
-              </div>
-            </li>
+            <Reveal key={step.title} delay={index * 50}>
+              <li className="flex gap-4">
+                <span
+                  data-numeric=""
+                  className="font-mono text-eyebrow text-text-tertiary"
+                  aria-hidden="true"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-text-primary">{step.title}</h3>
+                  <p className="mt-1 text-text-secondary">{step.detail}</p>
+                </div>
+              </li>
+            </Reveal>
           ))}
         </ol>
-        <Note className="mt-8">
-          Deliverables: device master record, supplier approvals, first article reports, process
-          FMEA, validation protocols and reports, validated test methods, training records and
-          pilot build data.
-        </Note>
+        <Reveal>
+          <Note className="mt-8">
+            Deliverables: device master record, supplier approvals, first article reports, process
+            FMEA, validation protocols and reports, validated test methods, training records and
+            pilot build data.
+          </Note>
+        </Reveal>
       </Section>
 
       <Section id="m-flow" tone="sunken">
-        <SectionHead eyebrow="Stage 2" title="Volume production flow" lead="The route every unit takes through our facility." />
+        <Reveal>
+          <SectionHead eyebrow="Stage 2" title="Volume production flow" lead="The route every unit takes through our facility." />
+        </Reveal>
         <ProductionFlowFigure className="mt-8" />
       </Section>
 
       <Section id="m-qc">
-        <SectionHead eyebrow="Quality controls" title="Built-in quality, every unit" />
+        <Reveal>
+          <SectionHead eyebrow="Quality controls" title="Built-in quality, every unit" />
+        </Reveal>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {QUALITY_CONTROLS.map((item) => (
-            <Card key={item.title} className="p-6">
-              <h3 className="font-display text-lg font-semibold text-text-primary">{item.title}</h3>
-              <p className="mt-2 text-text-secondary">{item.detail}</p>
-            </Card>
+          {QUALITY_CONTROLS.map((item, index) => (
+            <Reveal key={item.title} delay={index * 60}>
+              <Card className="p-6">
+                <h3 className="font-display text-lg font-semibold text-text-primary">{item.title}</h3>
+                <p className="mt-2 text-text-secondary">{item.detail}</p>
+              </Card>
+            </Reveal>
           ))}
         </div>
       </Section>
 
       <Section id="m-scale">
-        <SectionHead eyebrow="Scaling" title="Grow without changing manufacturer" />
-        <DataTable className="mt-8">
-          <table>
-            <thead>
-              <tr>
-                <th>Stage</th>
-                <th>Typical volume</th>
-                <th>Setup</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Pilot</td>
-                <td data-numeric="">
-                  <Ph>[Up to 500 units]</Ph>
-                </td>
-                <td>Flexible cell, engineers on the line, rapid fixes</td>
-              </tr>
-              <tr>
-                <td>Launch</td>
-                <td data-numeric="">
-                  <Ph>[500–5,000 / year]</Ph>
-                </td>
-                <td>Dedicated workstations, validated testers</td>
-              </tr>
-              <tr>
-                <td>Volume</td>
-                <td data-numeric="">
-                  <Ph>[5,000+ / year]</Ph>
-                </td>
-                <td>Dedicated line, automated test, safety stock agreements</td>
-              </tr>
-            </tbody>
-          </table>
-        </DataTable>
-        <p className="mt-4 text-text-secondary">
-          Already in production elsewhere? We also take over manufacturing of cleared devices from
-          other manufacturers. <Link href="/contact">Talk to us about a transfer</Link>.
-        </p>
+        <Reveal>
+          <SectionHead eyebrow="Scaling" title="Grow without changing manufacturer" />
+        </Reveal>
+        <Reveal>
+          <DataTable className="mt-8">
+            <table>
+              <thead>
+                <tr>
+                  <th>Stage</th>
+                  <th>Typical volume</th>
+                  <th>Setup</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pilot</td>
+                  <td data-numeric="">
+                    <Ph>[Up to 500 units]</Ph>
+                  </td>
+                  <td>Flexible cell, engineers on the line, rapid fixes</td>
+                </tr>
+                <tr>
+                  <td>Launch</td>
+                  <td data-numeric="">
+                    <Ph>[500–5,000 / year]</Ph>
+                  </td>
+                  <td>Dedicated workstations, validated testers</td>
+                </tr>
+                <tr>
+                  <td>Volume</td>
+                  <td data-numeric="">
+                    <Ph>[5,000+ / year]</Ph>
+                  </td>
+                  <td>Dedicated line, automated test, safety stock agreements</td>
+                </tr>
+              </tbody>
+            </table>
+          </DataTable>
+          <p className="mt-4 text-text-secondary">
+            Already in production elsewhere? We also take over manufacturing of cleared devices from
+            other manufacturers. <Link href="/contact">Talk to us about a transfer</Link>.
+          </p>
+        </Reveal>
       </Section>
     </>
   )

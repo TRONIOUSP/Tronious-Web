@@ -1,4 +1,5 @@
 import { cx } from '@/lib/cx'
+import Reveal from '@/components/ui/Reveal'
 
 /**
  * A visual summary of the device-family comparison. The full, authoritative
@@ -34,11 +35,11 @@ export default function DeviceComparisonFigure({ className }: { className?: stri
   return (
     <figure data-device-comparison="" aria-hidden="true" className={cx(className)}>
       <ul data-device-comparison-list="">
-        {FAMILIES.map((family) => (
-          <li key={family.name}>
+        {FAMILIES.map((family, i) => (
+          <Reveal as="li" key={family.name} delay={i * 60}>
             <span data-device-comparison-name="">{family.name}</span>
             <span data-device-comparison-standards="">{family.standards.join(' · ')}</span>
-          </li>
+          </Reveal>
         ))}
       </ul>
     </figure>
