@@ -21,132 +21,116 @@ Design system and site specification, derived from `cdmo-site.html` (a single-fi
 
 ## 2. Design tokens
 
-### 2.1 Colour (CSS custom properties on `:root`)
+**2026-11 rewrite.** The site now runs on Tailwind CSS v4. Tokens live in `app/globals.css` as a two-level system: Level 1 is a set of fixed colour ramps declared in `@theme` (so Tailwind generates a utility for every step); Level 2 is a smaller set of semantic aliases that *point at* ramp steps and are *remapped* for dark mode. Because the alias changes rather than the utility, `bg-surface`, `text-text-primary`, `border-border-subtle` and similar classes flip theme automatically — the codebase carries almost no `dark:` variants. Prefer the semantic aliases below over a raw ramp step in page code; reach for a ramp step directly only inside `app/globals.css` itself.
 
-| Token | Light | Dark | Role |
-|---|---|---|---|
-| `--paper` | `#F3F5F7` | `#0E151D` | Page background, input fill |
-| `--sheet` | `#FFFFFF` | `#151F2A` | Sheet/card/header surface |
-| `--ink` | `#14212E` | `#E4EAF1` | Primary text |
-| `--muted` | `#56657A` | `#9AA8B8` | Secondary text, labels |
-| `--rule` | `#D3DAE2` | `#2A3746` | All borders and dividers |
-| `--accent` | `#1F5FBF` | `#6FA3F0` | Links, primary buttons, markers |
-| `--accent-ink` | `#FFFFFF` | `#0B1520` | Text on accent |
-| `--tint` | `#E6EEF9` | `#1A2B40` | Hover, table header, chips, notes |
-| `--soft` | `#EAF0F6` | `#111B26` | Soft section bands |
-| `--ph` / `--ph-bg` | `#9A5B00` / `#FFF2DB` | `#F2B65A` / `#33260F` | Placeholder text / background |
-| `--band` | `#0F2740` | `#08131E` | Dark hero / CTA band |
-| `--band-fg` | `#EAF1F8` | `#EAF1F8` | Text on band |
-| `--band-muted` | `#A9BCD0` | `#8FA3B8` | Secondary text on band |
-| `--band-line` | `#1C3A59` | `#18293B` | Rules on band |
-| `--signal` | `#4FC3E6` | `#5CCBEA` | Highlight/CTA colour on band |
+### 2.1 Colour ramps (Level 1 — fixed, theme-independent)
 
-**Theming:** dark values apply via `@media (prefers-color-scheme: dark)` guarded by `:root:not([data-theme="light"])`, and via explicit `:root[data-theme="dark"]`. `color-scheme: dark` is set in both dark paths. Keep both blocks in sync when editing.
-
-### 2.2 Typography
-
-| Role | Family (fallbacks) | Weights |
+| Ramp | Steps | Anchor |
 |---|---|---|
-| `--display` | IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif | 500, 600, 700 |
-| `--body` | IBM Plex Sans, system UI stack | 400, 500, 600 |
-| `--mono` | IBM Plex Mono, ui-monospace, Menlo, Consolas | 400, 500 |
+| `neutral` (cool slate) | 0, 25, 50, 100, 150, 200, 300, 350, 400, 500, 600, 700, 800, 870, 900, 925, 940, 950 | ink `#14212E` (900), paper `#F3F5F7` (50) |
+| `accent` (blue) | 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 | accent `#1F5FBF` (500) |
+| `signal` (cyan) | 300, 400, 500, 600 | highlight colour on dark bands, `#4FC3E6` (500) |
+| `band` (deep navy) | `deep` `#08131E`, `base` `#0F2740`, `raised` `#17406B`, `rule` `#1C3A59` | dark section surfaces |
+| `amber` | `fg`/`bg` light `#9A5B00`/`#FFF2DB`, `fg`/`bg` dark `#F2B65A`/`#33260F` | placeholder annotation only |
 
-Loaded from Google Fonts (`display=swap`).
+### 2.2 Semantic aliases (Level 2 — remapped per theme)
 
-| Element | Size | Weight | Notes |
-|---|---|---|---|
-| Body | 16px / 1.6 | 400 | |
-| `h1` | `clamp(2rem, 5vw, 3.25rem)` | 700 | letter-spacing −.01em; home hero: `clamp(2.2rem, 5.2vw, 3.6rem)` |
-| `h2` | `clamp(1.5rem, 3vw, 2rem)` | 600 | |
-| `h3` | 1.2rem | 600 | |
-| Headings | line-height 1.15, `text-wrap: balance`, display face | | |
-| `.lead` | 1.15rem | 400 | `--muted` |
-| `.eyebrow` | .75rem mono, uppercase, .08em tracking | | `--muted` (accent inside cells, `--signal` in band) |
-| Paragraph measure | `max-width: 65ch` | | |
-| Table `th` | .75rem mono, uppercase, .06em | 500 | |
-| Numbers | mono / display with `tabular-nums` | | stats, table `.num` cells |
+`surface`, `surface-raised`, `surface-sunken`, `surface-inverse`; `text-primary`, `text-secondary`, `text-tertiary`, `text-inverse`, `text-on-accent`; `border-subtle`, `border-default`, `border-strong`; `accent`, `accent-hover`, `accent-subtle`; `signal`; `placeholder-fg`, `placeholder-bg`; `band-surface`, `band-edge`.
 
-### 2.3 Spacing, radius, layout
+**Theming mechanism:** aliases are remapped in two places, kept in sync — inside `@media (prefers-color-scheme: dark)` guarded by `:root:not([data-theme="light"])`, and again under an explicit `:root[data-theme="dark"]` with identical values. `color-scheme: dark` is set in both dark paths. An inline script in `app/layout.tsx` sets `data-theme` before first paint to avoid a flash; `ThemeToggle` (§3) cycles `system → light → dark` and persists the choice via `lib/theme.ts`. `app/globals.test.ts` asserts the two dark blocks never drift apart.
 
-- Container `.wrap`: max-width **1120px**, side padding `max(16px, env(safe-area-inset-*))`.
-- Sheet section padding: `clamp(20px, 4vw, 48px)`; section grid gap 20px.
-- Common gaps: 4 / 8 / 10 / 12 / 14 / 16 / 18 / 20 / 24 / 32px.
-- Radius: **2px** (sheet, badges, chips), **3px** (inputs), **4px** (buttons, nav links), **50%** (logo mark, flow dots).
-- Borders: always 1px `--rule`; emphasis rule is 2px `--ink` (stats top border) or 3px `--accent` (quote, note left border).
-- Hero grid texture: 32×32px lines of `--rule`.
-- Shadows: none. Depth comes from borders, tint, and 2px hover lift.
+**Section tones are semantic roles, not fixed colours** (`components/ui/Section.tsx`'s `tone` prop: `default` | `sunken` | `band` | `accent`) — each resolves differently per theme so rhythm survives dark mode: `sunken` *recedes* in light (toward `neutral-50`) but *rises* in dark (toward `neutral-900`, lighter than the page), since there's nowhere darker to recede to there. `band` stays dramatic-dark in light and gains a lit `signal`-coloured top edge in dark, where it would otherwise read as just another surface step.
 
-### 2.4 Breakpoints
+### 2.3 Typography
 
-| Breakpoint | Change |
-|---|---|
-| ≤1100px | Header nav collapses to a "Menu" button; stacked list |
-| ≤820px | `.cap` sections stack; sticky heading becomes static |
-| ≤760px | `.flow` becomes a vertical timeline; `.capgrid` single column |
-| ≤700px | `.stats` 4→2 columns |
-| ≤600px | Title block 4→2 columns |
+Three IBM Plex families, loaded via `next/font/google` in `app/layout.tsx` and exposed as CSS variables (`--ff-body`, `--ff-display`, `--ff-mono`), mapped onto Tailwind's font utilities:
 
-Most grids use `repeat(auto-fit, minmax(min(100%, Npx), 1fr))` (N = 190–320) rather than fixed breakpoints.
+| Role | Family (fallbacks) | Utility |
+|---|---|---|
+| `--font-sans` | IBM Plex Sans, system UI stack | `font-sans` (body default) |
+| `--font-display` | IBM Plex Sans Condensed, Arial Narrow, Arial | `font-display` (headings) |
+| `--font-mono` | IBM Plex Mono, ui-monospace, Menlo, Consolas | `font-mono` (eyebrows, doc IDs, figures) |
+
+A fluid `clamp()`-based scale, declared in `@theme` and consumed as Tailwind text-size utilities:
+
+| Token | Utility | Value |
+|---|---|---|
+| `--text-hero` | `text-hero` | `clamp(2.75rem, 1.5rem + 5.2vw, 5rem)` |
+| `--text-h1` | `text-h1` | `clamp(2.25rem, 1.4rem + 3.6vw, 3.75rem)` |
+| `--text-h2` | `text-h2` | `clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem)` |
+| `--text-h3` | `text-h3` | `clamp(1.125rem, 1rem + 0.5vw, 1.375rem)` |
+| `--text-lead` | `text-lead` | `clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)` |
+| `--text-body` | `text-body` | `clamp(1rem, 0.98rem + 0.08vw, 1.0625rem)` |
+| `--text-eyebrow` | `text-eyebrow` | `0.75rem` |
+
+Rules: `text-wrap: balance` on headings, `text-wrap: pretty` on paragraphs, measure capped near 68ch for prose, tabular numerals on statistics and table numerics.
+
+### 2.4 Elevation
+
+Shadows were banned in the original drawing-sheet design; the ban is lifted but depth stays disciplined — three steps declared in `@theme`: `--shadow-sm` (resting cards), `--shadow-md` (hover, sticky header once scrolled), `--shadow-lg` (drawer, elevated overlays). Dark mode pairs a reduced shadow with a lighter border/raised surface step rather than relying on shadow alone, since shadows read poorly on dark surfaces.
+
+### 2.5 Layout
+
+| Token | Value | Use |
+|---|---|---|
+| `--container-page` | 80rem (1280px) | default content width (`Container`'s `default` width) |
+| `--container-narrow` | 60rem | prose-dense pages (`Container`'s `narrow` width) |
+| `--container-wide` | 90rem | `Container`'s `wide` width |
+| `--spacing-section` | `clamp(4rem, 2rem + 7vw, 8rem)` | block padding on every `Section` (`py-section`) |
+| `--spacing-gutter` | `clamp(1.25rem, 5vw, 4rem)` | side padding, folds in `env(safe-area-inset-*)` |
+| `--breakpoint-3xl` | 120rem | extra tier so very wide screens don't look empty |
+
+Sections are full-bleed — the background spans edge to edge; `Container` (inside `Section`, or used standalone) holds content to the width above, centred, with the fluid gutter. There is no bordered "sheet" card any more (see §3).
+
+### 2.6 Motion
+
+`--ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1)`, durations 150–400ms. Every animated effect is disabled under `prefers-reduced-motion: reduce` — content renders in its final state immediately, never hidden; `Reveal` (§3) checks the media query in JavaScript as well as CSS so a broken script or missing `IntersectionObserver` can never leave content invisible.
+
+### 2.7 Breakpoints
+
+Tailwind defaults (`sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px) plus `3xl` at 1920px. The header's nav collapses to a drawer below `lg` (960px cutover for the drawer itself, see `components/Header.tsx`). Prefer intrinsic responsiveness — `auto-fit`/`minmax()` grids and the tiers above — over one-off breakpoints.
 
 ---
 
 ## 3. Components
 
+Pages compose from a small shared primitive layer rather than hand-rolled markup. Server components by default; a component is a client component (`'use client'`) only where interaction genuinely requires it.
+
+### Layout primitives — `components/ui/`
+- **`Container`** — holds content to a readable measure (`width`: `default` | `narrow` | `wide`, §2.5) inside a full-bleed section; renders as any element via `as`.
+- **`Section`** — full-bleed wrapper (`tone`, §2.2; `rule` for an optional top hairline; `width`/`contain` pass through to `Container`; `id` for anchor targets; forwards an optional `data-doc="WEB-0XX"` document identifier to the DOM).
+- **`SectionHead`** — optional `eyebrow`, required `title`, optional `lead`; renders correctly with no eyebrow (most non-home pages have none — inventing one would be new visible copy, which this project doesn't add).
+
+### Content primitives
+- **`Button`** — `variant`: `primary` | `ghost` | `subtle`; `size`: `md` | `lg`; renders a `next/link` `Link` when given `href`, a `<button>` otherwise. No `onDark` variant — a `Section`'s tone already re-points the colour aliases for its subtree.
+- **`Card`** — generic container (`as`, `interactive` gates hover elevation — a non-interactive card never promises a click it doesn't support).
+- **`Badge`** — outlined, mono, audit-like; for certifications and standards.
+- **`Chip`** — filled, softer than `Badge`; for deliverables.
+- **`Stat`** — a numeric value (sized for 2–4 digits plus a unit, so real figures drop in without reflow) plus a label.
+- **`Quote`** — display-weight pull-quote with optional attribution.
+- **`Note`** — advisory callout; visibility is the `hidden` attribute (not a class), so it holds even before CSS loads and stays readable to assistive tech — `ContactForm`'s submit-reveal behaviour depends on exactly this.
+- **`TickList`** — bulleted list from a `ReactNode[]`, for static page copy.
+- **`Ph`** — placeholder annotation (mono, muted amber, dotted underline, small marker glyph); a single launch flag (`lib/placeholders.ts`) silences the marking and the Footer's legend sentence together.
+- **`DataTable`** — wraps a page-authored `<table>` in a horizontal-scroll container, so a wide table scrolls within its own box and never the page.
+- **`JumpNav`** — a labelled in-page anchor nav; its link targets get `scroll-margin-top` matching the sticky header's height so a clicked anchor never lands under it.
+
+### Interactive (client) primitives
+- **`Reveal`** — fades/lifts children into view once, on `IntersectionObserver`; fails open (content simply renders) under reduced motion, a missing observer, or disabled JS — never fails closed.
+- **`ThemeToggle`** — a three-state `system → light → dark` cycle (not a binary switch, so a visitor can return to following the OS), persisted via `lib/theme.ts`; current state rides in the accessible name rather than `aria-pressed`, which ARIA defines as binary.
+
+### Figures — `components/figures/`
+One bespoke inline SVG (or, for the one page where a diagram would be meaningless, a plain typographic index — see `LegalStructureFigure`) per page, drawn from content already on that page. No photography, no invented specificity: a figure never shows a number, count, duration or measurement that isn't already real page copy. Decorative figures are `aria-hidden="true"`; the rare figure that is the page's only rendering of some content (e.g. `ProductionFlowFigure`) is not. Figures theme automatically via `currentColor` or the semantic aliases in §2.2.
+
 ### Global chrome
-- **Header** — sticky, `--sheet` background, bottom rule. A fixed `body::before` strip fills the iOS safe-area inset. Contains brand, Menu button, nav.
-- **Brand** — display 1.25rem/700 + `.mark`: 26px circle outlined in accent with two horizontal accent bars inside.
-- **Nav** — inline list, links .9rem `--muted`, hover → `--tint` + `--ink`. Current page: `--accent`, 600. CTA link ("Start a Project") is a filled accent pill.
-- **Footer** — 4-column auto-fit grid (brand blurb, Company, Work with us, Legal), muted links, plus a placeholder legend line.
-
-### Sheet / page
-- `.page` = white bordered article (1px rule, 2px radius). Direct `<section>` children are padded, separated by rules, `display: grid`.
-- **Title block** (appended by JS): 4-cell mono strip — *Doc no.*, *Sheet* (H1 truncated to 32 chars + …), *Rev* (`A · Draft`), *Status* (`Content placeholders`). Cells separated by 1px rules; 2×2 on mobile.
-- Page-in animation: 6px upward fade-slide, .25s, only when motion is allowed.
-
-### Buttons
-`.btn` — 10×18px padding, 4px radius, 600 weight, 1px accent border.
-- `primary`: accent fill. `ghost`: accent text, transparent.
-- On band: `hx-primary` (signal fill, band text, brightness 1.08 on hover) and `hx-ghost` (band-fg text, band-muted border → band-fg on hover).
-
-### Hero (home) — `.hx`
-Dark band section; eyebrow in signal, H1 with a `.hx-hl` span in signal, muted lead, two buttons, and a `.hx-markets` footer list (US / EU / AU regulatory markers in mono with top rule). Content width capped at 820px. Includes unused CSS for an animated SVG "inflating chambers" figure (`.hx-fig`, `.ch`, `.sv-*`, keyframes `inflate`, `readout`, `flow`) — the markup is not currently on the page.
-Closing CTA reuses the same band (`.hx.hx-end`).
-
-### Cards & grids
-- `.grid` — auto-fit, min 260px, 16px gap. `.cell` — 1px border, 18px padding, grid with 8px gap, optional accent eyebrow and `.more` link.
-- `.fam` / `.fam-card` — device-family tiles (min 190px) with a 44px line icon (2px accent stroke, round caps), h3, muted description. Hover: accent border + 2px lift.
-- `.capgrid` — 3-column joined-border grid of linked capabilities (bold display title + muted descriptor); hover → `--tint`.
-- `.case` — case-study card: header, challenge/approach body, and a 3-cell `dl` metric strip (mono uppercase `dt`, display 1.3rem `dd`).
-
-### Badges, chips, ticks
-- `.badge` — mono .78rem, 1px `--ink` border, 2px radius (certifications).
-- `.chips span` — .82rem on `--tint`, 2px radius (deliverables).
-- `ul.ticks` — bulleted list with accent markers, 4px gap.
-- `.jump` — in-page anchor pills (mono, 1px rule, accent on hover).
-
-### Process visuals
-- `.flow` — 5-step horizontal timeline: 2px rule, 14px accent-ringed dot, display step name. Vertical on mobile.
-- `.steps` — ordered rows with a mono marker column (64px): `G1…G6` gate labels by default; `.steps.num` uses `01, 02…`. Rows separated by top rule. Supporting classes: `.dur` (mono accent duration), `.deliv` (mono muted gate deliverables).
-- `.pflow` — auto-fit boxed steps (min 200px) with mono `01 →` prefix, used for the 10-step production flow.
-
-### Capability sections — `.cap`
-Two-column (1fr / 1.6fr). Left `.cap-h` is sticky (top 90px) on desktop: eyebrow, h2, muted summary. Right `.cap-b`: mono uppercase h3 labels ("What we do", "You receive"), tick list, chips. `scroll-margin-top: 90px` for anchored jumps.
-
-### Data & statements
-- **Table** — wrapped in `.tablewrap` (horizontal scroll, min-width 560px); `th` in tint with mono caps; `td.num` mono tabular.
-- **Stats** — 4-up under a 2px ink rule; display numeral `clamp(1.8rem, 4vw, 2.6rem)` + muted label.
-- **Quote** — 3px accent left border, display `clamp(1.2rem, 2.4vw, 1.6rem)`, footer attribution.
-- **Note** — accent left border, `--tint` background, .92rem (disclaimers, deliverables, banner messages).
-- **Placeholder** `.ph` — mono, `--ph` on `--ph-bg`, nowrap. Used for every unfinished fact (`[XX]`, `[Date]`, `[Company Name]`).
-
-### Forms
-Single column, max-width 720px; two-up rows via `.row2` (min 240px). Labels wrap their control (.88rem/500). Inputs: inherit font, 9×10px padding, 1px rule, 3px radius, `--paper` fill. Fieldset with checkboxes for target markets. Textarea min-height 110px, vertical resize. Submit shows `#formMsg` (note) — preview behaviour only.
+- **`Header`** (`components/Header.tsx`) — sticky, frosted/blurred background that gains elevation past ~8px of scroll; single nav list that reflows between a horizontal bar (`lg`+) and a slide-in drawer (below `lg`) — never both in the DOM at once; `ThemeToggle`; CTA link styled distinctly from the rest of the nav.
+- **`Footer`** (`components/Footer.tsx`) — responsive multi-column link grid plus a bottom bar (copyright), full-bleed container matching the header's width (§2.5), not the old fixed 1120px wrap.
+- **`ContactForm`** (`components/ContactForm.tsx`) — the one form on the site; preview-only submit behaviour (reveals a `Note` on submit, no real endpoint yet).
 
 ### States & accessibility
-- `:focus-visible`: 2px accent outline, 2px offset, everywhere.
-- Nav button exposes `aria-expanded` / `aria-controls`; current page uses `aria-current="page"`; decorative SVG and logo mark are `aria-hidden`; markets list and nav carry `aria-label`.
-- Motion: all animation is gated by `prefers-reduced-motion: no-preference`.
-- Text colours meet contrast on their surfaces in both themes (verify again if tokens change).
+- `:focus-visible` — accent outline, offset, everywhere (`app/globals.css` base layer).
+- The drawer toggle exposes `aria-expanded`/`aria-controls`; current nav item uses `aria-current="page"`; decorative SVG is `aria-hidden`.
+- All motion is gated by `prefers-reduced-motion: reduce`, checked in both CSS and JavaScript (§2.6).
+- Semantic colour aliases (§2.2) are the mechanism that keeps text-on-surface contrast correct in both themes — re-verify if a token's underlying ramp step changes.
 
 ---
 

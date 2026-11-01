@@ -124,7 +124,8 @@ describe('globals.css token foundation', () => {
     }
   })
 
-  it('keeps the legacy layer so pages not yet rebuilt stay styled', () => {
-    expect(CSS).toContain('@layer legacy')
+  it('has removed the legacy layer now that every page has migrated off it', () => {
+    expect(CSS).not.toContain('@layer legacy')
+    expect(CSS).not.toMatch(/@layer\s+theme,\s*base,\s*legacy/)
   })
 })
