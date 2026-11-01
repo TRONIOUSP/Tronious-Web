@@ -1969,4 +1969,107 @@
     font-size: 0.78rem;
     color: var(--color-text-tertiary);
   }
+
+  /* ---------- Sticky capability layout ----------
+     Engineering's six discipline sections (and similar paired layouts) use a
+     sticky heading column beside a scrolling body column. Keyed off a
+     data-attribute, not a Tailwind-only composition, because the same
+     structural pattern repeats across 6+ sections per page. The breakpoint and
+     scroll-margin mirror [data-jump-nav] and [data-header-bar]'s own ≥960px
+     cutover and 68px header height, so a jumped-to anchor's sticky heading
+     still clears the header. */
+  #e-mech,
+  #e-pcb,
+  #e-fw,
+  #e-app,
+  #e-wear,
+  #e-test,
+  #m-dt,
+  #m-flow,
+  #m-qc,
+  #m-scale {
+    scroll-margin-top: 64px;
+  }
+  [data-cap] {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+  [data-cap-h] {
+    display: grid;
+    gap: 0.75rem;
+  }
+  [data-cap-b] {
+    display: grid;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  [data-cap-b] h3 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+  }
+  [data-cap-b] h3:not(:first-child) {
+    margin-top: 0.5rem;
+  }
+  @media (min-width: 960px) {
+    #e-mech,
+    #e-pcb,
+    #e-fw,
+    #e-app,
+    #e-wear,
+    #e-test,
+    #m-dt,
+    #m-flow,
+    #m-qc,
+    #m-scale {
+      scroll-margin-top: 68px;
+    }
+    [data-cap] {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    }
+    [data-cap-h] {
+      position: sticky;
+      top: 88px;
+    }
+  }
+
+  /* ---------- ProductionFlowFigure ----------
+     The ten-step manufacturing flow, rendered as a counted card grid. */
+  [data-production-flow] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.625rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    counter-reset: pflow;
+  }
+  [data-production-flow] li {
+    counter-increment: pflow;
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.875rem 1rem;
+    display: grid;
+    gap: 0.25rem;
+    align-content: start;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
+  [data-production-flow] li::before {
+    content: counter(pflow, decimal-leading-zero) ' \2192';
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+  }
+  [data-production-flow] b {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-text-primary);
+  }
 }
