@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react'
+'use client'
+
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { cx } from '@/lib/cx'
 import Ph from '@/components/ui/Ph'
-import Reveal from '@/components/ui/Reveal'
 
 /**
  * The ten-step production flow from the manufacturing page (spec §9.3). This
@@ -59,14 +60,82 @@ const STEPS: { title: string; detail: ReactNode }[] = [
 ]
 
 export default function ProductionFlowFigure({ className }: { className?: string }) {
+  const [activeStep, setActiveStep] = useState(0)
+  const tabsRef = useRef<Array<HTMLButtonElement | null>>([])
+
+  useEffect(() => {
+    const tab = tabsRef.current[activeStep]
+    if (typeof tab?.scrollIntoView !== 'function') return
+    tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
+  }, [activeStep])
+
+  function selectStep(index: number, focus = false) {
+    const next = (index + STEPS.length) % STEPS.length
+    setActiveStep(next)
+    if (focus) tabsRef.current[next]?.focus()
+  }
+
+  function onTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      event.preventDefault()
+      selectStep(index + 1, true)
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      event.preventDefault()
+      selectStep(index - 1, true)
+    } else if (event.key === 'Home') {
+      event.preventDefault()
+      selectStep(0, true)
+    } else if (event.key === 'End') {
+      event.preventDefault()
+      selectStep(STEPS.length - 1, true)
+    }
+  }
+
+  const active = STEPS[activeStep]
+
   return (
-    <ol data-production-flow="" className={cx('ui-pflow', className)}>
-      {STEPS.map((step, i) => (
-        <Reveal as="li" key={step.title} delay={i * 40}>
-          <b>{step.title}</b>
-          <span>{step.detail}</span>
-        </Reveal>
-      ))}
-    </ol>
+    <div data-production-flow="" className={cx('ui-pflow', className)}>
+      <div data-production-track="" role="tablist" aria-label="Production flow stages">
+        {STEPS.map((step, index) => (
+          <button
+            ref={(element) => { tabsRef.current[index] = element }}
+            key={step.title}
+            id={`production-tab-${index}`}
+            type="button"
+            role="tab"
+            aria-selected={index === activeStep}
+            aria-controls="production-panel"
+            tabIndex={index === activeStep ? 0 : -1}
+            onClick={() => selectStep(index)}
+            onKeyDown={(event) => onTabKeyDown(event, index)}
+          >
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{step.title}</strong>
+          </button>
+        ))}
+      </div>
+
+      <div data-production-detail="">
+        <div
+          id="production-panel"
+          role="tabpanel"
+          aria-labelledby={`production-tab-${activeStep}`}
+          tabIndex={0}
+        >
+          <span data-production-label="">Station {String(activeStep + 1).padStart(2, '0')}</span>
+          <h3>{active.title}</h3>
+          <p>{active.detail}</p>
+        </div>
+        <div data-production-controls="">
+          <button type="button" onClick={() => selectStep(activeStep - 1)} aria-label="Previous production stage">
+            <span aria-hidden="true">←</span>
+          </button>
+          <span aria-hidden="true">{String(activeStep + 1).padStart(2, '0')} / {STEPS.length}</span>
+          <button type="button" onClick={() => selectStep(activeStep + 1)} aria-label="Next production stage">
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

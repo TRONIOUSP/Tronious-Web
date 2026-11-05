@@ -64,6 +64,25 @@ test('service cards align to equal heights within each desktop row', async ({ pa
   expect(new Set(heights.slice(3, 6).map(Math.round)).size).toBe(1)
 })
 
+test('manufacturing page explorers work responsively', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto('/manufacturing')
+
+  await page.getByRole('tab', { name: /Device master record/ }).click()
+  await expect(page.locator('#transfer-panel')).toContainText('full production recipe')
+
+  await page.getByRole('button', { name: 'Next production stage' }).click()
+  await expect(page.locator('#production-panel')).toContainText('Parts issued to work orders')
+
+  for (const width of [360, 768, 1280]) {
+    await page.setViewportSize({ width, height: 900 })
+    const hasNoPageOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
+    )
+    expect(hasNoPageOverflow).toBe(true)
+  }
+})
+
 // 120 screenshots: 15 routes × 4 widths × 2 themes
 for (const route of ROUTES) {
   for (const theme of THEMES) {

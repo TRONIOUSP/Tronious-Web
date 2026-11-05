@@ -79,16 +79,34 @@ describe('DisciplineIcon', () => {
 describe('ProductionFlowFigure', () => {
   it('renders all ten production flow step labels', () => {
     render(<ProductionFlowFigure />)
-    expect(screen.getByText('Incoming inspection')).toBeInTheDocument()
-    expect(screen.getByText('Kitting')).toBeInTheDocument()
-    expect(screen.getByText('PCB assembly')).toBeInTheDocument()
-    expect(screen.getByText('Sub-assembly')).toBeInTheDocument()
-    expect(screen.getByText('Final assembly')).toBeInTheDocument()
-    expect(screen.getByText('End-of-line test')).toBeInTheDocument()
-    expect(screen.getByText('Burn-in')).toBeInTheDocument()
-    expect(screen.getByText('Labeling & packaging')).toBeInTheDocument()
-    expect(screen.getByText('Final QC & release')).toBeInTheDocument()
-    expect(screen.getByText('Shipping')).toBeInTheDocument()
+    const names = [
+      'Incoming inspection',
+      'Kitting',
+      'PCB assembly',
+      'Sub-assembly',
+      'Final assembly',
+      'End-of-line test',
+      'Burn-in',
+      'Labeling & packaging',
+      'Final QC & release',
+      'Shipping',
+    ]
+
+    for (const name of names) {
+      expect(screen.getByRole('tab', { name: new RegExp(name) })).toBeInTheDocument()
+    }
+  })
+
+  it('selects production stages with the controls', () => {
+    render(<ProductionFlowFigure />)
+
+    expect(screen.getByRole('tab', { name: /Incoming inspection/ })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Next production stage' }))
+    expect(screen.getByRole('tab', { name: /Kitting/ })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Parts issued to work orders')
   })
 })
 

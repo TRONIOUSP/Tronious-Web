@@ -1,16 +1,15 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import manufacturingImage from '@/public/images/precision-assembly.png'
+import ManufacturingTransfer from '@/components/ManufacturingTransfer'
+import ProductionFlowFigure from '@/components/figures/ProductionFlowFigure'
+import Button from '@/components/ui/Button'
+import Card from '@/components/ui/Card'
+import JumpNav from '@/components/ui/JumpNav'
+import MediaPanel from '@/components/ui/MediaPanel'
+import Ph from '@/components/ui/Ph'
+import Reveal from '@/components/ui/Reveal'
 import Section from '@/components/ui/Section'
 import SectionHead from '@/components/ui/SectionHead'
-import Card from '@/components/ui/Card'
-import DataTable from '@/components/ui/DataTable'
-import JumpNav from '@/components/ui/JumpNav'
-import Note from '@/components/ui/Note'
-import Ph from '@/components/ui/Ph'
-import ProductionFlowFigure from '@/components/figures/ProductionFlowFigure'
-import Reveal from '@/components/ui/Reveal'
-import MediaPanel from '@/components/ui/MediaPanel'
 
 export const metadata: Metadata = {
   title: 'Manufacturing | TRONIOUS',
@@ -23,56 +22,6 @@ const JUMP_LINKS = [
   { href: '#m-flow', label: 'Production flow' },
   { href: '#m-qc', label: 'Quality controls' },
   { href: '#m-scale', label: 'Scaling' },
-]
-
-const TRANSFER_STEPS = [
-  {
-    title: 'Production readiness review',
-    detail:
-      'Engineering, quality and production confirm the design is complete, verified and manufacturable. Open design issues are closed or formally accepted.',
-  },
-  {
-    title: 'Device master record',
-    detail:
-      'We compile the full production recipe: drawings, BOM, specifications, work instructions, test procedures, labeling and packaging.',
-  },
-  {
-    title: 'Supplier qualification',
-    detail:
-      'Critical suppliers are audited and approved. First article inspection confirms every new part matches its drawing.',
-  },
-  {
-    title: 'Process risk analysis',
-    detail: 'A process FMEA identifies where assembly could go wrong and defines the controls that prevent it.',
-  },
-  {
-    title: 'Process validation',
-    detail: (
-      <>
-        Processes whose results can&apos;t be fully checked afterwards (RF welding, soldering,
-        adhesive bonding, ultrasonic welding) are validated through installation, operational and
-        performance qualification (IQ / OQ / PQ).
-      </>
-    ),
-  },
-  {
-    title: 'Test method validation',
-    detail: 'Production testers and fixtures are validated, so a pass truly means the unit is good.',
-  },
-  {
-    title: 'Training and pilot builds',
-    detail: (
-      <>
-        Operators are trained on the work instructions. We build <Ph>[2–3]</Ph> pilot lots,
-        inspect them fully and fix any issues found.
-      </>
-    ),
-  },
-  {
-    title: 'Transfer sign-off',
-    detail:
-      'You and our quality team approve the transfer. The design is released to production under formal change control.',
-  },
 ]
 
 const QUALITY_CONTROLS = [
@@ -112,6 +61,24 @@ const QUALITY_CONTROLS = [
   },
 ]
 
+const SCALE_STAGES = [
+  {
+    title: 'Pilot',
+    volume: <Ph>[Up to 500 units]</Ph>,
+    setup: 'Flexible cell, engineers on the line, rapid fixes',
+  },
+  {
+    title: 'Launch',
+    volume: <Ph>[500–5,000 / year]</Ph>,
+    setup: 'Dedicated workstations, validated testers',
+  },
+  {
+    title: 'Volume',
+    volume: <Ph>[5,000+ / year]</Ph>,
+    setup: 'Dedicated line, automated test, safety stock agreements',
+  },
+]
+
 export default function Manufacturing() {
   return (
     <>
@@ -139,107 +106,96 @@ export default function Manufacturing() {
       </Section>
 
       <Section id="m-dt">
+        <div data-manufacturing-intro="">
+          <Reveal>
+            <SectionHead
+              eyebrow="Stage 1"
+              title="Design transfer"
+              lead="Design transfer turns a verified design into a process that produces the same device every time. Rushing it is the most common cause of production problems and recalls, so we treat it as its own phase with its own gate."
+            />
+          </Reveal>
+          <Reveal delay={80}>
+            <div data-manufacturing-deliverables="">
+              <span>Transfer output</span>
+              <p>
+                Device master record, supplier approvals, first article reports, process FMEA,
+                validation protocols and reports, validated test methods, training records and pilot
+                build data.
+              </p>
+            </div>
+          </Reveal>
+        </div>
         <Reveal>
-          <SectionHead
-            eyebrow="Stage 1"
-            title="Design transfer"
-            lead="Design transfer turns a verified design into a process that produces the same device every time. Rushing it is the most common cause of production problems and recalls, so we treat it as its own phase with its own gate."
-          />
-        </Reveal>
-        <ol className="mt-8 grid gap-6">
-          {TRANSFER_STEPS.map((step, index) => (
-            <Reveal key={step.title} delay={index * 50}>
-              <li className="flex gap-4">
-                <span
-                  data-numeric=""
-                  className="font-mono text-eyebrow text-text-tertiary"
-                  aria-hidden="true"
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <h3 className="font-display text-lg font-semibold text-text-primary">{step.title}</h3>
-                  <p className="mt-1 text-text-secondary">{step.detail}</p>
-                </div>
-              </li>
-            </Reveal>
-          ))}
-        </ol>
-        <Reveal>
-          <Note className="mt-8">
-            Deliverables: device master record, supplier approvals, first article reports, process
-            FMEA, validation protocols and reports, validated test methods, training records and
-            pilot build data.
-          </Note>
+          <ManufacturingTransfer />
         </Reveal>
       </Section>
 
       <Section id="m-flow" tone="sunken">
         <Reveal>
-          <SectionHead eyebrow="Stage 2" title="Volume production flow" lead="The route every unit takes through our facility." />
+          <SectionHead
+            eyebrow="Stage 2"
+            title="Volume production flow"
+            lead="Explore the route every unit takes through our facility, from incoming inspection to shipment."
+          />
         </Reveal>
-        <ProductionFlowFigure className="mt-8" />
+        <Reveal>
+          <ProductionFlowFigure className="mt-8" />
+        </Reveal>
       </Section>
 
       <Section id="m-qc">
         <Reveal>
-          <SectionHead eyebrow="Quality controls" title="Built-in quality, every unit" />
+          <SectionHead
+            eyebrow="Quality controls"
+            title="Built-in quality, every unit"
+            lead="Each control creates an inspectable record, so production history stays connected from component receipt through field support."
+          />
         </Reveal>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {QUALITY_CONTROLS.map((item, index) => (
-            <Reveal key={item.title} delay={index * 60}>
-              <Card className="p-6">
+            <Reveal key={item.title} delay={index * 60} className="h-full">
+              <Card className="flex h-full flex-col p-6">
+                <div data-control-card-head="">
+                  <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  <span>Controlled</span>
+                </div>
                 <h3 className="font-display text-lg font-semibold text-text-primary">{item.title}</h3>
-                <p className="mt-2 text-text-secondary">{item.detail}</p>
+                <p className="mt-2 flex-1 text-text-secondary">{item.detail}</p>
               </Card>
             </Reveal>
           ))}
         </div>
       </Section>
 
-      <Section id="m-scale">
+      <Section id="m-scale" tone="sunken">
         <Reveal>
-          <SectionHead eyebrow="Scaling" title="Grow without changing manufacturer" />
+          <SectionHead
+            eyebrow="Scaling"
+            title="Grow without changing manufacturer"
+            lead="The production setup evolves with demand while the controlled record, test strategy and quality oversight stay connected."
+          />
         </Reveal>
+        <ol data-scaling-path="">
+          {SCALE_STAGES.map((stage, index) => (
+            <Reveal as="li" key={stage.title} delay={index * 80}>
+              <span data-scaling-number="">{String(index + 1).padStart(2, '0')}</span>
+              <Card className="h-full p-6">
+                <h3>{stage.title}</h3>
+                <span data-scaling-label="">Typical volume</span>
+                <strong data-numeric="">{stage.volume}</strong>
+                <p>{stage.setup}</p>
+              </Card>
+            </Reveal>
+          ))}
+        </ol>
         <Reveal>
-          <DataTable className="mt-8">
-            <table>
-              <thead>
-                <tr>
-                  <th>Stage</th>
-                  <th>Typical volume</th>
-                  <th>Setup</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Pilot</td>
-                  <td data-numeric="">
-                    <Ph>[Up to 500 units]</Ph>
-                  </td>
-                  <td>Flexible cell, engineers on the line, rapid fixes</td>
-                </tr>
-                <tr>
-                  <td>Launch</td>
-                  <td data-numeric="">
-                    <Ph>[500–5,000 / year]</Ph>
-                  </td>
-                  <td>Dedicated workstations, validated testers</td>
-                </tr>
-                <tr>
-                  <td>Volume</td>
-                  <td data-numeric="">
-                    <Ph>[5,000+ / year]</Ph>
-                  </td>
-                  <td>Dedicated line, automated test, safety stock agreements</td>
-                </tr>
-              </tbody>
-            </table>
-          </DataTable>
-          <p className="mt-4 text-text-secondary">
-            Already in production elsewhere? We also take over manufacturing of cleared devices from
-            other manufacturers. <Link href="/contact">Talk to us about a transfer</Link>.
-          </p>
+          <div data-scale-cta="">
+            <p>
+              <strong>Already in production elsewhere?</strong>
+              We also take over manufacturing of cleared devices from other manufacturers.
+            </p>
+            <Button href="/contact" variant="primary">Talk to us about a transfer</Button>
+          </div>
         </Reveal>
       </Section>
     </>
