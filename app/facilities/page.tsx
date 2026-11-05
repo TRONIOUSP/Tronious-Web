@@ -9,7 +9,7 @@ import FacilitySchematic from '@/components/figures/FacilitySchematic'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Facilities | [Company Name]',
+  title: 'Facilities | TRONIOUS',
   description:
     'Add photos of your production floor, test lab and engineering office here. Real photos matter more than any stock image.',
 }

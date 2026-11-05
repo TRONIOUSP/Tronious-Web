@@ -10,7 +10,7 @@ import ProcessGateFlow from '@/components/figures/ProcessGateFlow'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Process | [Company Name]',
+  title: 'Process | TRONIOUS',
   description:
     'Six phases, each closed by a gate review that you approve. Nothing moves forward on assumptions, and every phase produces documentation that goes straight into your design history file.',
 }

@@ -8,7 +8,7 @@ import MarketCoverageFigure from '@/components/figures/MarketCoverageFigure'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Quality & Regulatory | [Company Name]',
+  title: 'Quality & Regulatory | TRONIOUS',
   description:
     'Supplier qualification teams usually start here. Certificates are available on request or in our supplier pack.',
 }

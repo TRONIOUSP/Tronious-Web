@@ -10,8 +10,8 @@ export default function Footer() {
       <div className="wrap">
         <div className="foot">
           <div>
-            <b>[Company Name]</b>
-            <p>Contract design and manufacturing for physical therapy and recovery devices.</p>
+            <b>TRONIOUS</b>
+            <p>An innovative electronic product development company focused on delivering end-to-end solutions, from concept design and prototyping to manufacturing and deployment.</p>
           </div>
           <div>
             <b>Company</b>
@@ -46,7 +46,7 @@ export default function Footer() {
         </div>
 
         <div className="foot-bottom">
-          <span>&copy; {YEAR} [Company Name]. All rights reserved.</span>
+          <span>&copy; {YEAR} TRONIOUS. All rights reserved.</span>
         </div>
 
         {PLACEHOLDER_MARKING && (

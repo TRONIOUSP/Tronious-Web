@@ -25,8 +25,8 @@ const body = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "[Company Name]",
-  description: "Contract design and manufacturing for physical therapy and recovery devices.",
+  title: "TRONIOUS",
+  description: "An innovative electronic product development company focused on delivering end-to-end solutions, from concept design and prototyping to manufacturing and deployment.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

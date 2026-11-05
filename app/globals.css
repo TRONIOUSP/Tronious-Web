@@ -111,6 +111,7 @@
   --shadow-lg: 0 16px 40px -12px rgba(20, 33, 46, 0.28);
 
   /* ---------- layout ---------- */
+  --header-h: 64px;
   --container-page: 80rem;
   --container-narrow: 60rem;
   --container-wide: 90rem;
@@ -522,7 +523,7 @@
     max-width: var(--container-page);
     margin-inline: auto;
     padding-inline: max(var(--spacing-gutter), env(safe-area-inset-left, 0px));
-    height: 64px;
+    height: var(--header-h, 64px);
   }
   [data-header] .brand {
     display: flex;
@@ -538,21 +539,6 @@
   }
   [data-header] .brand:hover {
     color: var(--color-accent);
-  }
-  [data-header] .brand .mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    background: var(--color-accent);
-    border-radius: 6px;
-    flex-shrink: 0;
-    transition: background-color 0.15s, transform 0.15s var(--ease-out-soft);
-  }
-  [data-header] .brand:hover .mark {
-    background: var(--color-accent-hover);
-    transform: scale(1.08);
   }
   [data-header-actions] {
     display: flex;
@@ -644,7 +630,8 @@
       border: none;
       overflow: visible;
     }
-    [data-header-bar] { height: 68px; }
+    :root { --header-h: 68px; }
+    [data-header-bar] { height: var(--header-h); }
     [data-header] nav {
       flex: 1;
     }
@@ -698,7 +685,53 @@
     }
   }
 
-  /* ---------- Homepage — Hero ---------- */
+  /* ---------- Homepage — Hero ----------
+     Standard "fills the viewport below the header" hero: min-height is the
+     exact space left under the sticky header (100dvh accounts for mobile
+     browser chrome and the OS taskbar, since both already shrink the
+     viewport the browser reports — dvh/svh never run "under" them). It's a
+     floor, not a cap: content taller than that simply pushes the section
+     past it rather than being clipped.
+     On short viewports (small laptops, landscape phones, windows squeezed
+     above a taskbar) the heading and rhythm scale down via the max-height
+     query below, so the whole hero — including the CTA row — fits that
+     exact space instead of overflowing it. Tall viewports are untouched. */
+  .hero-section {
+    display: flex;
+    align-items: center;
+    min-height: calc(100dvh - var(--header-h));
+    padding-top: clamp(2rem, 1rem + 3vh, 4rem);
+    padding-bottom: clamp(2rem, 1rem + 3vh, 4rem);
+  }
+  .hero-section > * {
+    width: 100%;
+  }
+  @media (max-width: 640px) {
+    .hero-section {
+      min-height: 0;
+    }
+  }
+  @media (max-height: 820px) and (min-width: 641px) {
+    [data-hero-copy] {
+      gap: 1rem;
+    }
+    [data-hero-copy] h1 {
+      font-size: clamp(2.25rem, 1.4rem + 3.4vh, 3.5rem);
+      line-height: 1.08;
+    }
+    [data-hero-lead] {
+      font-size: 1rem;
+    }
+    [data-markets] {
+      padding-top: 0.625rem;
+    }
+    [data-hero-figure] {
+      min-height: 0;
+    }
+    [data-hero-figure] svg {
+      max-width: 220px;
+    }
+  }
   [data-hero-grid] {
     display: grid;
     gap: 3rem;
@@ -1005,35 +1038,73 @@
     color: var(--color-text-primary);
   }
 
-  /* ---------- HeroCompression figure ----------
-     Four chambers inflate on a stagger; trace bars illuminate in sequence.
-     All gated on prefers-reduced-motion so the guard lives in one place. */
+  /* ---------- HeroDeviceSuite figure ----------
+     Each of the five device schematics highlights on a stagger, lit spokes
+     "flow" inward toward the hub in sync, and the hub itself breathes with a
+     soft glow, a slowly rotating ring and a looping checkmark draw-in — all
+     gated on prefers-reduced-motion. */
   @media (prefers-reduced-motion: no-preference) {
-    @keyframes chamber-inflate {
-      0%, 100% { fill: transparent; opacity: 0.4; }
-      25%, 75% { fill: color-mix(in oklab, currentColor 18%, transparent); opacity: 1; }
-    }
-    @keyframes trace-light {
-      0%, 100% { fill: transparent; opacity: 0.25; }
-      25%, 75% { fill: color-mix(in oklab, currentColor 30%, transparent); opacity: 1; }
+    @keyframes suite-highlight {
+      0%, 100% { opacity: 0.55; filter: drop-shadow(0 0 0 transparent); }
+      20%, 40% { opacity: 1; filter: drop-shadow(0 0 7px color-mix(in oklab, currentColor 55%, transparent)); }
     }
 
-    .chamber-1 { animation: chamber-inflate 4.8s ease-in-out 0s infinite; }
-    .chamber-2 { animation: chamber-inflate 4.8s ease-in-out 0.6s infinite; }
-    .chamber-3 { animation: chamber-inflate 4.8s ease-in-out 1.2s infinite; }
-    .chamber-4 { animation: chamber-inflate 4.8s ease-in-out 1.8s infinite; }
+    .suite-1 { animation: suite-highlight 6s ease-in-out 0s infinite; }
+    .suite-2 { animation: suite-highlight 6s ease-in-out 1.2s infinite; }
+    .suite-3 { animation: suite-highlight 6s ease-in-out 2.4s infinite; }
+    .suite-4 { animation: suite-highlight 6s ease-in-out 3.6s infinite; }
+    .suite-5 { animation: suite-highlight 6s ease-in-out 4.8s infinite; }
 
-    .trace-1 { animation: trace-light 4.8s ease-in-out 0s infinite; }
-    .trace-2 { animation: trace-light 4.8s ease-in-out 0.6s infinite; }
-    .trace-3 { animation: trace-light 4.8s ease-in-out 1.2s infinite; }
-    .trace-4 { animation: trace-light 4.8s ease-in-out 1.8s infinite; }
-
-    .hose {
-      stroke-dashoffset: 0;
-      animation: hose-flow 2s linear infinite;
+    @keyframes suite-spoke-flow {
+      to { stroke-dashoffset: -18; }
     }
-    @keyframes hose-flow {
-      to { stroke-dashoffset: -14; }
+    @keyframes suite-spoke-fade {
+      0%, 100% { opacity: 0.22; }
+      20%, 40% { opacity: 0.8; }
+    }
+    .suite-spoke { animation: suite-spoke-flow 1.1s linear infinite; }
+    .suite-spoke-1 { animation: suite-spoke-flow 1.1s linear infinite, suite-spoke-fade 6s ease-in-out 0s infinite; }
+    .suite-spoke-2 { animation: suite-spoke-flow 1.1s linear infinite, suite-spoke-fade 6s ease-in-out 1.2s infinite; }
+    .suite-spoke-3 { animation: suite-spoke-flow 1.1s linear infinite, suite-spoke-fade 6s ease-in-out 2.4s infinite; }
+    .suite-spoke-4 { animation: suite-spoke-flow 1.1s linear infinite, suite-spoke-fade 6s ease-in-out 3.6s infinite; }
+    .suite-spoke-5 { animation: suite-spoke-flow 1.1s linear infinite, suite-spoke-fade 6s ease-in-out 4.8s infinite; }
+
+    @keyframes suite-glow-pulse {
+      0%, 100% { opacity: 0.55; transform: scale(0.92); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+    .suite-hub-glow {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: suite-glow-pulse 4.5s ease-in-out infinite;
+    }
+
+    @keyframes suite-ring-pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.85; }
+    }
+    .suite-hub-ring {
+      animation: suite-ring-pulse 4.5s ease-in-out infinite;
+    }
+
+    @keyframes suite-ring-rotate {
+      to { transform: rotate(360deg); }
+    }
+    .suite-hub-dash {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: suite-ring-rotate 20s linear infinite;
+    }
+
+    @keyframes suite-check-draw {
+      0%, 12% { stroke-dashoffset: 1; opacity: 0.35; }
+      35%, 85% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 1; opacity: 0.35; }
+    }
+    .suite-hub-check {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: suite-check-draw 6s ease-in-out infinite;
     }
   }
 

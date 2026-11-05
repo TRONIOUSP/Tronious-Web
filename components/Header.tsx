@@ -60,9 +60,8 @@ export default function Header() {
   return (
     <header data-header="" data-scrolled={scrolled ? '' : undefined}>
       <div data-header-bar="">
-        <Link href="/" className="brand" onClick={close} aria-label="[Company Name] home">
-          <span className="mark" aria-hidden="true" />
-          <span>[Company Name]</span>
+        <Link href="/" className="brand" onClick={close} aria-label="TRONIOUS home">
+          <span>TRONIOUS</span>
         </Link>
 
         {/* Single nav list — reflowed by CSS between bar (lg+) and drawer (<lg).

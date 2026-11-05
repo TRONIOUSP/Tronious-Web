@@ -8,7 +8,7 @@ import Reveal from '@/components/ui/Reveal'
 import DisciplinesConvergingFigure from '@/components/figures/DisciplinesConvergingFigure'
 
 export const metadata: Metadata = {
-  title: 'About | [Company Name]',
+  title: 'About | TRONIOUS',
   description:
     '[Founded in YYYY], we help medical device brands bring physical therapy and recovery devices to market in the US, EU and Australia.',
 }

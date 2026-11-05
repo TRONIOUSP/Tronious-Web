@@ -7,7 +7,7 @@ import Reveal from '@/components/ui/Reveal'
 import CaseStudyFigure from '@/components/figures/CaseStudyFigure'
 
 export const metadata: Metadata = {
-  title: 'Case studies | [Company Name]',
+  title: 'Case studies | TRONIOUS',
   description:
     'Client names are shared only with permission. The examples below are templates: replace them with your real projects.',
 }

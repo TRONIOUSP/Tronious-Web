@@ -7,7 +7,7 @@ import Reveal from '@/components/ui/Reveal'
 import RoleMapFigure from '@/components/figures/RoleMapFigure'
 
 export const metadata: Metadata = {
-  title: 'Careers | [Company Name]',
+  title: 'Careers | TRONIOUS',
   description: 'We hire people who care about getting the details right.',
 }
 

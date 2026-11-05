@@ -5,8 +5,8 @@ import { PLACEHOLDER_ATTRIBUTE, PLACEHOLDER_MARKING } from '@/lib/placeholders'
 
 describe('Ph', () => {
   it('renders its children verbatim', () => {
-    render(<Ph>[Company Name]</Ph>)
-    expect(screen.getByText('[Company Name]')).toBeInTheDocument()
+    render(<Ph>TRONIOUS</Ph>)
+    expect(screen.getByText('TRONIOUS')).toBeInTheDocument()
   })
 
   it('always carries data-placeholder, so a pre-launch sweep finds every one', () => {

@@ -6,7 +6,7 @@ import LegalStructureFigure from '@/components/figures/LegalStructureFigure'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Legal | [Company Name]',
+  title: 'Legal | TRONIOUS',
 }
 
 export default function Legal() {

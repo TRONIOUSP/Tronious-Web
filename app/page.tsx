@@ -8,12 +8,12 @@ import Stat from '@/components/ui/Stat'
 import Quote from '@/components/ui/Quote'
 import Ph from '@/components/ui/Ph'
 import Reveal from '@/components/ui/Reveal'
-import HeroCompression from '@/components/figures/HeroCompression'
+import HeroDeviceSuite from '@/components/figures/HeroDeviceSuite'
 import DeviceFamilyIcon from '@/components/figures/DeviceFamilyIcon'
 import ConceptFlow from '@/components/figures/ConceptFlow'
 
 export const metadata: Metadata = {
-  title: 'Home | [Company Name]',
+  title: 'Home | TRONIOUS',
   description:
     'We take traction, compression, massage and thermal therapy devices from first sketch to production, ready for the US, EU and Australian markets.',
 }
@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <>
       {/* Hero — band tone */}
-      <Section tone="band" data-doc="WEB-001">
+      <Section tone="band" data-doc="WEB-001" className="hero-section">
         <div data-hero-grid="">
           <div data-hero-copy="">
             <Reveal>
@@ -74,7 +74,7 @@ export default function Home() {
             </Reveal>
           </div>
           <div data-hero-figure="" aria-hidden="true">
-            <HeroCompression />
+            <HeroDeviceSuite />
           </div>
         </div>
       </Section>

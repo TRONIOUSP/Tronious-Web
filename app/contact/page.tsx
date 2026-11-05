@@ -8,7 +8,7 @@ import RFQFlowFigure from '@/components/figures/RFQFlowFigure'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Start a Project | [Company Name]',
+  title: 'Start a Project | TRONIOUS',
   description:
     "We reply within [2] business days. We sign an NDA before any detailed technical discussion. Please don't include confidential drawings in this form.",
 }

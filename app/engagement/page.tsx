@@ -7,7 +7,7 @@ import EngagementModelsFigure from '@/components/figures/EngagementModelsFigure'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Engagement models | [Company Name]',
+  title: 'Engagement models | TRONIOUS',
 }
 
 export default function Engagement() {

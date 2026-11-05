@@ -9,7 +9,7 @@ import ServiceAreaIcon from '@/components/figures/ServiceAreaIcon'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Services | [Company Name]',
+  title: 'Services | TRONIOUS',
   description:
     "Use us for a single phase or the full journey. Each service runs under our ISO 13485 quality system, so documentation transfers cleanly into your design history file.",
 }

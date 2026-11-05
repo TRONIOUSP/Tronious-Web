@@ -6,7 +6,7 @@ import TopicMapFigure from '@/components/figures/TopicMapFigure'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Insights | [Company Name]',
+  title: 'Insights | TRONIOUS',
   description:
     'Practical articles that show your expertise and bring in buyers through search. Suggested first articles:',
 }

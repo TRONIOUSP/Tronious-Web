@@ -7,7 +7,7 @@ import DeviceComparisonFigure from '@/components/figures/DeviceComparisonFigure'
 import Reveal from '@/components/ui/Reveal'
 
 export const metadata: Metadata = {
-  title: 'Device Expertise | [Company Name]',
+  title: 'Device Expertise | TRONIOUS',
   description:
     'We focus on five device families. That focus means fewer surprises in testing, faster submissions and manufacturing processes already proven on similar products.',
 }
