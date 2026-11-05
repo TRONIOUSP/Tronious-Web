@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { FOOTER_COMPANY_LINKS, FOOTER_WORK_LINKS, FOOTER_LEGAL_LINKS } from '@/lib/nav'
 import { PLACEHOLDER_MARKING } from '@/lib/placeholders'
 
-const YEAR = 2025
+const YEAR = 2026
 
 export default function Footer() {
   return (

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import ServiceAreaIcon from './ServiceAreaIcon'
 import DeviceComparisonFigure from './DeviceComparisonFigure'
 import DisciplineIcon from './DisciplineIcon'
@@ -101,6 +101,21 @@ describe('ProcessGateFlow', () => {
     expect(screen.getByText('Verification & validation')).toBeInTheDocument()
     expect(screen.getByText('Regulatory submission')).toBeInTheDocument()
     expect(screen.getByText('Design transfer & production')).toBeInTheDocument()
+  })
+
+  it('exposes carousel controls and moves to the next phase', () => {
+    render(<ProcessGateFlow />)
+
+    expect(screen.getByRole('group', { name: 'Development process phases' })).toHaveAttribute(
+      'aria-roledescription',
+      'carousel',
+    )
+    expect(screen.getByText('Concept & feasibility').closest('li')).toHaveAttribute('aria-current', 'step')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Next development phase' }))
+
+    expect(screen.getByText('Design inputs & planning').closest('li')).toHaveAttribute('aria-current', 'step')
+    expect(screen.getByRole('button', { name: 'Pause automatic phase movement' })).toBeInTheDocument()
   })
 })
 

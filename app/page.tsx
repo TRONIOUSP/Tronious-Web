@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import heroImage from '@/public/images/therapy-device-development.png'
 import Section from '@/components/ui/Section'
 import SectionHead from '@/components/ui/SectionHead'
 import Button from '@/components/ui/Button'
@@ -8,7 +9,7 @@ import Stat from '@/components/ui/Stat'
 import Quote from '@/components/ui/Quote'
 import Ph from '@/components/ui/Ph'
 import Reveal from '@/components/ui/Reveal'
-import HeroDeviceSuite from '@/components/figures/HeroDeviceSuite'
+import MediaPanel from '@/components/ui/MediaPanel'
 import DeviceFamilyIcon from '@/components/figures/DeviceFamilyIcon'
 import ConceptFlow from '@/components/figures/ConceptFlow'
 
@@ -73,8 +74,14 @@ export default function Home() {
               </ul>
             </Reveal>
           </div>
-          <div data-hero-figure="" aria-hidden="true">
-            <HeroDeviceSuite />
+          <div data-hero-figure="">
+            <MediaPanel
+              src={heroImage}
+              alt="Illustrative therapy-device development scene with a compression controller, garment, electronics and enclosure components"
+              eyebrow="Concept to production"
+              caption="Engineering, regulatory and manufacturing in one development loop"
+              priority
+            />
           </div>
         </div>
       </Section>

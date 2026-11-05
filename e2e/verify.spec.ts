@@ -6,6 +6,21 @@ import { ROUTES, WIDTHS, THEMES } from './routes'
 
 const SCREENSHOT_DIR = path.join(__dirname, '__screenshots__')
 
+async function revealWholePage(page: import('@playwright/test').Page) {
+  await page.evaluate(async () => {
+    const step = Math.max(320, Math.floor(window.innerHeight * 0.75))
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y)
+      await new Promise((resolve) => window.setTimeout(resolve, 45))
+    }
+    window.scrollTo(0, 0)
+  })
+}
+
+async function assertProjectShell(page: import('@playwright/test').Page) {
+  await expect(page.getByRole('link', { name: 'TRONIOUS home' })).toBeVisible()
+}
+
 test.beforeAll(() => {
   fs.mkdirSync(SCREENSHOT_DIR, { recursive: true })
 })
@@ -24,6 +39,13 @@ for (const route of ROUTES) {
         }, theme)
 
         await page.waitForLoadState('networkidle')
+        await assertProjectShell(page)
+        await revealWholePage(page)
+
+        // A screenshot file alone can pass when CSS never loaded. Assert two
+        // stable properties of the design system before recording the page.
+        await expect(page.locator('header')).toHaveCSS('position', 'sticky')
+        await expect(page.locator('body')).not.toHaveCSS('font-family', 'Times New Roman')
 
         const slug = route === '/' ? 'home' : route.replace(/\//g, '')
         const filename = `${slug}--${theme}--${width}.png`
@@ -43,6 +65,7 @@ for (const route of ROUTES) {
       await page.setViewportSize({ width, height: 900 })
       await page.goto(route)
       await page.waitForLoadState('networkidle')
+      await assertProjectShell(page)
 
       const overflows = await page.evaluate(() => {
         return document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1
@@ -68,18 +91,26 @@ for (const route of ROUTES) {
       }, theme)
 
       await page.waitForLoadState('networkidle')
+      await assertProjectShell(page)
 
       const results = await new AxeBuilder({ page })
         .withRules(['color-contrast'])
         .analyze()
 
       if (results.violations.length > 0) {
-        // Log violations without failing — this run establishes the baseline.
-        // Phase 3+ runs should show no new violations.
+        // Keep the detailed report in CI output so failures are actionable.
         console.log(
           `[axe baseline] ${route} (${theme}):`,
           JSON.stringify(
-            results.violations.map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length })),
+            results.violations.map((v) => ({
+              id: v.id,
+              impact: v.impact,
+              nodes: v.nodes.map((node) => ({
+                target: node.target,
+                html: node.html,
+                summary: node.failureSummary,
+              })),
+            })),
             null,
             2,
           ),
@@ -87,9 +118,8 @@ for (const route of ROUTES) {
       }
 
       // The test passes regardless — violations are recorded as a baseline,
-      // not as failures. Swap to `expect(results.violations).toHaveLength(0)`
-      // after Phase 3 redesign is complete and the baseline is resolved.
-      expect(results.violations).toBeDefined()
+      // Contrast is now a release gate rather than a non-blocking baseline.
+      expect(results.violations).toHaveLength(0)
     })
   }
 }

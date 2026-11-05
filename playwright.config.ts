@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const PORT = 3001
+// Dedicated to this repository. Reusing an arbitrary localhost server can
+// produce false-green screenshots and accessibility results from another app.
+const PORT = 3317
 
 export default defineConfig({
   testDir: './e2e',
@@ -18,7 +20,7 @@ export default defineConfig({
   webServer: {
     command: `npm run build && npm run start -- -p ${PORT}`,
     url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 180_000,
   },
 })

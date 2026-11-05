@@ -9,6 +9,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle'
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [progress, setProgress] = useState(0)
   const menuBtnRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
   const [prevPathname, setPrevPathname] = useState(pathname)
@@ -21,9 +22,13 @@ export default function Header() {
     setOpen(false)
   }
 
-  // Elevate header shadow once the page scrolls past the bar height.
+  // Elevate the header and show quiet reading progress on long technical pages.
   useEffect(() => {
-    function onScroll() { setScrolled(window.scrollY > 8) }
+    function onScroll() {
+      setScrolled(window.scrollY > 8)
+      const available = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(available > 0 ? Math.min(1, window.scrollY / available) : 0)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -61,6 +66,7 @@ export default function Header() {
     <header data-header="" data-scrolled={scrolled ? '' : undefined}>
       <div data-header-bar="">
         <Link href="/" className="brand" onClick={close} aria-label="TRONIOUS home">
+          <i aria-hidden="true" />
           <span>TRONIOUS</span>
         </Link>
 
@@ -110,6 +116,11 @@ export default function Header() {
           </button>
         </div>
       </div>
+      <span
+        data-scroll-progress=""
+        aria-hidden="true"
+        style={{ transform: `scaleX(${progress})` }}
+      />
     </header>
   )
 }

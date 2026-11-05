@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import manufacturingImage from '@/public/images/precision-assembly.png'
 import Section from '@/components/ui/Section'
 import SectionHead from '@/components/ui/SectionHead'
 import Card from '@/components/ui/Card'
@@ -9,6 +10,7 @@ import Note from '@/components/ui/Note'
 import Ph from '@/components/ui/Ph'
 import ProductionFlowFigure from '@/components/figures/ProductionFlowFigure'
 import Reveal from '@/components/ui/Reveal'
+import MediaPanel from '@/components/ui/MediaPanel'
 
 export const metadata: Metadata = {
   title: 'Manufacturing | TRONIOUS',
@@ -114,15 +116,26 @@ export default function Manufacturing() {
   return (
     <>
       <Section tone="band" data-doc="WEB-055">
-        <Reveal>
-          <SectionHead
-            as="h1"
-            eyebrow="Manufacturing"
-            title="From released design to thousands of units a month"
-            lead="A controlled design transfer, then volume production where every unit is tested, traceable and released against a device history record."
-          />
-          <JumpNav links={JUMP_LINKS} className="mt-8" />
-        </Reveal>
+        <div data-page-hero-layout="">
+          <Reveal>
+            <SectionHead
+              as="h1"
+              eyebrow="Manufacturing"
+              title="From released design to thousands of units a month"
+              lead="A controlled design transfer, then volume production where every unit is tested, traceable and released against a device history record."
+            />
+            <JumpNav links={JUMP_LINKS} className="mt-8" />
+          </Reveal>
+          <Reveal delay={100}>
+            <MediaPanel
+              src={manufacturingImage}
+              alt="Illustrative precision assembly and validation of an electronic therapy controller"
+              eyebrow="Controlled production"
+              caption="Assembly, inspection and functional validation at every release gate"
+              priority
+            />
+          </Reveal>
+        </div>
       </Section>
 
       <Section id="m-dt">

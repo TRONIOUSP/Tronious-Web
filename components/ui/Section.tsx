@@ -29,10 +29,13 @@ export default function Section({
   'data-doc'?: string
   children: ReactNode
 }) {
+  const isPageHero = tone === 'band' && Boolean(dataDoc)
+
   return (
     <section
       id={id}
       data-doc={dataDoc}
+      data-page-hero={isPageHero ? '' : undefined}
       data-tone={tone}
       data-rule={rule ? '' : undefined}
       className={cx('relative py-section', className)}

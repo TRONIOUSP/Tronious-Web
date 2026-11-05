@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import manufacturingImage from '@/public/images/precision-assembly.png'
 import Section from '@/components/ui/Section'
 import SectionHead from '@/components/ui/SectionHead'
 import Card from '@/components/ui/Card'
@@ -7,6 +8,7 @@ import DataTable from '@/components/ui/DataTable'
 import Ph from '@/components/ui/Ph'
 import FacilitySchematic from '@/components/figures/FacilitySchematic'
 import Reveal from '@/components/ui/Reveal'
+import MediaPanel from '@/components/ui/MediaPanel'
 
 export const metadata: Metadata = {
   title: 'Facilities | TRONIOUS',
@@ -18,14 +20,25 @@ export default function Facilities() {
   return (
     <>
       <Section tone="band" data-doc="WEB-050">
-        <Reveal>
-          <SectionHead
-            as="h1"
-            eyebrow="Facilities & capabilities"
-            title="Where your device gets built"
-            lead="Add photos of your production floor, test lab and engineering office here. Real photos matter more than any stock image."
-          />
-        </Reveal>
+        <div data-page-hero-layout="">
+          <Reveal>
+            <SectionHead
+              as="h1"
+              eyebrow="Facilities & capabilities"
+              title="Where your device gets built"
+              lead="Add photos of your production floor, test lab and engineering office here. Real photos matter more than any stock image."
+            />
+          </Reveal>
+          <Reveal delay={100}>
+            <MediaPanel
+              src={manufacturingImage}
+              alt="Illustrative electronics assembly and validation workcell"
+              eyebrow="Production environment"
+              caption="A visual placeholder for your real facility photography"
+              priority
+            />
+          </Reveal>
+        </div>
       </Section>
 
       <Section>
