@@ -107,12 +107,18 @@ export default function Header() {
           <button
             ref={menuBtnRef}
             id="menuBtn"
+            type="button"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="mainnav"
             onClick={() => setOpen((o) => !o)}
             data-header-menu-btn=""
           >
-            Menu
+            <span data-menu-icon="" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
           </button>
         </div>
       </div>

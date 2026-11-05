@@ -106,8 +106,8 @@ export default function Services() {
       <Section>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICE_AREAS.map(({ area, eyebrow, title, ticks, more }, i) => (
-            <Reveal key={area} delay={i * 50}>
-              <Card className="flex flex-col gap-4 p-6">
+            <Reveal key={area} delay={i * 50} className="h-full">
+              <Card className="flex h-full flex-col gap-4 p-6">
                 <ServiceAreaIcon area={area} className="h-10 w-10 text-text-tertiary" />
                 <span
                   data-eyebrow=""

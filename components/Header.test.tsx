@@ -15,20 +15,22 @@ describe('Header', () => {
 
   it('toggles the mobile menu open and closed', () => {
     render(<Header />)
-    const btn = screen.getByRole('button', { name: 'Menu' })
+    const btn = screen.getByRole('button', { name: 'Open menu' })
     expect(btn).toHaveAttribute('aria-expanded', 'false')
+    expect(btn).toHaveTextContent('')
     fireEvent.click(btn)
     expect(btn).toHaveAttribute('aria-expanded', 'true')
+    expect(btn).toHaveAccessibleName('Close menu')
     fireEvent.click(btn)
     expect(btn).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('closes the menu when the route changes', () => {
     const { rerender } = render(<Header />)
-    fireEvent.click(screen.getByRole('button', { name: 'Menu' }))
-    expect(screen.getByRole('button', { name: 'Menu' })).toHaveAttribute('aria-expanded', 'true')
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }))
+    expect(screen.getByRole('button', { name: 'Close menu' })).toHaveAttribute('aria-expanded', 'true')
     pathname.value = '/contact'
     rerender(<Header />)
-    expect(screen.getByRole('button', { name: 'Menu' })).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false')
   })
 })

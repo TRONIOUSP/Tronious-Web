@@ -12,9 +12,9 @@ describe('Header drawer — Review Focus 4', () => {
     expect(screen.getAllByRole('link', { name: 'Services' })).toHaveLength(1)
   })
 
-  it('closes on Escape and returns focus to the Menu button', () => {
+  it('closes on Escape and returns focus to the menu button', () => {
     render(<Header />)
-    const btn = screen.getByRole('button', { name: 'Menu' })
+    const btn = screen.getByRole('button', { name: 'Open menu' })
     fireEvent.click(btn)
     expect(btn).toHaveAttribute('aria-expanded', 'true')
 
@@ -25,7 +25,7 @@ describe('Header drawer — Review Focus 4', () => {
 
   it('locks body scroll while open and releases it on close', () => {
     render(<Header />)
-    const btn = screen.getByRole('button', { name: 'Menu' })
+    const btn = screen.getByRole('button', { name: 'Open menu' })
 
     fireEvent.click(btn)
     expect(document.body.style.overflow).toBe('hidden')
@@ -36,7 +36,7 @@ describe('Header drawer — Review Focus 4', () => {
 
   it('releases the body scroll lock when unmounted while open', () => {
     const { unmount } = render(<Header />)
-    const btn = screen.getByRole('button', { name: 'Menu' })
+    const btn = screen.getByRole('button', { name: 'Open menu' })
     fireEvent.click(btn)
     expect(document.body.style.overflow).toBe('hidden')
 
@@ -49,7 +49,7 @@ describe('Header drawer — Review Focus 4', () => {
     const nav = screen.getByRole('navigation', { name: 'Main' })
     expect(nav).not.toHaveAttribute('data-open')
 
-    fireEvent.click(screen.getByRole('button', { name: 'Menu' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }))
     expect(nav).toHaveAttribute('data-open')
   })
 })

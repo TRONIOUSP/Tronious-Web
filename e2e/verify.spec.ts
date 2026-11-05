@@ -25,6 +25,45 @@ test.beforeAll(() => {
   fs.mkdirSync(SCREENSHOT_DIR, { recursive: true })
 })
 
+test('mobile and tablet menu opens as a visible viewport drawer', async ({ page }) => {
+  for (const width of [360, 768]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/')
+
+    const menuButton = page.locator('#menuBtn')
+    await expect(menuButton).toHaveAccessibleName('Open menu')
+    await menuButton.click()
+
+    await expect(menuButton).toHaveAccessibleName('Close menu')
+    const navigation = page.getByRole('navigation', { name: 'Main' })
+    await expect(navigation).toBeVisible()
+    await expect(navigation.getByRole('link', { name: 'Services' })).toBeVisible()
+  }
+})
+
+test('desktop navigation remains visible without a menu toggle', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto('/')
+
+  const navigation = page.getByRole('navigation', { name: 'Main' })
+  await expect(navigation).toBeVisible()
+  await expect(navigation.getByRole('link', { name: 'Services' })).toBeVisible()
+  await expect(page.locator('#menuBtn')).toBeHidden()
+})
+
+test('service cards align to equal heights within each desktop row', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto('/services')
+
+  const heights = await page.locator('[data-card]').evaluateAll((cards) =>
+    cards.map((card) => card.getBoundingClientRect().height),
+  )
+
+  expect(heights).toHaveLength(6)
+  expect(new Set(heights.slice(0, 3).map(Math.round)).size).toBe(1)
+  expect(new Set(heights.slice(3, 6).map(Math.round)).size).toBe(1)
+})
+
 // 120 screenshots: 15 routes × 4 widths × 2 themes
 for (const route of ROUTES) {
   for (const theme of THEMES) {
