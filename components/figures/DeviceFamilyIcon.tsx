@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 
-type Family = 'spinal' | 'knee' | 'pneumatic' | 'massage' | 'thermal'
+type Family = 'spinal' | 'knee' | 'pneumatic' | 'massage' | 'thermal' | 'connected'
 
 const icons: Record<Family, ReactElement> = {
   spinal: (
@@ -61,6 +61,16 @@ const icons: Record<Family, ReactElement> = {
       <path d="M14 26 Q11 22 14 18 Q17 14 14 10" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       <path d="M24 26 Q21 22 24 18 Q27 14 24 10" strokeWidth="1.5" fill="none" strokeLinecap="round" />
       <path d="M34 26 Q31 22 34 18 Q37 14 34 10" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+    </>
+  ),
+  connected: (
+    <>
+      <rect x="14" y="12" width="20" height="27" rx="6" strokeWidth="1.5" />
+      <path d="M20 8 Q24 4 28 8" strokeWidth="1.5" fill="none" />
+      <path d="M17 5 Q24 -1 31 5" strokeWidth="1.5" fill="none" />
+      <circle cx="24" cy="25" r="5" strokeWidth="1.5" />
+      <path d="M22 25 L24 27 L28 22" strokeWidth="1.5" fill="none" />
+      <line x1="20" y1="43" x2="28" y2="43" strokeWidth="1.5" />
     </>
   ),
 }

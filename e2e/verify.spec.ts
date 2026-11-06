@@ -51,6 +51,32 @@ test('desktop navigation remains visible without a menu toggle', async ({ page }
   await expect(page.locator('#menuBtn')).toBeHidden()
 })
 
+test('device-family explorer stays keyboard accessible and keeps the full comparison', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 900 })
+  await page.goto('/expertise')
+
+  const spinalTab = page.getByRole('tab', { name: /Spinal traction/ })
+  await spinalTab.focus()
+  await page.keyboard.press('ArrowRight')
+
+  const kneeTab = page.getByRole('tab', { name: /Knee traction & rehab/ })
+  await expect(kneeTab).toHaveAttribute('aria-selected', 'true')
+  await expect(page.getByRole('tabpanel')).toContainText('Range-of-motion limits')
+
+  await page.getByRole('tab', { name: /Connected & wearable/ }).click()
+  await expect(page.getByRole('tabpanel')).toContainText('IEC 81001-5-1')
+  await expect(page.locator('#full-comparison tbody tr')).toHaveCount(6)
+})
+
+test('quality page separates review evidence from regulatory capability', async ({ page }) => {
+  await page.goto('/quality')
+
+  await expect(page.locator('#qualification-evidence [data-card]')).toHaveCount(3)
+  await expect(page.locator('#qualification-evidence [data-placeholder]')).toHaveCount(0)
+  await expect(page.locator('#clearance-roles')).toContainText('Legal manufacturer')
+  await expect(page.locator('#clearance-roles')).toContainText('Contract design & manufacturing partner')
+})
+
 test('service cards align to equal heights within each desktop row', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 })
   await page.goto('/services')
