@@ -106,6 +106,87 @@ test('manufacturing page explorers work responsively', async ({ page }) => {
       () => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
     )
     expect(hasNoPageOverflow).toBe(true)
+
+    const routeFitsItsFrame = await page.locator('[data-production-track]').evaluate(
+      (track) => track.scrollWidth <= track.clientWidth + 1,
+    )
+    expect(routeFitsItsFrame).toBe(true)
+  }
+
+  await expect(page.getByRole('tab', { name: /Shipping/ })).toBeVisible()
+  await expect(page.locator('[data-production-control-focus]')).toContainText(
+    'Lot-controlled ERP issue',
+  )
+
+  const scaling = page.locator('#m-scale')
+  await expect(scaling.getByText('Pilot lots')).toBeVisible()
+  await expect(scaling.getByText('Commercial launch')).toBeVisible()
+  await expect(scaling.getByText('Sustained demand')).toBeVisible()
+  await expect(scaling.locator('[data-placeholder]')).toHaveCount(0)
+  await expect(scaling.locator('[data-scaling-continuity]')).toContainText(
+    'Controlled records',
+  )
+
+  const scaleGeometry = await scaling.evaluate((section) => {
+    const markers = [...section.querySelectorAll<HTMLElement>('[data-scaling-number]')]
+    const cards = [...section.querySelectorAll<HTMLElement>('[data-scaling-path] [data-card]')]
+    return {
+      centerOffsets: markers.map((marker, index) => {
+        const markerBox = marker.getBoundingClientRect()
+        const cardBox = cards[index].getBoundingClientRect()
+        return Math.abs(markerBox.left + markerBox.width / 2 - (cardBox.left + cardBox.width / 2))
+      }),
+      cardHeights: cards.map((card) => Math.round(card.getBoundingClientRect().height)),
+    }
+  })
+  expect(Math.max(...scaleGeometry.centerOffsets)).toBeLessThanOrEqual(1)
+  expect(new Set(scaleGeometry.cardHeights).size).toBe(1)
+})
+
+test('design-transfer content anchors remain fixed while changing tabs', async ({ page }) => {
+  const anchors = [
+    '[data-transfer-kicker]',
+    '#transfer-panel h3',
+    '#transfer-panel p',
+    '[data-transfer-progress]',
+  ]
+  const positions = async () => {
+    const panelBox = await page.locator('#transfer-panel').boundingBox()
+    expect(panelBox, 'transfer panel should have a layout box').not.toBeNull()
+
+    return Promise.all(
+      anchors.map(async (selector) => {
+        const box = await page.locator(selector).boundingBox()
+        expect(box, `${selector} should have a layout box`).not.toBeNull()
+        return box!.y - panelBox!.y
+      }),
+    )
+  }
+
+  const expectCopyAboveProgress = async () => {
+    const copy = await page.locator('#transfer-panel p').boundingBox()
+    const progress = await page.locator('[data-transfer-progress]').boundingBox()
+    expect(copy).not.toBeNull()
+    expect(progress).not.toBeNull()
+    expect(copy!.y + copy!.height).toBeLessThanOrEqual(progress!.y)
+  }
+
+  for (const width of [360, 768, 1280]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/manufacturing')
+
+    const baseline = await positions()
+    const tabs = page.getByRole('tab')
+    await expectCopyAboveProgress()
+
+    for (let index = 1; index < await tabs.count(); index += 1) {
+      await tabs.nth(index).click()
+      const current = await positions()
+      current.forEach((y, anchorIndex) => {
+        expect(y).toBeCloseTo(baseline[anchorIndex], 1)
+      })
+      await expectCopyAboveProgress()
+    }
   }
 })
 

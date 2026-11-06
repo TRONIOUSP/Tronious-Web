@@ -124,6 +124,17 @@ describe('globals.css token foundation', () => {
     }
   })
 
+  it('keeps transfer-panel copy light on its theme-invariant navy surface', () => {
+    const panel = blockBodyFor(CSS, '[data-transfer-panel] {')
+    const heading = blockBodyFor(CSS, '[data-transfer-panel] h3')
+    const copy = blockBodyFor(CSS, '[data-transfer-panel] p')
+
+    expect(panel).toMatch(/--transfer-panel-foreground\s*:\s*var\(--color-neutral-100\)/)
+    expect(heading).toMatch(/color\s*:\s*var\(--transfer-panel-foreground\)/)
+    expect(copy).toMatch(/color-mix\([^;]*var\(--transfer-panel-foreground\)/)
+    expect(`${heading}\n${copy}`).not.toContain('var(--color-text-inverse)')
+  })
+
   it('has removed the legacy layer now that every page has migrated off it', () => {
     expect(CSS).not.toContain('@layer legacy')
     expect(CSS).not.toMatch(/@layer\s+theme,\s*base,\s*legacy/)

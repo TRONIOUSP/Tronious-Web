@@ -107,6 +107,17 @@ describe('ProductionFlowFigure', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Next production stage' }))
     expect(screen.getByRole('tab', { name: /Kitting/ })).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByRole('tabpanel')).toHaveTextContent('Parts issued to work orders')
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Lot-controlled ERP issue')
+  })
+
+  it('presents the complete route structure and control context', () => {
+    render(<ProductionFlowFigure />)
+
+    expect(screen.getByText('10 recorded stations')).toBeInTheDocument()
+    expect(screen.getByLabelText('Production route phases')).toHaveTextContent(
+      /Materials.*Build.*Verify.*Release/,
+    )
+    expect(screen.getByRole('tabpanel')).toHaveTextContent('Specification check and sampling plan')
   })
 })
 

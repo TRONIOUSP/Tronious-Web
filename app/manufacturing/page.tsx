@@ -64,18 +64,21 @@ const QUALITY_CONTROLS = [
 const SCALE_STAGES = [
   {
     title: 'Pilot',
-    volume: <Ph>[Up to 500 units]</Ph>,
-    setup: 'Flexible cell, engineers on the line, rapid fixes',
+    action: 'Prove',
+    profile: 'Pilot lots',
+    setup: ['Flexible cell', 'Engineers on the line', 'Rapid fixes'],
   },
   {
     title: 'Launch',
-    volume: <Ph>[500–5,000 / year]</Ph>,
-    setup: 'Dedicated workstations, validated testers',
+    action: 'Stabilise',
+    profile: 'Commercial launch',
+    setup: ['Dedicated workstations', 'Validated testers'],
   },
   {
     title: 'Volume',
-    volume: <Ph>[5,000+ / year]</Ph>,
-    setup: 'Dedicated line, automated test, safety stock agreements',
+    action: 'Scale',
+    profile: 'Sustained demand',
+    setup: ['Dedicated line', 'Automated test', 'Safety-stock agreements'],
   },
 ]
 
@@ -180,20 +183,44 @@ export default function Manufacturing() {
             <Reveal as="li" key={stage.title} delay={index * 80}>
               <span data-scaling-number="">{String(index + 1).padStart(2, '0')}</span>
               <Card className="h-full p-6">
+                <div data-scaling-card-head="">
+                  <span>Stage {String(index + 1).padStart(2, '0')}</span>
+                  <span>{stage.action}</span>
+                </div>
                 <h3>{stage.title}</h3>
-                <span data-scaling-label="">Typical volume</span>
-                <strong data-numeric="">{stage.volume}</strong>
-                <p>{stage.setup}</p>
+                <div data-scaling-profile="">
+                  <span data-scaling-label="">Volume profile</span>
+                  <strong>{stage.profile}</strong>
+                </div>
+                <div data-scaling-setup="">
+                  <span data-scaling-label="">Production setup</span>
+                  <ul>
+                    {stage.setup.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
               </Card>
             </Reveal>
           ))}
         </ol>
         <Reveal>
+          <div data-scaling-continuity="">
+            <span>Connected at every stage</span>
+            <ul>
+              <li>Controlled records</li>
+              <li>Validated test strategy</li>
+              <li>Quality oversight</li>
+            </ul>
+          </div>
+        </Reveal>
+        <Reveal>
           <div data-scale-cta="">
-            <p>
-              <strong>Already in production elsewhere?</strong>
-              We also take over manufacturing of cleared devices from other manufacturers.
-            </p>
+            <div>
+              <span data-scale-cta-label="">Manufacturing transfer</span>
+              <p>
+                <strong>Already in production elsewhere?</strong>
+                We also take over manufacturing of cleared devices from other manufacturers.
+              </p>
+            </div>
             <Button href="/contact" variant="primary">Talk to us about a transfer</Button>
           </div>
         </Reveal>
