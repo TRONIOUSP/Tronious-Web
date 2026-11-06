@@ -5,9 +5,6 @@ import Section from "@/components/ui/Section";
 import SectionHead from "@/components/ui/SectionHead";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
-import Stat from "@/components/ui/Stat";
-import Quote from "@/components/ui/Quote";
-import Ph from "@/components/ui/Ph";
 import Reveal from "@/components/ui/Reveal";
 import MediaPanel from "@/components/ui/MediaPanel";
 import DeviceFamilyIcon from "@/components/figures/DeviceFamilyIcon";
@@ -225,24 +222,56 @@ export default function Home() {
         </div>
       </Section> */}
 
-      {/* Quote — sunken tone */}
-      {/* <Section tone="sunken">
-        <Reveal>
-          <Quote
-            attribution={
-              <>
-                <Ph>[Name]</Ph>, <Ph>[Title]</Ph>,{" "}
-                <Ph>[Company or &quot;US recovery device brand&quot;]</Ph>
-              </>
-            }
-          >
-            <Ph wrap>
-              [Client quote: one or two sentences about speed, quality or
-              regulatory success. Get written permission.]
-            </Ph>
-          </Quote>
-        </Reveal>
-      </Section> */}
+      {/* Project principles — sunken tone */}
+      <Section tone="sunken">
+        <div data-project-principles="">
+          <Reveal>
+            <div data-project-principles-copy="">
+              <SectionHead
+                eyebrow="Built for confident decisions"
+                title="A clear path through a complex device launch"
+                lead="You do not need vague promises. You need visibility into what is being decided, why it matters and what comes next."
+              />
+              <Link href="/quality" data-more-link="">
+                See how quality is built in →
+              </Link>
+            </div>
+          </Reveal>
+
+          <ol aria-label="How TRONIOUS keeps projects controlled">
+            <Reveal as="li" delay={60}>
+              <span aria-hidden="true">01</span>
+              <div>
+                <h3>Decisions at the right time</h3>
+                <p>
+                  Review scope, risk, evidence and cost before each major
+                  commitment.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal as="li" delay={120}>
+              <span aria-hidden="true">02</span>
+              <div>
+                <h3>One connected development loop</h3>
+                <p>
+                  Engineering, regulatory and manufacturing choices stay
+                  aligned from prototype to production.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal as="li" delay={180}>
+              <span aria-hidden="true">03</span>
+              <div>
+                <h3>Documentation that moves with the product</h3>
+                <p>
+                  Design history, test evidence and production knowledge are
+                  organized for the next stage—not left behind at handoff.
+                </p>
+              </div>
+            </Reveal>
+          </ol>
+        </div>
+      </Section>
 
       {/* Closing CTA — band tone */}
       <Section tone="band">
@@ -252,8 +281,8 @@ export default function Home() {
               Have a device idea, or a design that needs a new manufacturer?
             </h2>
             <p data-hero-lead="">
-              Tell us your stage. We reply within <Ph>[2]</Ph> business days and
-              sign an NDA before any technical discussion.
+              Tell us your stage. We reply within 2 business days and sign an
+              NDA before any technical discussion.
             </p>
             <div data-btns="">
               <Button href="/contact" variant="primary" size="lg">

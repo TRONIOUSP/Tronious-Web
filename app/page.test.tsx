@@ -47,12 +47,13 @@ describe('Homepage — copy integrity', () => {
     expect(screen.getByText('Test equipment')).toBeInTheDocument()
   })
 
-  it('renders all four stat labels', () => {
+  it('renders the project principles without placeholder social proof', () => {
     render(<Home />)
-    expect(screen.getByText('Regulatory submissions supported')).toBeInTheDocument()
-    expect(screen.getByText('Devices in commercial production')).toBeInTheDocument()
-    expect(screen.getByText(/Average concept to clearance/)).toBeInTheDocument()
-    expect(screen.getByText(/Units shipped per year/)).toBeInTheDocument()
+    expect(screen.getByText('A clear path through a complex device launch')).toBeInTheDocument()
+    expect(screen.getByText('Decisions at the right time')).toBeInTheDocument()
+    expect(screen.getByText('One connected development loop')).toBeInTheDocument()
+    expect(screen.getByText('Documentation that moves with the product')).toBeInTheDocument()
+    expect(screen.queryByText(/Client quote/)).not.toBeInTheDocument()
   })
 
   it('renders both calls to action', () => {
