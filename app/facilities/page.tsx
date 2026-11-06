@@ -5,7 +5,6 @@ import SectionHead from '@/components/ui/SectionHead'
 import Card from '@/components/ui/Card'
 import TickList from '@/components/ui/TickList'
 import DataTable from '@/components/ui/DataTable'
-import Ph from '@/components/ui/Ph'
 import FacilitySchematic from '@/components/figures/FacilitySchematic'
 import Reveal from '@/components/ui/Reveal'
 import MediaPanel from '@/components/ui/MediaPanel'
@@ -48,40 +47,20 @@ export default function Facilities() {
             <table style={{ minWidth: 0 }}>
               <tbody>
                 <tr>
-                  <td>Location</td>
-                  <td>
-                    <Ph>[City, Country]</Ph>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Total floor area</td>
-                  <td data-numeric="">
-                    <Ph>[XX,XXX m²]</Ph>
-                  </td>
-                </tr>
-                <tr>
                   <td>Production lines</td>
-                  <td data-numeric="">
-                    <Ph>[X] assembly lines</Ph>
-                  </td>
+                  <td>Configured to each project&apos;s volume and process route</td>
                 </tr>
                 <tr>
                   <td>Controlled environments</td>
-                  <td>
-                    <Ph>[ESD-protected areas / cleanroom class]</Ph>
-                  </td>
+                  <td>ESD-protected assembly and test areas</td>
                 </tr>
                 <tr>
                   <td>Annual capacity</td>
-                  <td data-numeric="">
-                    <Ph>[XXX,XXX units]</Ph>
-                  </td>
+                  <td>Scaled to each program, from pilot lots to volume production</td>
                 </tr>
                 <tr>
                   <td>Engineering team</td>
-                  <td data-numeric="">
-                    <Ph>[XX] engineers</Ph>
-                  </td>
+                  <td>Mechanical, electronics, firmware, quality and regulatory engineers working as one team</td>
                 </tr>
               </tbody>
             </table>

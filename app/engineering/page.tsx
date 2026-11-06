@@ -5,7 +5,6 @@ import Button from '@/components/ui/Button'
 import Chip from '@/components/ui/Chip'
 import TickList from '@/components/ui/TickList'
 import JumpNav from '@/components/ui/JumpNav'
-import Ph from '@/components/ui/Ph'
 import DisciplineIcon from '@/components/figures/DisciplineIcon'
 import Reveal from '@/components/ui/Reveal'
 
@@ -24,7 +23,7 @@ const DISCIPLINES = [
     lead: 'Structures that carry traction loads safely, enclosures that survive clinic cleaning, and pneumatic systems that hold pressure for years.',
     ticks: [
       'Industrial design, ergonomics and human factors for clinicians and home users',
-      <>3D CAD and production drawings with GD&T, in <Ph>[SolidWorks / Creo]</Ph></>,
+      'Parametric 3D CAD and production drawings with GD&T',
       'Tolerance stack-up analysis and FEA for load-bearing traction frames and joints',
       'Design for manufacture and assembly: injection-moulded, sheet metal, machined and cast parts',
       'Pneumatic systems: manifolds, valves, pumps, bladders and RF-welded compression garments',
@@ -40,7 +39,7 @@ const DISCIPLINES = [
     title: 'PCB & electronics design',
     lead: 'Circuits designed from the first schematic to pass IEC 60601 electrical safety and EMC testing, not fixed after they fail.',
     ticks: [
-      <>Schematic capture and multilayer PCB layout in <Ph>[Altium Designer]</Ph></>,
+      'Schematic capture and multilayer PCB layout with design-rule and EMC review',
       'Patient and operator isolation (MOPP / MOOP), with creepage and clearance designed in',
       'Motor drives and force sensing for traction; pressure sensing and valve control for compression',
       'Heater control with independent hardware thermal cut-offs',
@@ -58,7 +57,7 @@ const DISCIPLINES = [
     title: 'Embedded firmware',
     lead: 'Control software for force, pressure and temperature, built to the IEC 62304 medical software lifecycle with safety designed in.',
     ticks: [
-      <>Embedded C / C++ on <Ph>[ARM Cortex-M]</Ph> microcontrollers, bare-metal or RTOS</>,
+      'Embedded C / C++ on 32-bit microcontrollers, bare-metal or RTOS',
       'Closed-loop control: traction force profiles, chamber pressure sequencing, temperature regulation',
       'Safety architecture: watchdogs, self-tests, fault detection and safe-state handling, backed by hardware interlocks',
       'IEC 62304 lifecycle, software safety classification and SOUP management',

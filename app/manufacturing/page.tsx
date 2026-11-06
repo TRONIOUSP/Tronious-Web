@@ -6,7 +6,6 @@ import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import JumpNav from '@/components/ui/JumpNav'
 import MediaPanel from '@/components/ui/MediaPanel'
-import Ph from '@/components/ui/Ph'
 import Reveal from '@/components/ui/Reveal'
 import Section from '@/components/ui/Section'
 import SectionHead from '@/components/ui/SectionHead'
@@ -33,8 +32,7 @@ const QUALITY_CONTROLS = [
     title: 'Device history records',
     detail: (
       <>
-        Electronic records for every unit and lot, available to you on request or through a
-        client portal <Ph>[if offered]</Ph>.
+        Electronic records for every unit and lot, available to you on request.
       </>
     ),
   },
@@ -43,7 +41,7 @@ const QUALITY_CONTROLS = [
     detail: (
       <>
         Statistical process control on key parameters, with yield and defect data reported to you
-        each <Ph>[month]</Ph>.
+        on an agreed schedule.
       </>
     ),
   },

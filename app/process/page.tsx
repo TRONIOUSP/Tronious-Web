@@ -5,7 +5,6 @@ import SectionHead from '@/components/ui/SectionHead'
 import Card from '@/components/ui/Card'
 import TickList from '@/components/ui/TickList'
 import Note from '@/components/ui/Note'
-import Ph from '@/components/ui/Ph'
 import ProcessGateFlow from '@/components/figures/ProcessGateFlow'
 import Reveal from '@/components/ui/Reveal'
 
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
 const GATES = [
   {
     title: 'Concept & feasibility',
-    duration: <>Typically <Ph>[4–8 weeks]</Ph></>,
+    duration: 'Typically 4–8 weeks',
     lead: 'We work out what the device must do, who uses it, and whether it can be built and cleared at your target cost.',
     ticks: [
       'User needs and intended use statement',
@@ -31,7 +30,7 @@ const GATES = [
   },
   {
     title: 'Design inputs & planning',
-    duration: <>Typically <Ph>[3–6 weeks]</Ph></>,
+    duration: 'Typically 3–6 weeks',
     lead: 'User needs become measurable engineering requirements, and the risk management file starts.',
     ticks: [
       'System, hardware, firmware and app requirements',
@@ -43,7 +42,7 @@ const GATES = [
   },
   {
     title: 'Detailed design',
-    duration: <>Typically <Ph>[3–9 months]</Ph></>,
+    duration: 'Typically 3–9 months',
     lead: 'Mechanical, electronics, firmware and app engineering run in parallel, in short build-and-test iterations.',
     ticks: [
       'Two or three prototype rounds, from works-like to looks-like to production-intent',
@@ -57,7 +56,7 @@ const GATES = [
   },
   {
     title: 'Verification & validation',
-    duration: <>Typically <Ph>[2–4 months]</Ph></>,
+    duration: 'Typically 2–4 months',
     lead: (
       <>We prove the design meets every requirement (verification) and meets users&apos; needs (validation).</>
     ),
@@ -86,7 +85,7 @@ const GATES = [
   },
   {
     title: 'Design transfer & production',
-    duration: <>Typically <Ph>[2–3 months]</Ph></>,
+    duration: 'Typically 2–3 months',
     lead: 'The verified design becomes a validated production process, then scales to volume.',
     ticks: [
       'Device master record, supplier approvals and first article inspection',

@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Section from '@/components/ui/Section'
 import SectionHead from '@/components/ui/SectionHead'
 import Card from '@/components/ui/Card'
-import Ph from '@/components/ui/Ph'
 import EngagementModelsFigure from '@/components/figures/EngagementModelsFigure'
 import Reveal from '@/components/ui/Reveal'
 
@@ -83,8 +82,7 @@ export default function Engagement() {
                 Platform / private label
               </h3>
               <p className="mt-2 text-text-secondary">
-                Start from our proven device platforms and customize branding and features.{' '}
-                <Ph>[Remove if not offered]</Ph>
+                Start from our proven device platforms and customize branding and features.
               </p>
             </Card>
           </Reveal>
@@ -95,13 +93,8 @@ export default function Engagement() {
         <Reveal>
           <SectionHead title="Intellectual property" />
           <p className="mt-6 max-w-[68ch] text-text-secondary">
-            Every client asks who owns the design. State your standard position clearly here, for
-            example:{' '}
-            <Ph wrap>
-              [Client owns all device-specific IP and design files; we retain our pre-existing
-              platform technology and general know-how.]
-            </Ph>{' '}
-            Have your legal team approve this wording.
+            The client owns all device-specific IP and design files. We retain our pre-existing
+            platform technology and general know-how.
           </p>
         </Reveal>
       </Section>

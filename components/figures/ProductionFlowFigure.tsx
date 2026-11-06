@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { cx } from '@/lib/cx'
-import Ph from '@/components/ui/Ph'
 
 /**
  * The ten-step production flow from the manufacturing page (spec §9.3). This
@@ -29,8 +28,8 @@ const STEPS: { title: string; phase: string; control: string; detail: ReactNode 
     control: 'AOI and functional board test',
     detail: (
       <>
-        SMT and through-hole assembly <Ph>[in-house / at a qualified partner]</Ph>, with AOI and
-        functional board test
+        SMT and through-hole assembly under validated processes, with AOI and functional board
+        test
       </>
     ),
   },

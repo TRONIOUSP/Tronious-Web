@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
-import Ph from '@/components/ui/Ph'
 
 const STEPS: { title: string; detail: ReactNode }[] = [
   {
@@ -41,8 +40,8 @@ const STEPS: { title: string; detail: ReactNode }[] = [
     title: 'Training and pilot builds',
     detail: (
       <>
-        Operators are trained on the work instructions. We build <Ph>[2–3]</Ph> pilot lots,
-        inspect them fully and fix any issues found.
+        Operators are trained on the work instructions. We build pilot lots, inspect them fully
+        and fix any issues found.
       </>
     ),
   },

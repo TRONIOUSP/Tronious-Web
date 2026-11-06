@@ -34,7 +34,7 @@ describe('placeholder launch flag', () => {
     expect(PLACEHOLDER_ATTRIBUTE).toBe('data-placeholder-marking')
   })
 
-  it('is still on, because the site is not launched and every figure is pending', () => {
-    expect(PLACEHOLDER_MARKING).toBe(true)
+  it('is off, because no page renders a placeholder any more', () => {
+    expect(PLACEHOLDER_MARKING).toBe(false)
   })
 })

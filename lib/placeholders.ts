@@ -10,6 +10,6 @@
  * `Ph` keeps emitting `data-placeholder` either way, so a pre-launch sweep
  * can still find every unfinished fact in the markup.
  */
-export const PLACEHOLDER_MARKING = true
+export const PLACEHOLDER_MARKING = false
 
 export const PLACEHOLDER_ATTRIBUTE = 'data-placeholder-marking'
