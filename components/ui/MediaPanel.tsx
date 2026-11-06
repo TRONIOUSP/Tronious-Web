@@ -22,7 +22,7 @@ export default function MediaPanel({
         src={src}
         alt={alt}
         fill
-        priority={priority}
+        preload={priority}
         sizes="(max-width: 900px) 100vw, 52vw"
       />
       <figcaption>

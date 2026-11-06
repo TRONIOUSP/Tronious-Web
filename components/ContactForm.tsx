@@ -24,27 +24,40 @@ export default function ContactForm() {
       <div className={row2Class}>
         <label htmlFor="f-name" className={labelClass}>
           Name
-          <input id="f-name" required className={fieldClass} />
+          <input id="f-name" name="name" autoComplete="name" required className={fieldClass} />
         </label>
         <label htmlFor="f-company" className={labelClass}>
           Company
-          <input id="f-company" required className={fieldClass} />
+          <input
+            id="f-company"
+            name="company"
+            autoComplete="organization"
+            required
+            className={fieldClass}
+          />
         </label>
       </div>
       <div className={row2Class}>
         <label htmlFor="f-email" className={labelClass}>
           Work email
-          <input id="f-email" type="email" required className={fieldClass} />
+          <input
+            id="f-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            className={fieldClass}
+          />
         </label>
         <label htmlFor="f-country" className={labelClass}>
           Country
-          <input id="f-country" className={fieldClass} />
+          <input id="f-country" name="country" autoComplete="country-name" className={fieldClass} />
         </label>
       </div>
       <div className={row2Class}>
         <label htmlFor="f-type" className={labelClass}>
           Device type
-          <select id="f-type" className={fieldClass}>
+          <select id="f-type" name="deviceType" className={fieldClass}>
             <option>Spinal traction</option>
             <option>Knee traction / rehab</option>
             <option>Pneumatic compression</option>
@@ -55,7 +68,7 @@ export default function ContactForm() {
         </label>
         <label htmlFor="f-stage" className={labelClass}>
           Project stage
-          <select id="f-stage" className={fieldClass}>
+          <select id="f-stage" name="projectStage" className={fieldClass}>
             <option>Idea / concept</option>
             <option>Prototype</option>
             <option>Design complete, not cleared</option>
@@ -66,22 +79,22 @@ export default function ContactForm() {
       <fieldset className="grid gap-2 rounded-md border border-border-default p-4 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2">
         <legend className="px-1 text-[0.88rem] font-medium text-text-primary">Target markets</legend>
         <label htmlFor="m-us" className="flex items-center gap-2 font-normal text-text-secondary">
-          <input type="checkbox" id="m-us" className="w-auto" /> United States
+          <input type="checkbox" id="m-us" name="targetMarkets" value="us" className="w-auto" /> United States
         </label>
         <label htmlFor="m-eu" className="flex items-center gap-2 font-normal text-text-secondary">
-          <input type="checkbox" id="m-eu" className="w-auto" /> European Union
+          <input type="checkbox" id="m-eu" name="targetMarkets" value="eu" className="w-auto" /> European Union
         </label>
         <label htmlFor="m-au" className="flex items-center gap-2 font-normal text-text-secondary">
-          <input type="checkbox" id="m-au" className="w-auto" /> Australia
+          <input type="checkbox" id="m-au" name="targetMarkets" value="au" className="w-auto" /> Australia
         </label>
         <label htmlFor="m-ot" className="flex items-center gap-2 font-normal text-text-secondary">
-          <input type="checkbox" id="m-ot" className="w-auto" /> Other
+          <input type="checkbox" id="m-ot" name="targetMarkets" value="other" className="w-auto" /> Other
         </label>
       </fieldset>
       <div className={row2Class}>
         <label htmlFor="f-vol" className={labelClass}>
           Expected annual volume
-          <select id="f-vol" className={fieldClass}>
+          <select id="f-vol" name="annualVolume" className={fieldClass}>
             <option>Under 1,000</option>
             <option>1,000–10,000</option>
             <option>10,000–50,000</option>
@@ -90,19 +103,20 @@ export default function ContactForm() {
         </label>
         <label htmlFor="f-time" className={labelClass}>
           Target launch
-          <input id="f-time" placeholder="e.g. Q3 2027" className={fieldClass} />
+          <input id="f-time" name="targetLaunch" placeholder="e.g. Q3 2027" className={fieldClass} />
         </label>
       </div>
       <label htmlFor="f-msg" className={labelClass}>
         Project description
         <textarea
           id="f-msg"
+          name="projectDescription"
           placeholder="What the device does, who uses it, and what you need from us"
           className={`${fieldClass} min-h-[110px] resize-y`}
         />
       </label>
       <label htmlFor="f-nda" className="flex items-center gap-2 font-normal text-text-secondary">
-        <input type="checkbox" id="f-nda" className="w-auto" /> Send me your mutual NDA first
+        <input type="checkbox" id="f-nda" name="requestNda" className="w-auto" /> Send me your mutual NDA first
       </label>
       <div className="flex flex-wrap gap-3">
         <Button type="submit">Send inquiry</Button>
