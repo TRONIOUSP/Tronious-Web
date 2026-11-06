@@ -1,50 +1,76 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import heroImage from '@/public/images/therapy-device-development.png'
-import Section from '@/components/ui/Section'
-import SectionHead from '@/components/ui/SectionHead'
-import Button from '@/components/ui/Button'
-import Badge from '@/components/ui/Badge'
-import Stat from '@/components/ui/Stat'
-import Quote from '@/components/ui/Quote'
-import Ph from '@/components/ui/Ph'
-import Reveal from '@/components/ui/Reveal'
-import MediaPanel from '@/components/ui/MediaPanel'
-import DeviceFamilyIcon from '@/components/figures/DeviceFamilyIcon'
-import ConceptFlow from '@/components/figures/ConceptFlow'
+import type { Metadata } from "next";
+import Link from "next/link";
+import heroImage from "@/public/images/therapy-device-development.png";
+import Section from "@/components/ui/Section";
+import SectionHead from "@/components/ui/SectionHead";
+import Button from "@/components/ui/Button";
+import Badge from "@/components/ui/Badge";
+import Stat from "@/components/ui/Stat";
+import Quote from "@/components/ui/Quote";
+import Ph from "@/components/ui/Ph";
+import Reveal from "@/components/ui/Reveal";
+import MediaPanel from "@/components/ui/MediaPanel";
+import DeviceFamilyIcon from "@/components/figures/DeviceFamilyIcon";
+import ConceptFlow from "@/components/figures/ConceptFlow";
 
 export const metadata: Metadata = {
-  title: 'Home | TRONIOUS',
+  title: "Home | TRONIOUS",
   description:
-    'We take traction, compression, massage and thermal therapy devices from first sketch to production, ready for the US, EU and Australian markets.',
-}
+    "We take traction, compression, massage and thermal therapy devices from first sketch to production, ready for the US, EU and Australian markets.",
+};
 
 const CERTS = [
-  'ISO 13485:2016',
-  'MDSAP',
-  'FDA Registered Facility',
-  'QMSR · 21 CFR 820',
-  'EU MDR',
-  'TGA',
-  'IEC 60601-1',
-]
+  "ISO 13485:2016",
+  "MDSAP",
+  "FDA Registered Facility",
+  "QMSR · 21 CFR 820",
+  "EU MDR",
+  "TGA",
+  "IEC 60601-1",
+];
 
 const FAMILIES = [
-  { family: 'spinal' as const, name: 'Spinal traction', desc: 'Cervical and lumbar tables, force controllers' },
-  { family: 'knee' as const, name: 'Knee traction & rehab', desc: 'Distraction, CPM and rehab devices' },
-  { family: 'pneumatic' as const, name: 'Pneumatic compression', desc: 'Sequential pumps and multi-chamber garments' },
-  { family: 'massage' as const, name: 'Massage & mechanical compression', desc: 'Percussive, vibration and mechanical' },
-  { family: 'thermal' as const, name: 'Thermal therapy', desc: 'Heat, cold and contrast therapy' },
-]
+  {
+    family: "spinal" as const,
+    name: "Spinal traction",
+    desc: "Cervical and lumbar tables, force controllers",
+  },
+  {
+    family: "knee" as const,
+    name: "Knee traction & rehab",
+    desc: "Distraction, CPM and rehab devices",
+  },
+  {
+    family: "pneumatic" as const,
+    name: "Pneumatic compression",
+    desc: "Sequential pumps and multi-chamber garments",
+  },
+  {
+    family: "massage" as const,
+    name: "Massage & mechanical compression",
+    desc: "Percussive, vibration and mechanical",
+  },
+  {
+    family: "thermal" as const,
+    name: "Thermal therapy",
+    desc: "Heat, cold and contrast therapy",
+  },
+];
 
 const ENGINEERING = [
-  { title: 'Mechanical & pneumatic', desc: 'Frames, enclosures, bladders, garments' },
-  { title: 'PCB & electronics', desc: 'Isolation, motor and heater control, EMC' },
-  { title: 'Embedded firmware', desc: 'IEC 62304 control and safety software' },
-  { title: 'Mobile apps', desc: 'iOS and Android, BLE, cybersecurity' },
-  { title: 'Wearables', desc: 'Body-worn compression and heat' },
-  { title: 'Test equipment', desc: 'V&V rigs and end-of-line testers' },
-]
+  {
+    title: "Mechanical & pneumatic",
+    desc: "Frames, enclosures, bladders, garments",
+  },
+  {
+    title: "PCB & electronics",
+    desc: "Isolation, motor and heater control, EMC",
+  },
+  { title: "Embedded firmware", desc: "IEC 62304 control and safety software" },
+  { title: "Mobile apps", desc: "iOS and Android, BLE, cybersecurity" },
+  { title: "Wearables", desc: "Body-worn compression and heat" },
+  { title: "Test equipment", desc: "V&V rigs and end-of-line testers" },
+];
 
 export default function Home() {
   return (
@@ -54,23 +80,38 @@ export default function Home() {
         <div data-hero-grid="">
           <div data-hero-copy="">
             <Reveal>
-              <span data-eyebrow="">Contract design &amp; manufacturing · Therapy and recovery devices</span>
+              <span data-eyebrow="">
+                Contract design &amp; manufacturing · Therapy and recovery
+                devices
+              </span>
               <h1>
-                Your device.{' '}
-                <span data-hero-hl="">Designed, cleared and built</span> by one team.
+                Your device.{" "}
+                <span data-hero-hl="">Designed, cleared and built</span> by one
+                team.
               </h1>
               <p data-hero-lead="">
-                We take traction, compression, massage and thermal therapy devices from first sketch to
-                production, ready for the US, EU and Australian markets.
+                We take traction, compression, massage and thermal therapy
+                devices from first sketch to production, ready for the US, EU
+                and Australian markets.
               </p>
               <div data-btns="">
-                <Button href="/contact" variant="primary" size="lg">Start a project</Button>
-                <Button href="/process" variant="ghost" size="lg">How we work</Button>
+                <Button href="/contact" variant="primary" size="lg">
+                  Start a project
+                </Button>
+                <Button href="/process" variant="ghost" size="lg">
+                  How we work
+                </Button>
               </div>
               <ul data-markets="" aria-label="Markets">
-                <li><b>US</b> FDA 510(k)</li>
-                <li><b>EU</b> MDR 2017/745</li>
-                <li><b>AU</b> TGA · ARTG</li>
+                <li>
+                  <b>US</b> FDA 510(k)
+                </li>
+                <li>
+                  <b>EU</b> MDR 2017/745
+                </li>
+                <li>
+                  <b>AU</b> TGA · ARTG
+                </li>
               </ul>
             </Reveal>
           </div>
@@ -154,12 +195,14 @@ export default function Home() {
         </Reveal>
         <ConceptFlow />
         <Reveal delay={200}>
-          <Link href="/process" data-more-link="">See every phase and its deliverables →</Link>
+          <Link href="/process" data-more-link="">
+            See every phase and its deliverables →
+          </Link>
         </Reveal>
       </Section>
 
       {/* Stats — default tone */}
-      <Section>
+      {/* <Section>
         <Reveal>
           <SectionHead
             eyebrow="Track record"
@@ -180,43 +223,49 @@ export default function Home() {
             <Stat value={<Ph>[XXk]</Ph>} label="Units shipped per year" />
           </Reveal>
         </div>
-      </Section>
+      </Section> */}
 
       {/* Quote — sunken tone */}
-      <Section tone="sunken">
+      {/* <Section tone="sunken">
         <Reveal>
           <Quote
             attribution={
               <>
-                <Ph>[Name]</Ph>, <Ph>[Title]</Ph>,{' '}
+                <Ph>[Name]</Ph>, <Ph>[Title]</Ph>,{" "}
                 <Ph>[Company or &quot;US recovery device brand&quot;]</Ph>
               </>
             }
           >
             <Ph wrap>
-              [Client quote: one or two sentences about speed, quality or regulatory success. Get
-              written permission.]
+              [Client quote: one or two sentences about speed, quality or
+              regulatory success. Get written permission.]
             </Ph>
           </Quote>
         </Reveal>
-      </Section>
+      </Section> */}
 
       {/* Closing CTA — band tone */}
       <Section tone="band">
         <Reveal>
           <div data-cta-end="">
-            <h2>Have a device idea, or a design that needs a new manufacturer?</h2>
+            <h2>
+              Have a device idea, or a design that needs a new manufacturer?
+            </h2>
             <p data-hero-lead="">
-              Tell us your stage. We reply within <Ph>[2]</Ph> business days and sign an NDA before
-              any technical discussion.
+              Tell us your stage. We reply within <Ph>[2]</Ph> business days and
+              sign an NDA before any technical discussion.
             </p>
             <div data-btns="">
-              <Button href="/contact" variant="primary" size="lg">Start a project</Button>
-              <Button href="/engagement" variant="ghost" size="lg">Engagement models</Button>
+              <Button href="/contact" variant="primary" size="lg">
+                Start a project
+              </Button>
+              <Button href="/engagement" variant="ghost" size="lg">
+                Engagement models
+              </Button>
             </div>
           </div>
         </Reveal>
       </Section>
     </>
-  )
+  );
 }
