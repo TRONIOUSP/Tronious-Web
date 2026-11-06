@@ -197,6 +197,18 @@ describe('DisciplinesConvergingFigure', () => {
     expect(svg).not.toBeNull()
     expect(svg?.innerHTML.length).toBeGreaterThan(0)
   })
+
+  it('lets visitors select a discipline without covering the diagram', () => {
+    render(<DisciplinesConvergingFigure />)
+
+    expect(screen.getByRole('heading', { name: 'Mechanical & pneumatic design' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('tab', { name: 'FW' }))
+    expect(screen.getByRole('heading', { name: 'Embedded firmware' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Explore this discipline/ })).toHaveAttribute(
+      'href',
+      '/engineering#e-fw',
+    )
+  })
 })
 
 describe('TopicMapFigure', () => {

@@ -3414,6 +3414,248 @@
     text-decoration: underline;
   }
 
+  /* Enhanced interactive system map. The persistent dock replaces the old
+     floating card so details never cover the device diagram. */
+  [data-disciplines-converging-wrap] { min-width: 0; }
+  [data-discipline-status] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.54);
+  }
+  [data-discipline-status] span:last-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  [data-discipline-status] i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: var(--color-signal);
+    box-shadow: 0 0 0.8rem var(--color-signal);
+  }
+  [data-discipline-stage] {
+    position: relative;
+    padding: 0.4rem 0.75rem 0;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(79, 195, 230, 0.12), transparent 30%),
+      linear-gradient(rgba(127, 220, 242, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127, 220, 242, 0.045) 1px, transparent 1px);
+    background-size: auto, 28px 28px, 28px 28px;
+  }
+  [data-disciplines-converging] { color: rgba(200, 229, 240, 0.58); }
+  [data-discipline-orbit],
+  [data-discipline-orbit-inner] {
+    stroke-width: 0.8;
+    stroke-dasharray: 2 7;
+    opacity: 0.32;
+  }
+  [data-discipline-orbit-arc] {
+    stroke: var(--color-signal);
+    stroke-width: 1.2;
+    stroke-dasharray: 13 87;
+    opacity: 0.7;
+    transform-origin: 260px 156px;
+  }
+  [data-discipline-line] {
+    stroke-width: 1;
+    stroke-dasharray: 3 5;
+    opacity: 0.3;
+    transition: opacity 220ms ease, stroke-width 220ms ease, stroke-dasharray 220ms ease;
+  }
+  [data-discipline-line][data-active] {
+    stroke: url('#discipline-signal');
+    stroke-width: 2;
+    stroke-dasharray: 7 5;
+    opacity: 1;
+  }
+  [data-discipline-node] { transform-origin: center; }
+  [data-discipline-circle] {
+    fill: rgba(8, 27, 44, 0.86);
+    stroke: rgba(202, 230, 240, 0.62);
+    stroke-width: 1.5;
+    transition: fill 220ms ease, stroke 220ms ease, stroke-width 220ms ease;
+  }
+  [data-discipline-node-halo] {
+    fill: transparent;
+    stroke: transparent;
+    transition: fill 220ms ease, stroke 220ms ease;
+  }
+  [data-discipline-dot] {
+    fill: rgba(202, 230, 240, 0.55);
+    stroke: rgba(8, 27, 44, 0.9);
+    stroke-width: 2;
+    transition: fill 220ms ease;
+  }
+  [data-discipline-short] {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  [data-discipline-label] {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    opacity: 0.78;
+    transition: fill 220ms ease, opacity 220ms ease;
+  }
+  [data-discipline-node]:hover [data-discipline-circle],
+  [data-discipline-node][data-active] [data-discipline-circle] {
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    fill: rgba(28, 88, 125, 0.72);
+  }
+  [data-discipline-node]:hover [data-discipline-node-halo],
+  [data-discipline-node][data-active] [data-discipline-node-halo] {
+    fill: rgba(79, 195, 230, 0.08);
+    stroke: rgba(79, 195, 230, 0.22);
+  }
+  [data-discipline-node][data-active] [data-discipline-dot] { fill: var(--color-signal); }
+  [data-discipline-node][data-active] [data-discipline-label] {
+    fill: var(--color-signal);
+    opacity: 1;
+  }
+  [data-discipline-core] > rect,
+  [data-discipline-core] > path,
+  [data-core-pulse] {
+    stroke: rgba(196, 229, 240, 0.74);
+    stroke-width: 1.25;
+  }
+  [data-core-pulse] { fill: none; opacity: 0.28; }
+  [data-discipline-core] text {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    fill: rgba(231, 246, 250, 0.9);
+  }
+  [data-discipline-core] [data-core-caption] {
+    font-size: 6.5px;
+    fill: var(--color-signal);
+    opacity: 0.9;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-discipline-orbit-arc] { animation: discipline-orbit 12s linear infinite; }
+    [data-core-pulse] { animation: discipline-pulse 2.8s ease-out infinite; }
+    [data-discipline-line][data-active] { animation: discipline-signal 1.4s linear infinite; }
+  }
+  @keyframes discipline-orbit { to { transform: rotate(360deg); } }
+  @keyframes discipline-pulse {
+    0% { r: 42px; opacity: 0.36; }
+    75%, 100% { r: 64px; opacity: 0; }
+  }
+  @keyframes discipline-signal { to { stroke-dashoffset: -24; } }
+  [data-discipline-dock] {
+    position: relative;
+    z-index: 2;
+    margin: -0.15rem 0.85rem 0.85rem;
+    overflow: hidden;
+    border: 1px solid rgba(127, 220, 242, 0.18);
+    border-radius: 0.9rem;
+    background: rgba(4, 18, 31, 0.68);
+    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(14px);
+  }
+  [data-discipline-detail] {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    min-height: 9.4rem;
+    padding: 1rem 1.1rem 0.9rem;
+  }
+  [data-discipline-index] {
+    padding-top: 0.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    color: var(--color-signal);
+  }
+  [data-discipline-detail] h3 {
+    color: rgba(255, 255, 255, 0.96);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.25;
+  }
+  [data-discipline-detail] p {
+    margin-top: 0.4rem;
+    color: rgba(220, 235, 241, 0.68);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+  [data-discipline-detail] a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+    color: var(--color-signal);
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+  [data-discipline-detail] a span { transition: transform 160ms ease; }
+  [data-discipline-detail] a:hover span,
+  [data-discipline-detail] a:focus-visible span { transform: translate(2px, -2px); }
+  [data-discipline-tabs] {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+  }
+  [data-discipline-tabs] button {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 2.6rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    color: rgba(220, 235, 241, 0.46);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    transition: color 180ms ease, background 180ms ease;
+  }
+  [data-discipline-tabs] button:last-child { border-right: 0; }
+  [data-discipline-tabs] button:hover,
+  [data-discipline-tabs] button:focus-visible,
+  [data-discipline-tabs] button[aria-selected='true'] {
+    color: white;
+    background: rgba(79, 195, 230, 0.1);
+  }
+  [data-discipline-tabs] button i {
+    position: absolute;
+    inset: auto 28% 0;
+    height: 2px;
+    background: var(--color-signal);
+    transform: scaleX(0);
+    transition: transform 180ms ease;
+  }
+  [data-discipline-tabs] button[aria-selected='true'] i { transform: scaleX(1); }
+  @media (max-width: 520px) {
+    [data-discipline-status] {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    [data-discipline-stage] { padding-inline: 0; }
+    [data-discipline-label] { display: none; }
+    [data-discipline-detail] {
+      min-height: 11.25rem;
+      gap: 0.7rem;
+      padding-inline: 0.85rem;
+    }
+    [data-discipline-detail] p { font-size: 0.74rem; }
+  }
+
   /* ---------- LegalStructureFigure ----------
      Typographic sectional index for the legal page, linking to the privacy,
      terms, cookies and accessibility sections below it. Spec §9.3 names a
