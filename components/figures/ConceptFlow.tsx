@@ -12,12 +12,10 @@ export default function ConceptFlow({ className }: { className?: string }) {
   return (
     <ol className={className} data-concept-flow="">
       {STEPS.map((step, i) => (
-        <Reveal as="li" key={step.key} delay={i * 60}>
-          <span data-step-num="" aria-hidden="true">
-            {String(i + 1).padStart(2, '0')}
-          </span>
-          <span data-step-name="">{step.key}</span>
-          <span data-step-detail="">{step.detail}</span>
+        <Reveal as="li" key={step.key} delay={i * 90}>
+          <span data-step-node aria-hidden="true">{i + 1}</span>
+          <span data-step-name>{step.key}</span>
+          <span data-step-detail>{step.detail}</span>
         </Reveal>
       ))}
     </ol>

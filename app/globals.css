@@ -1339,82 +1339,245 @@
     color: var(--color-text-secondary);
   }
 
-  /* ---------- Homepage — Process / ConceptFlow ---------- */
+  /* ---------- Homepage — Process / ConceptFlow ----------
+     Each step is a card with its own top accent bar, which fills in from
+     left to right on reveal using the same --reveal-delay timing Reveal
+     already sets on the <li> — no second observer needed. A small chevron
+     bridges each pair of cards on wide screens to keep the "flow" reading
+     left to right; it drops out once cards wrap to a narrower grid. */
   [data-concept-flow] {
     list-style: none;
-    margin: 2rem 0 0;
+    margin: 2.75rem 0 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0;
+    gap: 0.85rem;
     counter-reset: step;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     [data-concept-flow] {
-      grid-template-columns: 1fr;
-    }
-    [data-concept-flow] li {
-      padding-left: 2rem;
-      padding-top: 0;
-      padding-bottom: 1.25rem;
-    }
-    [data-concept-flow] li::before {
-      top: 0;
-      left: 0.375rem;
-      bottom: 0;
-      right: auto;
-      height: auto;
-      width: 2px;
-    }
-    [data-concept-flow] li::after {
-      top: 0;
-      left: 0;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: 1.5rem;
     }
   }
   [data-concept-flow] li {
     position: relative;
     display: grid;
-    gap: 0.375rem;
-    padding: 1.75rem 1rem 0 0;
+    gap: 0.5rem;
     align-content: start;
+    padding: 2.5rem 1.15rem 1.35rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--color-border-subtle);
+    background-color: color-mix(in srgb, var(--color-surface-raised) 55%, transparent);
+  }
+  /* Steps take turns being "active" on an endless loop, so the flow reads
+     itself without needing a hover — same 6s/5-step cadence as the hero
+     device suite's highlight loop, so the whole page shares one rhythm.
+     Each step's active window (20%-40% of its own cycle) ends exactly as
+     the next one's begins, for a seamless hand-off. */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-concept-flow] li {
+      animation: concept-step-active 6s var(--ease-out-soft) infinite;
+    }
+    [data-concept-flow] li:nth-child(1) { animation-delay: 0s; }
+    [data-concept-flow] li:nth-child(2) { animation-delay: 1.2s; }
+    [data-concept-flow] li:nth-child(3) { animation-delay: 2.4s; }
+    [data-concept-flow] li:nth-child(4) { animation-delay: 3.6s; }
+    [data-concept-flow] li:nth-child(5) { animation-delay: 4.8s; }
+    [data-step-node] {
+      animation: concept-node-active 6s var(--ease-out-soft) infinite;
+    }
+    [data-step-node]::before {
+      animation: concept-node-glow 6s var(--ease-out-soft) infinite;
+    }
+    [data-concept-flow] li:nth-child(1) [data-step-node],
+    [data-concept-flow] li:nth-child(1) [data-step-node]::before { animation-delay: 0s; }
+    [data-concept-flow] li:nth-child(2) [data-step-node],
+    [data-concept-flow] li:nth-child(2) [data-step-node]::before { animation-delay: 1.2s; }
+    [data-concept-flow] li:nth-child(3) [data-step-node],
+    [data-concept-flow] li:nth-child(3) [data-step-node]::before { animation-delay: 2.4s; }
+    [data-concept-flow] li:nth-child(4) [data-step-node],
+    [data-concept-flow] li:nth-child(4) [data-step-node]::before { animation-delay: 3.6s; }
+    [data-concept-flow] li:nth-child(5) [data-step-node],
+    [data-concept-flow] li:nth-child(5) [data-step-node]::before { animation-delay: 4.8s; }
+  }
+  @keyframes concept-step-active {
+    0%, 100% {
+      border-color: var(--color-border-subtle);
+      background-color: color-mix(in srgb, var(--color-surface-raised) 55%, transparent);
+      box-shadow: 0 18px 34px -22px transparent;
+      transform: translateY(0);
+    }
+    20%, 40% {
+      border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border-subtle));
+      background-color: color-mix(in srgb, var(--color-accent-subtle) 35%, var(--color-surface-raised));
+      box-shadow: 0 18px 34px -22px color-mix(in srgb, var(--color-accent) 70%, transparent);
+      transform: translateY(-4px);
+    }
+  }
+  @keyframes concept-node-active {
+    0%, 100% {
+      color: var(--color-accent);
+      box-shadow: 0 0 0 0 transparent;
+      transform: translateY(-50%) scale(1);
+    }
+    20%, 40% {
+      color: var(--color-text-on-accent);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-accent) 16%, transparent);
+      transform: translateY(-50%) scale(1.08);
+    }
+  }
+  @keyframes concept-node-glow {
+    0%, 100% { opacity: 0; }
+    20%, 40% { opacity: 1; }
+  }
+  /* Same as concept-node-active but without the absolute-position translateY,
+     for the stacked mobile layout where the node sits inline instead of
+     overlapping the card's top edge. */
+  @keyframes concept-node-active-mobile {
+    0%, 100% {
+      color: var(--color-accent);
+      box-shadow: 0 0 0 0 transparent;
+      transform: scale(1);
+    }
+    20%, 40% {
+      color: var(--color-text-on-accent);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-accent) 16%, transparent);
+      transform: scale(1.08);
+    }
   }
   [data-concept-flow] li::before {
     content: '';
     position: absolute;
-    top: 0.5rem;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--color-border-subtle);
-  }
-  [data-concept-flow] li::after {
-    content: '';
-    position: absolute;
     top: 0;
     left: 0;
-    width: 1rem;
-    height: 1rem;
+    right: 0;
+    height: 3px;
+    border-radius: 0.9rem 0.9rem 0 0;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-signal));
+    transform-origin: left center;
+  }
+  :root[data-motion='on'] [data-concept-flow] li::before {
+    transform: scaleX(0);
+  }
+  :root[data-motion='on'] [data-concept-flow] li[data-reveal='shown']::before {
+    animation: concept-step-fill 0.7s var(--ease-out-soft) forwards;
+    animation-delay: calc(var(--reveal-delay, 0ms) + 150ms);
+  }
+  @keyframes concept-step-fill {
+    to { transform: scaleX(1); }
+  }
+  @media (min-width: 901px) {
+    [data-concept-flow] li:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 1.25rem;
+      left: 100%;
+      width: 7px;
+      height: 7px;
+      margin-left: -0.1rem;
+      border-top: 2px solid var(--color-border-subtle);
+      border-right: 2px solid var(--color-border-subtle);
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+  [data-step-node] {
+    position: absolute;
+    top: 0;
+    left: 1.15rem;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
     border-radius: 50%;
     background: var(--color-surface-raised);
     border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1rem;
     z-index: 1;
   }
-  [data-step-num] {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-accent);
-    font-weight: 500;
+  /* Gradient fill for the "active" look, crossfaded in behind the number via
+     opacity rather than swapping `background` to a gradient directly — a
+     flat color can't interpolate into a gradient, so animating that would
+     just snap instead of fade. */
+  [data-step-node]::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-signal));
+    opacity: 0;
+    z-index: -1;
   }
   [data-step-name] {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.05rem;
     color: var(--color-text-primary);
+    margin-top: 0.5rem;
   }
   [data-step-detail] {
     font-size: 0.85rem;
     color: var(--color-text-secondary);
     line-height: 1.4;
+  }
+  @media (max-width: 700px) {
+    [data-concept-flow] {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    [data-concept-flow] li {
+      display: grid;
+      grid-template-columns: 2.75rem 1fr;
+      column-gap: 1rem;
+      padding: 0 0 1.75rem;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      animation: none;
+    }
+    [data-concept-flow] li::before {
+      top: 2.5rem;
+      left: 1.1rem;
+      right: auto;
+      bottom: 0;
+      width: 2px;
+      height: auto;
+      border-radius: 0;
+      background: var(--color-border-subtle);
+    }
+    :root[data-motion='on'] [data-concept-flow] li::before,
+    :root[data-motion='on'] [data-concept-flow] li[data-reveal='shown']::before {
+      transform: none;
+      animation: none;
+    }
+    [data-concept-flow] li:last-child::before {
+      display: none;
+    }
+    [data-concept-flow] li::after {
+      content: none;
+    }
+    [data-step-node] {
+      position: relative;
+      top: auto;
+      left: auto;
+      grid-row: 1 / span 2;
+      transform: none;
+      animation-name: concept-node-active-mobile;
+    }
+    [data-step-name],
+    [data-step-detail] {
+      grid-column: 2;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-concept-flow] li::before {
+      animation: none;
+      transform: none;
+    }
   }
   [data-more-link] {
     display: inline-block;
