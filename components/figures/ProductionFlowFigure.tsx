@@ -63,7 +63,14 @@ export default function ProductionFlowFigure({ className }: { className?: string
   const [activeStep, setActiveStep] = useState(0)
   const tabsRef = useRef<Array<HTMLButtonElement | null>>([])
 
+  // Only scroll the tab strip in response to an actual step change (keyboard
+  // or click), never on mount/remount — a cached page reactivating with the
+  // same step must not re-trigger scrollIntoView, which (lacking a vertically
+  // scrollable ancestor here) falls back to scrolling the whole window.
+  const lastStepRef = useRef(activeStep)
   useEffect(() => {
+    if (lastStepRef.current === activeStep) return
+    lastStepRef.current = activeStep
     const tab = tabsRef.current[activeStep]
     if (typeof tab?.scrollIntoView !== 'function') return
     tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
