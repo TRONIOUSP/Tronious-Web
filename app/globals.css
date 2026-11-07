@@ -4191,7 +4191,8 @@
     pointer-events: none;
   }
   [data-hero-figure-frame] [data-role-map-list],
-  [data-hero-figure-frame] [data-topic-map-list] {
+  [data-hero-figure-frame] [data-topic-map-list],
+  [data-hero-figure-frame] [data-engagement-models-list] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   [data-hero-figure-frame] [data-case-study-figure-list],
@@ -4206,11 +4207,13 @@
   [data-hero-figure-frame] [data-role-map-gate],
   [data-hero-figure-frame] [data-topic-map-stage],
   [data-hero-figure-frame] [data-case-study-figure-title],
+  [data-hero-figure-frame] [data-engagement-models-title],
   [data-hero-figure-frame] [data-legal-structure-link] {
     color: #eaf1f8;
   }
   [data-hero-figure-frame] [data-role-map-team],
-  [data-hero-figure-frame] [data-case-study-figure-num] {
+  [data-hero-figure-frame] [data-case-study-figure-num],
+  [data-hero-figure-frame] [data-engagement-models-letter] {
     color: var(--color-signal-300);
   }
   [data-hero-figure-caption] {
@@ -4310,6 +4313,108 @@
     max-width: 56rem;
     font-size: var(--text-lead);
     line-height: 1.65;
+    color: var(--color-text-secondary);
+  }
+
+  [data-engagement-card-grid] > [data-reveal] {
+    min-width: 0;
+  }
+  [data-engagement-card-grid] [data-card] {
+    position: relative;
+    overflow: hidden;
+  }
+  [data-engagement-card-grid] [data-card]::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--color-accent), var(--color-signal));
+  }
+  [data-engagement-card] {
+    display: grid;
+    gap: 1.5rem;
+    height: 100%;
+    padding: clamp(1.5rem, 3vw, 2rem);
+  }
+  [data-engagement-card-heading] {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+  [data-engagement-card-heading] [data-card-index] {
+    display: grid;
+    place-items: center;
+    min-width: 4.75rem;
+    min-height: 4.75rem;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 50%;
+    background: var(--color-surface-sunken);
+    text-align: center;
+  }
+  [data-engagement-card-heading] h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-text-primary);
+  }
+  [data-engagement-card-heading] p {
+    margin-top: 0.45rem;
+    color: var(--color-text-tertiary);
+  }
+  [data-engagement-card-description] {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--color-text-secondary);
+  }
+  [data-engagement-card-details] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+  [data-engagement-card-details] div {
+    display: grid;
+    align-content: start;
+    gap: 0.45rem;
+  }
+  [data-engagement-card-details] span {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+  [data-engagement-card-details] strong {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--color-text-primary);
+  }
+  [data-engagement-decision] {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+  [data-engagement-decisions] > [data-reveal]:last-child [data-engagement-decision] {
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  [data-engagement-decision] [data-card-index] {
+    padding-top: 0.2rem;
+  }
+  [data-engagement-decision] h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+  [data-engagement-decision] p {
+    margin-top: 0.45rem;
     color: var(--color-text-secondary);
   }
 
@@ -4625,9 +4730,19 @@
   @media (max-width: 640px) {
     [data-hero-figure-frame] [data-role-map-list],
     [data-hero-figure-frame] [data-topic-map-list],
+    [data-hero-figure-frame] [data-engagement-models-list],
     [data-case-pathway-copy],
-    [data-policy-grid] {
+    [data-policy-grid],
+    [data-engagement-card-details] {
       grid-template-columns: 1fr;
+    }
+    [data-engagement-card-heading] {
+      grid-template-columns: 1fr;
+    }
+    [data-engagement-card-heading] [data-card-index] {
+      min-width: 4rem;
+      min-height: 4rem;
+      width: 4rem;
     }
     [data-case-pathway-footer] {
       align-items: flex-start;
