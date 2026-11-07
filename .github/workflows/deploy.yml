@@ -30,6 +30,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Generate Next.js types
+        run: npx next typegen
+
       - name: Typecheck
         run: npx tsc --noEmit
 
