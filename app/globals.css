@@ -3810,7 +3810,7 @@
   [data-device-panel] {
     display: grid;
     grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 1.5fr);
-    min-height: 17rem;
+    min-height: 22rem;
     outline: none;
   }
   [data-device-panel]:focus-visible {
@@ -3818,14 +3818,17 @@
     outline-offset: -3px;
   }
   [data-device-panel-intro] {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    display: grid;
+    /* Keep the label, title and example on fixed tracks so switching to a
+       family with longer copy never moves the panel's visual anchors. */
+    grid-template-rows: 1rem 9rem 3.5rem;
+    align-content: center;
+    gap: 0.75rem;
     padding: clamp(1.5rem, 4vw, 3rem);
     background: var(--color-band-surface);
   }
   [data-device-panel-intro] h3 {
-    margin-top: 0.75rem;
+    margin-top: 0;
     font-family: var(--font-display);
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 600;
@@ -3833,7 +3836,7 @@
     color: #eaf1f8;
   }
   [data-device-panel-intro] p {
-    margin-top: 0.75rem;
+    margin-top: 0;
     color: #a9bcd0;
   }
   [data-device-panel-intro] [data-eyebrow] {
@@ -3841,9 +3844,15 @@
   }
   [data-device-panel-detail] {
     display: grid;
+    /* The longest engineering note and standards list define these tracks.
+       Shorter families then replace the copy without reflowing the panel. */
+    grid-template-rows: 6.5rem 7.5rem;
     align-content: center;
-    gap: 2rem;
+    gap: 1.25rem;
     padding: clamp(1.5rem, 4vw, 3rem);
+  }
+  [data-device-panel-detail] > div {
+    min-width: 0;
   }
   [data-device-panel-detail] p {
     margin-top: 0.6rem;
@@ -3891,9 +3900,16 @@
     }
     [data-device-panel] {
       grid-template-columns: 1fr;
+      min-height: 0;
     }
     [data-device-panel-intro] {
-      min-height: 12rem;
+      grid-template-rows: 1rem 6.25rem 3rem;
+      min-height: 16rem;
+    }
+    [data-device-panel-detail] {
+      grid-template-rows: 8rem 11.5rem;
+      min-height: 23.5rem;
+      align-content: start;
     }
   }
 
