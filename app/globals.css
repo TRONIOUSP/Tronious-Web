@@ -3083,31 +3083,241 @@
      cards on the facilities page; the accessible, detailed equipment lists
      are the cards that follow. */
   [data-facility-schematic-list] {
+    position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.75rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 1.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   [data-facility-schematic-list] li {
+    position: relative;
     display: grid;
-    gap: 0.25rem;
-    background-color: var(--color-surface-raised);
+    grid-template-rows: auto auto 1fr;
+    gap: 0.7rem;
+    min-height: 12rem;
+    overflow: hidden;
+    padding: 1.5rem;
     border: 1px solid var(--color-border-subtle);
-    border-radius: 0.5rem;
-    padding: 0.875rem 1rem;
+    border-radius: 1rem;
+    background:
+      radial-gradient(18rem 10rem at 100% 0%, color-mix(in srgb, var(--color-signal) 10%, transparent), transparent 72%),
+      var(--color-surface-raised);
+    box-shadow: var(--shadow-sm);
+  }
+  [data-facility-schematic-list] li::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-signal));
+    transform-origin: left center;
+  }
+  @media (min-width: 801px) {
+    [data-facility-schematic-list]::before {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      right: 16.666%;
+      left: 16.666%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-signal));
+    }
+    [data-facility-schematic-list] li {
+      z-index: 1;
+    }
   }
   [data-facility-schematic-num] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 34%, var(--color-border-subtle));
+    border-radius: 999px;
+    background: var(--color-accent-subtle);
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
     color: var(--color-accent);
   }
   [data-facility-schematic-title] {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 0.9375rem;
+    font-size: 1.25rem;
+    line-height: 1.2;
     color: var(--color-text-primary);
+  }
+  [data-facility-schematic-detail] {
+    max-width: 36ch;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+  :root[data-motion='on'] [data-facility-schematic-list] li::before {
+    transform: scaleX(0);
+  }
+  :root[data-motion='on'] [data-facility-schematic-list] li[data-reveal='shown']::before {
+    transform: scaleX(1);
+    transition: transform 600ms var(--ease-out-soft);
+    transition-delay: calc(var(--reveal-delay, 0ms) + 120ms);
+  }
+  [data-facility-facts] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  [data-facility-facts] > [data-reveal] {
+    min-width: 0;
+    min-height: 8rem;
+    padding: 1.35rem 1.5rem;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.85rem;
+    background: var(--color-surface-sunken);
+  }
+  [data-facility-facts] dt,
+  [data-equipment-kicker],
+  [data-facility-note] > span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+  [data-facility-facts] dd {
+    max-width: 46ch;
+    margin-top: 0.65rem;
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-text-primary);
+  }
+  [data-facility-equipment-grid] {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  [data-facility-equipment-grid] > [data-reveal] {
+    min-width: 0;
+  }
+  .facility-equipment-card {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 3.5rem 5rem 1fr;
+    height: 100%;
+    overflow: hidden;
+    padding: clamp(1.5rem, 3vw, 2rem);
+  }
+  .facility-equipment-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--color-accent), var(--color-signal));
+  }
+  [data-equipment-card-head] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  [data-equipment-index] {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+  .facility-equipment-card h3 {
+    align-self: end;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+  }
+  .facility-equipment-card > p {
+    padding-top: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--color-text-secondary);
+  }
+  .facility-equipment-card [data-ticks] {
+    align-self: start;
+    margin-top: 1.25rem;
+  }
+  [data-facility-note] {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+    margin-top: 1rem;
+    padding: 1.35rem 1.5rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 30%, var(--color-border-subtle));
+    border-radius: 0.85rem;
+    background: var(--color-accent-subtle);
+  }
+  [data-facility-note] > span {
+    color: var(--color-accent);
+  }
+  [data-facility-note] p {
+    max-width: 68ch;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+  @media (max-width: 900px) {
+    [data-facility-equipment-grid] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    [data-facility-equipment-grid] > [data-reveal]:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 800px) {
+    [data-facility-schematic-list] {
+      grid-template-columns: 1fr;
+    }
+    [data-facility-schematic-list] li {
+      min-height: 0;
+    }
+  }
+  @media (max-width: 640px) {
+    [data-facility-facts],
+    [data-facility-equipment-grid] {
+      grid-template-columns: 1fr;
+    }
+    [data-facility-equipment-grid] > [data-reveal]:last-child {
+      grid-column: auto;
+    }
+    .facility-equipment-card {
+      grid-template-rows: auto auto auto 1fr;
+      gap: 1rem;
+    }
+    .facility-equipment-card h3 {
+      padding-top: 0.25rem;
+    }
+    .facility-equipment-card > p,
+    .facility-equipment-card [data-ticks] {
+      margin-top: 0;
+      padding-top: 0;
+    }
+    [data-facility-note] {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-facility-schematic-list] li::before {
+      transition: none !important;
+      transform: none !important;
+    }
   }
 
   /* ---------- EngagementModelsFigure ----------
