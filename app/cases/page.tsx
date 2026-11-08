@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Case studies | TRONIOUS',
   description:
     'Representative pathways showing how TRONIOUS connects engineering, evidence and production for therapy-device programs.',
+  alternates: { canonical: '/cases' },
 }
 
 const PATHWAYS = [

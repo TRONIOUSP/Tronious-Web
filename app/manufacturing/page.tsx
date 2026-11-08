@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: 'Manufacturing | TRONIOUS',
   description:
     'A controlled design transfer, then volume production where every unit is tested, traceable and released against a device history record.',
+  alternates: { canonical: '/manufacturing' },
 }
 
 const JUMP_LINKS = [

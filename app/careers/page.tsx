@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Careers | TRONIOUS',
   description:
     'Join a multidisciplinary team developing therapy and recovery devices from first concept through validated production.',
+  alternates: { canonical: '/careers' },
 }
 
 const PRINCIPLES = [

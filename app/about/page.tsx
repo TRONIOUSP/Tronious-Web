@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: 'About | TRONIOUS',
   description:
     'TRONIOUS brings engineering, regulatory, quality and manufacturing together to develop therapy and recovery devices for the US, EU and Australian markets.',
+  alternates: { canonical: '/about' },
 }
 
 const PRINCIPLES = [

@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "Home | TRONIOUS",
   description:
     "We take traction, compression, massage and thermal therapy devices from first sketch to production, ready for the US, EU and Australian markets.",
+  alternates: { canonical: "/" },
 };
 
 const CERTS = [
