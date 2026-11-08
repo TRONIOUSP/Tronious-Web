@@ -1,30 +1,37 @@
 import type { ReactElement } from 'react'
 
-type Family = 'spinal' | 'knee' | 'pneumatic' | 'massage' | 'thermal' | 'connected'
+type Family =
+  | 'electrotherapy'
+  | 'photobiomodulation'
+  | 'pneumatic'
+  | 'massage'
+  | 'thermal'
+  | 'connected'
 
 const icons: Record<Family, ReactElement> = {
-  spinal: (
+  electrotherapy: (
     <>
-      {/* Spinal traction — stacked vertebra-like blocks with traction arrow */}
-      <rect x="18" y="4" width="12" height="7" rx="2" strokeWidth="1.5" />
-      <rect x="17" y="14" width="14" height="7" rx="2" strokeWidth="1.5" />
-      <rect x="16" y="24" width="16" height="7" rx="2" strokeWidth="1.5" />
-      <rect x="15" y="34" width="18" height="8" rx="2" strokeWidth="1.5" />
-      <line x1="8" y1="4" x2="8" y2="42" strokeWidth="1.5" />
-      <polyline points="4,8 8,4 12,8" strokeWidth="1.5" fill="none" />
-      <polyline points="4,38 8,42 12,38" strokeWidth="1.5" fill="none" />
+      {/* Electrotherapy — paired electrode pads, lead wires and electrical pulse */}
+      <rect x="5" y="27" width="15" height="17" rx="3" strokeWidth="1.5" />
+      <rect x="28" y="27" width="15" height="17" rx="3" strokeWidth="1.5" />
+      <path d="M12.5 27 V20 C12.5 14 16 11 20 11" strokeWidth="1.5" fill="none" />
+      <path d="M35.5 27 V20 C35.5 14 32 11 28 11" strokeWidth="1.5" fill="none" />
+      <path d="M24 3 L19.5 11 H24 L21.5 19 L29 9 H25 L28 3" strokeWidth="1.5" fill="none" />
     </>
   ),
-  knee: (
+  photobiomodulation: (
     <>
-      {/* Knee traction — joint with distraction gap and force lines */}
-      <ellipse cx="24" cy="16" rx="10" ry="12" strokeWidth="1.5" />
-      <ellipse cx="24" cy="36" rx="10" ry="10" strokeWidth="1.5" />
-      <line x1="24" y1="28" x2="24" y2="24" strokeWidth="1.5" strokeDasharray="2 2" />
-      <line x1="36" y1="16" x2="42" y2="10" strokeWidth="1.5" />
-      <polyline points="38,10 42,10 42,14" strokeWidth="1.5" fill="none" />
-      <line x1="36" y1="36" x2="42" y2="42" strokeWidth="1.5" />
-      <polyline points="38,42 42,42 42,38" strokeWidth="1.5" fill="none" />
+      {/* Photobiomodulation — light array with emitted treatment rays */}
+      <rect x="6" y="30" width="36" height="12" rx="3" strokeWidth="1.5" />
+      <circle cx="14" cy="36" r="1.5" strokeWidth="1.25" />
+      <circle cx="21" cy="36" r="1.5" strokeWidth="1.25" />
+      <circle cx="28" cy="36" r="1.5" strokeWidth="1.25" />
+      <circle cx="35" cy="36" r="1.5" strokeWidth="1.25" />
+      <line x1="24" y1="4" x2="24" y2="23" strokeWidth="1.5" />
+      <line x1="14" y1="8" x2="18" y2="24" strokeWidth="1.5" />
+      <line x1="34" y1="8" x2="30" y2="24" strokeWidth="1.5" />
+      <line x1="6" y1="15" x2="12" y2="25" strokeWidth="1.5" />
+      <line x1="42" y1="15" x2="36" y2="25" strokeWidth="1.5" />
     </>
   ),
   pneumatic: (

@@ -1,6 +1,6 @@
 export const DEVICE_TYPES = [
-  'Spinal traction',
-  'Knee traction / rehab',
+  'Electrotherapy',
+  'Photobiomodulation',
   'Pneumatic compression',
   'Massage / non-pneumatic compression',
   'Thermal therapy',
