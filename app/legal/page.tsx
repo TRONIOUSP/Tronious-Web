@@ -9,6 +9,7 @@ import LegalStructureFigure from '@/components/figures/LegalStructureFigure'
 export const metadata: Metadata = {
   title: 'Legal & privacy | TRONIOUS',
   description: 'TRONIOUS website privacy, terms of use, cookie and accessibility information.',
+  alternates: { canonical: '/legal' },
 }
 
 export default function Legal() {

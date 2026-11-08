@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { NO_FLASH_SCRIPT } from "@/lib/theme";
 import { PLACEHOLDER_ATTRIBUTE, PLACEHOLDER_MARKING } from "@/lib/placeholders";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const mono = IBM_Plex_Mono({
@@ -25,7 +26,9 @@ const body = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "TRONIOUS",
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  title: SITE_NAME,
   description: "An innovative electronic product development company focused on delivering end-to-end solutions, from concept design and prototyping to manufacturing and deployment.",
 };
 

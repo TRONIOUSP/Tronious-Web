@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Engagement models | TRONIOUS',
   description:
     'Choose the right TRONIOUS engagement model for device design, build-to-print manufacturing, full turnkey development or a customized private-label platform.',
+  alternates: { canonical: '/engagement' },
 }
 
 const MODELS = [
