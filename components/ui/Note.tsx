@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { forwardRef, type ComponentPropsWithoutRef } from 'react'
 import { cx } from '@/lib/cx'
 
 /**
@@ -6,20 +6,14 @@ import { cx } from '@/lib/cx'
  * holds even before CSS loads and is readable by assistive tech. ContactForm's
  * existing test depends on exactly this behaviour.
  */
-export default function Note({
-  children,
-  hidden,
-  id,
-  className,
-}: {
-  children: ReactNode
-  hidden?: boolean
-  id?: string
-  className?: string
-}) {
-  return (
-    <p id={id} hidden={hidden} data-note="" className={cx('ui-note', className)}>
-      {children}
-    </p>
-  )
-}
+const Note = forwardRef<HTMLParagraphElement, ComponentPropsWithoutRef<'p'>>(
+  function Note({ children, className, ...rest }, ref) {
+    return (
+      <p ref={ref} data-note="" className={cx('ui-note', className)} {...rest}>
+        {children}
+      </p>
+    )
+  },
+)
+
+export default Note
