@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import Button from '@/components/ui/Button'
 import Note from '@/components/ui/Note'
 
@@ -10,17 +10,76 @@ const labelClass = 'grid gap-1.5 text-[0.88rem] font-medium text-text-primary'
 const row2Class = 'grid gap-4 sm:grid-cols-2'
 
 export default function ContactForm() {
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [message, setMessage] = useState('')
+  const statusRef = useRef<HTMLParagraphElement>(null)
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (status === 'submitting') return
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    setStatus('submitting')
+    setMessage('Sending your inquiry…')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          company: formData.get('company'),
+          email: formData.get('email'),
+          country: formData.get('country'),
+          deviceType: formData.get('deviceType'),
+          projectStage: formData.get('projectStage'),
+          targetMarkets: formData.getAll('targetMarkets'),
+          annualVolume: formData.get('annualVolume'),
+          targetLaunch: formData.get('targetLaunch'),
+          projectDescription: formData.get('projectDescription'),
+          requestNda: formData.get('requestNda') === 'on',
+          website: formData.get('website'),
+        }),
+      })
+
+      const result = (await response.json().catch(() => null)) as { message?: unknown } | null
+      const responseMessage =
+        typeof result?.message === 'string' ? result.message : 'The inquiry could not be sent.'
+
+      if (!response.ok) {
+        throw new Error(responseMessage)
+      }
+
+      form.reset()
+      setStatus('success')
+      setMessage(responseMessage)
+    } catch (error) {
+      setStatus('error')
+      setMessage(error instanceof Error ? error.message : 'The inquiry could not be sent.')
+    } finally {
+      requestAnimationFrame(() => statusRef.current?.focus())
+    }
+  }
 
   return (
     <form
       id="rfq"
       className="grid max-w-[720px] gap-4"
-      onSubmit={(e) => {
-        e.preventDefault()
-        setSubmitted(true)
-      }}
+      onSubmit={handleSubmit}
     >
+      <div className="sr-only" aria-hidden="true">
+        <label htmlFor="f-website">
+          Website
+          <input
+            id="f-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
+      </div>
       <div className={row2Class}>
         <label htmlFor="f-name" className={labelClass}>
           Name
@@ -119,10 +178,19 @@ export default function ContactForm() {
         <input type="checkbox" id="f-nda" name="requestNda" className="w-auto" /> Send me your mutual NDA first
       </label>
       <div className="flex flex-wrap gap-3">
-        <Button type="submit">Send inquiry</Button>
+        <Button type="submit" disabled={status === 'submitting'} aria-describedby="formMsg">
+          {status === 'submitting' ? 'Sending…' : 'Send inquiry'}
+        </Button>
       </div>
-      <Note id="formMsg" hidden={!submitted}>
-        This is a preview form. When the site goes live, your developer connects it to your email or CRM.
+      <Note
+        ref={statusRef}
+        id="formMsg"
+        hidden={status === 'idle'}
+        role={status === 'error' ? 'alert' : 'status'}
+        aria-live="polite"
+        tabIndex={-1}
+      >
+        {message}
       </Note>
     </form>
   )
