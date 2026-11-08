@@ -113,13 +113,15 @@ export default function Home() {
             </Reveal>
           </div>
           <div data-hero-figure="">
-            <MediaPanel
-              src={heroImage}
-              alt="Illustrative therapy-device development scene with a compression controller, garment, electronics and enclosure components"
-              eyebrow="Concept to production"
-              caption="Engineering, regulatory and manufacturing in one development loop"
-              priority
-            />
+            <Reveal delay={100} className="w-full">
+              <MediaPanel
+                src={heroImage}
+                alt="Illustrative therapy-device development scene with a compression controller, garment, electronics and enclosure components"
+                eyebrow="Concept to production"
+                caption="Engineering, regulatory and manufacturing in one development loop"
+                priority
+              />
+            </Reveal>
           </div>
         </div>
       </Section>

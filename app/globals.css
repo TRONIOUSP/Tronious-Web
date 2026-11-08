@@ -360,6 +360,10 @@
   .hero-section [data-hero-figure] {
     min-height: clamp(24rem, min(41vw, 58vh), 36rem);
   }
+  .hero-section [data-hero-figure] > [data-reveal] {
+    width: 100%;
+    min-height: inherit;
+  }
   .hero-section [data-media-panel] {
     height: 100%;
     transform: perspective(1200px) rotateY(-2deg) rotateX(1deg);
