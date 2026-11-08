@@ -1,6 +1,12 @@
 export type DeviceFamily = {
   id: string
-  icon: 'spinal' | 'knee' | 'pneumatic' | 'massage' | 'thermal' | 'connected'
+  icon:
+    | 'electrotherapy'
+    | 'photobiomodulation'
+    | 'pneumatic'
+    | 'massage'
+    | 'thermal'
+    | 'connected'
   name: string
   examples: string
   challenges: string
@@ -9,22 +15,22 @@ export type DeviceFamily = {
 
 export const DEVICE_FAMILIES: DeviceFamily[] = [
   {
-    id: 'spinal',
-    icon: 'spinal',
-    name: 'Spinal traction',
-    examples: 'Cervical and lumbar tables, controllers',
+    id: 'electrotherapy',
+    icon: 'electrotherapy',
+    name: 'Electrotherapy',
+    examples: 'TENS, EMS, NMES and interferential stimulators',
     challenges:
-      'Accurate force control and measurement, patient-release and emergency stop, motor safety',
-    standards: ['IEC 60601-1', 'IEC 60601-1-2', 'IEC 62304', 'ISO 14971'],
+      'Constant-current output and waveform accuracy, electrode-contact monitoring, patient isolation and leakage limits',
+    standards: ['IEC 60601-1', 'IEC 60601-2-10', 'IEC 60601-1-11', 'IEC 62304', 'ISO 14971'],
   },
   {
-    id: 'knee',
-    icon: 'knee',
-    name: 'Knee traction & rehab',
-    examples: 'Distraction, CPM, rehab devices',
+    id: 'photobiomodulation',
+    icon: 'photobiomodulation',
+    name: 'Photobiomodulation',
+    examples: 'Red and near-infrared LED and low-level laser devices',
     challenges:
-      'Range-of-motion limits, joint alignment across patient sizes, repeatable load profiles',
-    standards: ['IEC 60601-1', 'IEC 62366-1', 'ISO 14971'],
+      'Irradiance and dose accuracy, wavelength stability, skin-contact temperature limits, eye safety',
+    standards: ['IEC 60601-1', 'IEC 60601-2-57', 'IEC 62471', 'IEC 60825-1', 'ISO 14971'],
   },
   {
     id: 'pneumatic',

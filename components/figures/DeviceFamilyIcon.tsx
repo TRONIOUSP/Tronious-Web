@@ -1,8 +1,41 @@
 import type { ReactElement } from 'react'
 
-type Family = 'spinal' | 'knee' | 'pneumatic' | 'massage' | 'thermal' | 'connected'
+type Family =
+  | 'electrotherapy'
+  | 'photobiomodulation'
+  | 'spinal'
+  | 'knee'
+  | 'pneumatic'
+  | 'massage'
+  | 'thermal'
+  | 'connected'
 
 const icons: Record<Family, ReactElement> = {
+  electrotherapy: (
+    <>
+      {/* Electrotherapy — paired electrode pads, lead wires and electrical pulse */}
+      <rect x="5" y="27" width="15" height="17" rx="3" strokeWidth="1.5" />
+      <rect x="28" y="27" width="15" height="17" rx="3" strokeWidth="1.5" />
+      <path d="M12.5 27 V20 C12.5 14 16 11 20 11" strokeWidth="1.5" fill="none" />
+      <path d="M35.5 27 V20 C35.5 14 32 11 28 11" strokeWidth="1.5" fill="none" />
+      <path d="M24 3 L19.5 11 H24 L21.5 19 L29 9 H25 L28 3" strokeWidth="1.5" fill="none" />
+    </>
+  ),
+  photobiomodulation: (
+    <>
+      {/* Photobiomodulation — light array with emitted treatment rays */}
+      <rect x="6" y="30" width="36" height="12" rx="3" strokeWidth="1.5" />
+      <circle cx="14" cy="36" r="1.5" strokeWidth="1.25" />
+      <circle cx="21" cy="36" r="1.5" strokeWidth="1.25" />
+      <circle cx="28" cy="36" r="1.5" strokeWidth="1.25" />
+      <circle cx="35" cy="36" r="1.5" strokeWidth="1.25" />
+      <line x1="24" y1="4" x2="24" y2="23" strokeWidth="1.5" />
+      <line x1="14" y1="8" x2="18" y2="24" strokeWidth="1.5" />
+      <line x1="34" y1="8" x2="30" y2="24" strokeWidth="1.5" />
+      <line x1="6" y1="15" x2="12" y2="25" strokeWidth="1.5" />
+      <line x1="42" y1="15" x2="36" y2="25" strokeWidth="1.5" />
+    </>
+  ),
   spinal: (
     <>
       {/* Spinal traction — stacked vertebra-like blocks with traction arrow */}
