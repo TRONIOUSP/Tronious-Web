@@ -1,4 +1,4 @@
-name: CI for Lightsail-hosted Next.js
+name: CI/CD to AWS Lightsail
 
 on:
   pull_request:
@@ -33,7 +33,74 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      # The contact endpoint requires the Node.js server build deployed on
-      # Lightsail. Static exports support GET route handlers only.
-      - name: Build Next.js server
+      - name: Build Next.js standalone server
         run: npm run build
+
+      - name: Package standalone server
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p deploy/.next
+          cp -a .next/standalone/. deploy/
+          cp -a .next/static deploy/.next/static
+          cp -a public deploy/public
+          tar -czf tronious-web.tar.gz -C deploy .
+
+      - name: Upload deployment artifact
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tronious-web-${{ github.sha }}
+          path: tronious-web.tar.gz
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Lightsail
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: lightsail-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download deployment artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tronious-web-${{ github.sha }}
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.LIGHTSAIL_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.LIGHTSAIL_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/lightsail_deploy
+          chmod 600 ~/.ssh/lightsail_deploy
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload and activate release
+        env:
+          LIGHTSAIL_HOST: ${{ secrets.LIGHTSAIL_HOST }}
+          LIGHTSAIL_USER: ${{ secrets.LIGHTSAIL_USER }}
+        run: |
+          release_id="${GITHUB_SHA:0:12}"
+          ssh_options=(
+            -i ~/.ssh/lightsail_deploy
+            -o BatchMode=yes
+            -o IdentitiesOnly=yes
+          )
+
+          scp "${ssh_options[@]}" \
+            tronious-web.tar.gz \
+            "$LIGHTSAIL_USER@$LIGHTSAIL_HOST:/var/www/tronious/releases/$release_id.tar.gz"
+          scp "${ssh_options[@]}" \
+            ops/deploy-release.sh \
+            "$LIGHTSAIL_USER@$LIGHTSAIL_HOST:/var/www/tronious/deploy-release.sh"
+
+          ssh "${ssh_options[@]}" "$LIGHTSAIL_USER@$LIGHTSAIL_HOST" \
+            "chmod 750 /var/www/tronious/deploy-release.sh && \
+             /var/www/tronious/deploy-release.sh '$release_id'"
