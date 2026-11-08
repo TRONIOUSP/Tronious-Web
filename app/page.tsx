@@ -28,14 +28,14 @@ const CERTS = [
 
 const FAMILIES = [
   {
-    family: "spinal" as const,
-    name: "Spinal traction",
-    desc: "Cervical and lumbar tables, force controllers",
+    family: "electrotherapy" as const,
+    name: "Electrotherapy",
+    desc: "TENS, EMS, NMES and interferential stimulators",
   },
   {
-    family: "knee" as const,
-    name: "Knee traction & rehab",
-    desc: "Distraction, CPM and rehab devices",
+    family: "photobiomodulation" as const,
+    name: "Photobiomodulation",
+    desc: "Red and near-infrared LED and low-level laser devices",
   },
   {
     family: "pneumatic" as const,
@@ -113,13 +113,15 @@ export default function Home() {
             </Reveal>
           </div>
           <div data-hero-figure="">
-            <MediaPanel
-              src={heroImage}
-              alt="Illustrative therapy-device development scene with a compression controller, garment, electronics and enclosure components"
-              eyebrow="Concept to production"
-              caption="Engineering, regulatory and manufacturing in one development loop"
-              priority
-            />
+            <Reveal delay={100} className="w-full">
+              <MediaPanel
+                src={heroImage}
+                alt="Illustrative therapy-device development scene with a compression controller, garment, electronics and enclosure components"
+                eyebrow="Concept to production"
+                caption="Engineering, regulatory and manufacturing in one development loop"
+                priority
+              />
+            </Reveal>
           </div>
         </div>
       </Section>

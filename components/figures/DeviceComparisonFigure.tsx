@@ -8,8 +8,14 @@ import Reveal from '@/components/ui/Reveal'
  * screen reader announcing the same family/standards pairing twice.
  */
 const FAMILIES = [
-  { name: 'Spinal traction', standards: ['IEC 60601-1', 'IEC 60601-1-2', 'IEC 62304', 'ISO 14971'] },
-  { name: 'Knee traction & rehab', standards: ['IEC 60601-1', 'IEC 62366-1', 'ISO 14971'] },
+  {
+    name: 'Electrotherapy',
+    standards: ['IEC 60601-1', 'IEC 60601-2-10', 'IEC 60601-1-11', 'IEC 62304', 'ISO 14971'],
+  },
+  {
+    name: 'Photobiomodulation',
+    standards: ['IEC 60601-1', 'IEC 60601-2-57', 'IEC 62471', 'IEC 60825-1', 'ISO 14971'],
+  },
   {
     name: 'Pneumatic compression',
     standards: ['IEC 60601-1', 'IEC 60601-1-11', 'ISO 10993 for garments'],

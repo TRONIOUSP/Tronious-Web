@@ -117,8 +117,8 @@ export default function ContactForm() {
         <label htmlFor="f-type" className={labelClass}>
           Device type
           <select id="f-type" name="deviceType" className={fieldClass}>
-            <option>Spinal traction</option>
-            <option>Knee traction / rehab</option>
+            <option>Electrotherapy</option>
+            <option>Photobiomodulation</option>
             <option>Pneumatic compression</option>
             <option>Massage / non-pneumatic compression</option>
             <option>Thermal therapy</option>

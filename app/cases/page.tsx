@@ -27,7 +27,7 @@ const PATHWAYS = [
   },
   {
     number: '02',
-    category: 'Spinal traction · Manufacturing transfer',
+    category: 'Electrotherapy · Manufacturing transfer',
     title: 'Moving an established device into a controlled new supply chain',
     challenge:
       'A cleared or mature product needs a new manufacturing route without losing design intent, supplier knowledge or confidence in final acceptance testing.',

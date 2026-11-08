@@ -12,16 +12,30 @@ import Reveal from '@/components/ui/Reveal'
  * claim (a bullet like "Thermal chambers and data loggers" is not
  * necessarily one discrete "system").
  */
-const ZONES = ['Test & measurement', 'Prototyping', 'Production']
+const ZONES = [
+  {
+    title: 'Test & measurement',
+    detail: 'Characterize performance and build the evidence behind each design decision.',
+  },
+  {
+    title: 'Prototyping',
+    detail: 'Move mechanical, electronic and firmware iterations through short feedback loops.',
+  },
+  {
+    title: 'Production',
+    detail: 'Translate the released design into controlled assembly, test and pack-out.',
+  },
+]
 
 export default function FacilitySchematic({ className }: { className?: string }) {
   return (
     <figure data-facility-schematic="" aria-hidden="true" className={cx(className)}>
       <ol data-facility-schematic-list="">
-        {ZONES.map((title, index) => (
+        {ZONES.map(({ title, detail }, index) => (
           <Reveal as="li" key={title} delay={index * 80}>
             <span data-facility-schematic-num="">{String(index + 1).padStart(2, '0')}</span>
             <span data-facility-schematic-title="">{title}</span>
+            <span data-facility-schematic-detail="">{detail}</span>
           </Reveal>
         ))}
       </ol>
