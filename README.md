@@ -1,3 +1,32 @@
+# TRONIOUS Website
+
+TRONIOUS is a business-to-business website for an electronic product development company that provides end-to-end support for therapy and recovery devices. It presents the company’s capabilities across product strategy, engineering, regulatory readiness, design transfer, manufacturing, and deployment.
+
+The website is designed to help medical-device brands and product teams understand how TRONIOUS can take traction, compression, massage, and thermal therapy products from an initial concept through commercial production. Its content focuses on projects intended for the United States, European Union, and Australian markets.
+
+## Website overview
+
+The site includes dedicated areas for:
+
+- Engineering and product-development services
+- Device-family expertise
+- Phase-gated development processes
+- Quality and regulatory capabilities
+- Manufacturing, facilities, and design transfer
+- Engagement models and case-study pathways
+- Company information, careers, and technical insights
+- Project inquiries through a structured contact form
+
+The user interface uses a shared editorial design system with responsive layouts, technical diagrams, interactive explainers, comparison tables, light and dark themes, accessible navigation, and reduced-motion support.
+
+## Technical overview
+
+The application uses Next.js 16 with the App Router, React 19, TypeScript, and Tailwind CSS 4. Most pages are rendered as Server Components, with Client Components used for navigation, theme controls, forms, and interactive technical content.
+
+Project inquiries are validated by a server-side route handler and delivered through Microsoft Graph. Production uses Next.js standalone output deployed to an AWS Lightsail instance through GitHub Actions. Releases are activated atomically and checked for health, with rollback support if a deployment fails.
+
+## Original project documentation
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
