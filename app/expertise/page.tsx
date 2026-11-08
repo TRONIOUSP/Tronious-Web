@@ -5,8 +5,10 @@ import Card from '@/components/ui/Card'
 import DataTable from '@/components/ui/DataTable'
 import JumpNav from '@/components/ui/JumpNav'
 import Button from '@/components/ui/Button'
+import Badge from '@/components/ui/Badge'
 import Reveal from '@/components/ui/Reveal'
 import DeviceFamilyExplorer from '@/components/DeviceFamilyExplorer'
+import DeviceFamilyIcon from '@/components/figures/DeviceFamilyIcon'
 import { DEVICE_FAMILIES } from '@/lib/device-expertise'
 
 export const metadata: Metadata = {
@@ -56,25 +58,44 @@ export default function Expertise() {
             title="Full device-family comparison"
             lead="Use this view when comparing product types or preparing an early supplier brief."
           />
-          <DataTable className="mt-8">
-            <table>
+          <DataTable className="device-comparison-wrap mt-8">
+            <table data-device-comparison-table="">
+              <caption className="sr-only">
+                Comparison of therapy device families, their engineering challenges and key
+                standards
+              </caption>
               <thead>
                 <tr>
-                  <th>Device family</th>
-                  <th>Typical engineering challenges</th>
-                  <th>Key standards we design to</th>
+                  <th scope="col">Device family</th>
+                  <th scope="col">Engineering focus</th>
+                  <th scope="col">Standards starting point</th>
                 </tr>
               </thead>
               <tbody>
-                {DEVICE_FAMILIES.map((family) => (
+                {DEVICE_FAMILIES.map((family, index) => (
                   <tr key={family.id}>
-                    <td>
-                      <b>{family.name}</b>
-                      <br />
-                      {family.examples}
+                    <th scope="row" data-label="Device family">
+                      <div data-comparison-family="">
+                        <span data-comparison-index="">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <DeviceFamilyIcon family={family.icon} />
+                        <span data-comparison-family-copy="">
+                          <strong>{family.name}</strong>
+                          <small>{family.examples}</small>
+                        </span>
+                      </div>
+                    </th>
+                    <td data-label="Engineering focus">
+                      <p>{family.challenges}</p>
                     </td>
-                    <td>{family.challenges}</td>
-                    <td>{family.standards.join(', ')}</td>
+                    <td data-label="Standards starting point">
+                      <div data-comparison-standards="">
+                        {family.standards.map((standard) => (
+                          <Badge key={standard}>{standard}</Badge>
+                        ))}
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
