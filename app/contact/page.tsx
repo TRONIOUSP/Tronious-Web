@@ -1,28 +1,28 @@
-import type { Metadata } from 'next'
-import projectScopingImage from '@/public/images/project-scoping-meeting.png'
-import Section from '@/components/ui/Section'
-import SectionHead from '@/components/ui/SectionHead'
-import Card from '@/components/ui/Card'
-import Button from '@/components/ui/Button'
-import TickList from '@/components/ui/TickList'
-import Note from '@/components/ui/Note'
-import MediaPanel from '@/components/ui/MediaPanel'
-import ContactForm from '@/components/ContactForm'
-import RFQFlowFigure from '@/components/figures/RFQFlowFigure'
-import Reveal from '@/components/ui/Reveal'
+import type { Metadata } from "next";
+import projectScopingImage from "@/public/images/project-scoping-meeting.jpg";
+import Section from "@/components/ui/Section";
+import SectionHead from "@/components/ui/SectionHead";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import TickList from "@/components/ui/TickList";
+import Note from "@/components/ui/Note";
+import MediaPanel from "@/components/ui/MediaPanel";
+import ContactForm from "@/components/ContactForm";
+import RFQFlowFigure from "@/components/figures/RFQFlowFigure";
+import Reveal from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
-  title: 'Start a Project | TRONIOUS',
+  title: "Start a Project | TRONIOUS",
   description:
-    'Tell TRONIOUS about your therapy-device concept, development stage, target markets and the support your team needs.',
-}
+    "Tell TRONIOUS about your therapy-device concept, development stage, target markets and the support your team needs.",
+};
 
 const BRIEF_POINTS = [
-  'What the device does and who will use it',
-  'Your current development or production stage',
-  'The markets and launch timing you are considering',
-  'Where you need engineering, regulatory or manufacturing support',
-]
+  "What the device does and who will use it",
+  "Your current development or production stage",
+  "The markets and launch timing you are considering",
+  "Where you need engineering, regulatory or manufacturing support",
+];
 
 export default function Contact() {
   return (
@@ -82,7 +82,9 @@ export default function Contact() {
                 <div>
                   <span data-eyebrow="">Your project brief</span>
                   <h2>Start the conversation</h2>
-                  <p>Share only what is appropriate before an NDA is in place.</p>
+                  <p>
+                    Share only what is appropriate before an NDA is in place.
+                  </p>
                 </div>
               </div>
               <div data-contact-form-body="">
@@ -105,17 +107,18 @@ export default function Contact() {
                 <span data-eyebrow="">Confidentiality</span>
                 <h3>Keep detailed IP out of the first message</h3>
                 <p>
-                  Do not include confidential drawings, source files, patient information or
-                  sensitive technical details. Request a mutual NDA in the form before sharing
-                  protected material.
+                  Do not include confidential drawings, source files, patient
+                  information or sensitive technical details. Request a mutual
+                  NDA in the form before sharing protected material.
                 </p>
               </Card>
             </Reveal>
 
             <Reveal delay={180}>
               <Note>
-                Not sure which service you need? Describe the current constraint rather than trying
-                to define the solution—we will help frame the next step.
+                Not sure which service you need? Describe the current constraint
+                rather than trying to define the solution—we will help frame the
+                next step.
               </Note>
             </Reveal>
           </aside>
@@ -137,5 +140,5 @@ export default function Contact() {
         </Reveal>
       </Section>
     </>
-  )
+  );
 }
