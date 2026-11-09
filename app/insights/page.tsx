@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Insights | TRONIOUS',
   description:
     'Practical perspectives on medical-device engineering, verification, regulatory strategy and manufacturing transfer.',
+  alternates: { canonical: '/insights' },
 }
 
 const TOPICS = [

@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: 'Facilities | TRONIOUS',
   description:
     'Explore the connected engineering, prototyping, test and controlled-production capabilities behind TRONIOUS device programs.',
+  alternates: { canonical: '/facilities' },
 }
 
 const FACILITY_FACTS = [

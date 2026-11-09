@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Quality & Regulatory | TRONIOUS',
   description:
     'Supplier qualification teams usually start here. Current evidence is available on request in our supplier pack.',
+  alternates: { canonical: '/quality' },
 }
 
 const JUMP_LINKS = [

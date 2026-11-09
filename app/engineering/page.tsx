@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Engineering | TRONIOUS',
   description:
     'Every discipline a connected therapy device needs, in one team, working under one design control process. Each discipline produces documentation that drops straight into your design history file.',
+  alternates: { canonical: '/engineering' },
 }
 
 const DISCIPLINES = [

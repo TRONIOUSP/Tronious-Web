@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: "Start a Project | TRONIOUS",
   description:
     "Tell TRONIOUS about your therapy-device concept, development stage, target markets and the support your team needs.",
+  alternates: { canonical: "/contact" },
 };
 
 const BRIEF_POINTS = [
