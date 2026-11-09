@@ -1,66 +1,71 @@
-import type { Metadata } from 'next'
-import manufacturingImage from '@/public/images/precision-assembly.png'
-import Section from '@/components/ui/Section'
-import SectionHead from '@/components/ui/SectionHead'
-import Card from '@/components/ui/Card'
-import TickList from '@/components/ui/TickList'
-import Button from '@/components/ui/Button'
-import FacilitySchematic from '@/components/figures/FacilitySchematic'
-import Reveal from '@/components/ui/Reveal'
-import MediaPanel from '@/components/ui/MediaPanel'
+import type { Metadata } from "next";
+import manufacturingImage from "@/public/images/precision-assembly.jpg";
+import Section from "@/components/ui/Section";
+import SectionHead from "@/components/ui/SectionHead";
+import Card from "@/components/ui/Card";
+import TickList from "@/components/ui/TickList";
+import Button from "@/components/ui/Button";
+import FacilitySchematic from "@/components/figures/FacilitySchematic";
+import Reveal from "@/components/ui/Reveal";
+import MediaPanel from "@/components/ui/MediaPanel";
 
 export const metadata: Metadata = {
-  title: 'Facilities | TRONIOUS',
+  title: "Facilities | TRONIOUS",
   description:
-    'Explore the connected engineering, prototyping, test and controlled-production capabilities behind TRONIOUS device programs.',
-  alternates: { canonical: '/facilities' },
-}
+    "Explore the connected engineering, prototyping, test and controlled-production capabilities behind TRONIOUS device programs.",
+  alternates: { canonical: "/facilities" },
+};
 
 const FACILITY_FACTS = [
   {
-    label: 'Production model',
-    value: 'Lines configured around each project’s volume and process route',
+    label: "Production model",
+    value: "Lines configured around each project’s volume and process route",
   },
   {
-    label: 'Controlled environment',
-    value: 'ESD-protected assembly and test areas',
+    label: "Controlled environment",
+    value: "ESD-protected assembly and test areas",
   },
   {
-    label: 'Scale path',
-    value: 'A connected route from pilot lots to volume production',
+    label: "Scale path",
+    value: "A connected route from pilot lots to volume production",
   },
   {
-    label: 'Team access',
-    value: 'Mechanical, electronics, firmware, quality and regulatory in one loop',
+    label: "Team access",
+    value:
+      "Mechanical, electronics, firmware, quality and regulatory in one loop",
   },
-]
+];
 
 const EQUIPMENT_AREAS = [
   {
-    title: 'Test & measurement',
-    lead: 'Evidence from bench verification through production release.',
+    title: "Test & measurement",
+    lead: "Evidence from bench verification through production release.",
     items: [
-      'Electrical safety and hipot testers',
-      'Pressure and flow calibration',
-      'Thermal chambers and data loggers',
-      'Force and load testing',
+      "Electrical safety and hipot testers",
+      "Pressure and flow calibration",
+      "Thermal chambers and data loggers",
+      "Force and load testing",
     ],
   },
   {
-    title: 'Prototyping',
-    lead: 'Short feedback loops for mechanical and electronic iterations.',
-    items: ['3D printing (SLA, FDM)', 'CNC machining', 'PCB assembly and rework'],
-  },
-  {
-    title: 'Production',
-    lead: 'Repeatable processes for assembly, test, labeling and pack-out.',
+    title: "Prototyping",
+    lead: "Short feedback loops for mechanical and electronic iterations.",
     items: [
-      'Final assembly and functional test',
-      'RF welding for pneumatic garments',
-      'Packaging and UDI labeling',
+      "3D printing (SLA, FDM)",
+      "CNC machining",
+      "PCB assembly and rework",
     ],
   },
-]
+  {
+    title: "Production",
+    lead: "Repeatable processes for assembly, test, labeling and pack-out.",
+    items: [
+      "Final assembly and functional test",
+      "RF welding for pneumatic garments",
+      "Packaging and UDI labeling",
+    ],
+  },
+];
 
 export default function Facilities() {
   return (
@@ -119,7 +124,9 @@ export default function Facilities() {
             <Reveal key={area.title} delay={index * 80} className="h-full">
               <Card as="article" className="facility-equipment-card">
                 <div data-equipment-card-head="">
-                  <span data-equipment-index="">{String(index + 1).padStart(2, '0')}</span>
+                  <span data-equipment-index="">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   <span data-equipment-kicker="">Capability group</span>
                 </div>
                 <h3>{area.title}</h3>
@@ -133,8 +140,8 @@ export default function Facilities() {
           <div data-facility-note="">
             <span>Program-specific setup</span>
             <p>
-              Production fixtures, validation methods and line configuration are defined around
-              the device, its risk controls and expected volume.
+              Production fixtures, validation methods and line configuration are
+              defined around the device, its risk controls and expected volume.
             </p>
           </div>
         </Reveal>
@@ -145,8 +152,9 @@ export default function Facilities() {
           <div data-cta-end="">
             <h2>Need a clear route from released design to production?</h2>
             <p data-hero-lead="">
-              Bring us the device, current evidence and expected volume. We will map the facility,
-              test and transfer work needed for a controlled launch.
+              Bring us the device, current evidence and expected volume. We will
+              map the facility, test and transfer work needed for a controlled
+              launch.
             </p>
             <div data-btns="">
               <Button href="/contact" variant="primary" size="lg">
@@ -160,5 +168,5 @@ export default function Facilities() {
         </Reveal>
       </Section>
     </>
-  )
+  );
 }
