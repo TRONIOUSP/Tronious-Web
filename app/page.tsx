@@ -35,7 +35,7 @@ const FAMILIES = [
   },
   {
     family: "photobiomodulation" as const,
-    name: "Photobiomodulation",
+    name: "Photobio-modulation",
     desc: "Red and near-infrared LED and low-level laser devices",
   },
   {

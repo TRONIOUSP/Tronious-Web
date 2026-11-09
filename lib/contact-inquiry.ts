@@ -1,82 +1,88 @@
 export const DEVICE_TYPES = [
-  'Electrotherapy',
-  'Photobiomodulation',
-  'Pneumatic compression',
-  'Massage / non-pneumatic compression',
-  'Thermal therapy',
-  'Other',
-] as const
+  "Electrotherapy",
+  "Photobio-modulation",
+  "Pneumatic compression",
+  "Massage / non-pneumatic compression",
+  "Thermal therapy",
+  "Other",
+] as const;
 
 export const PROJECT_STAGES = [
-  'Idea / concept',
-  'Prototype',
-  'Design complete, not cleared',
-  'Cleared, need a manufacturer',
-] as const
+  "Idea / concept",
+  "Prototype",
+  "Design complete, not cleared",
+  "Cleared, need a manufacturer",
+] as const;
 
 export const ANNUAL_VOLUMES = [
-  'Under 1,000',
-  '1,000–10,000',
-  '10,000–50,000',
-  'Over 50,000',
-] as const
+  "Under 1,000",
+  "1,000–10,000",
+  "10,000–50,000",
+  "Over 50,000",
+] as const;
 
-const TARGET_MARKETS = new Set(['us', 'eu', 'au', 'other'])
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const TARGET_MARKETS = new Set(["us", "eu", "au", "other"]);
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export type ContactInquiry = {
-  name: string
-  company: string
-  email: string
-  country: string
-  deviceType: (typeof DEVICE_TYPES)[number]
-  projectStage: (typeof PROJECT_STAGES)[number]
-  targetMarkets: string[]
-  annualVolume: (typeof ANNUAL_VOLUMES)[number]
-  targetLaunch: string
-  projectDescription: string
-  requestNda: boolean
-  website: string
-}
+  name: string;
+  company: string;
+  email: string;
+  country: string;
+  deviceType: (typeof DEVICE_TYPES)[number];
+  projectStage: (typeof PROJECT_STAGES)[number];
+  targetMarkets: string[];
+  annualVolume: (typeof ANNUAL_VOLUMES)[number];
+  targetLaunch: string;
+  projectDescription: string;
+  requestNda: boolean;
+  website: string;
+};
 
 type ParseResult =
   | { ok: true; data: ContactInquiry }
-  | { ok: false; message: string }
+  | { ok: false; message: string };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value)
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function cleanString(value: unknown, maximumLength: number) {
-  if (typeof value !== 'string') return null
+  if (typeof value !== "string") return null;
 
-  const cleaned = value.trim()
-  if (cleaned.length > maximumLength) return null
-  return cleaned
+  const cleaned = value.trim();
+  if (cleaned.length > maximumLength) return null;
+  return cleaned;
 }
 
-function isOneOf<T extends readonly string[]>(value: string, options: T): value is T[number] {
-  return options.includes(value as T[number])
+function isOneOf<T extends readonly string[]>(
+  value: string,
+  options: T,
+): value is T[number] {
+  return options.includes(value as T[number]);
 }
 
 export function parseContactInquiry(input: unknown): ParseResult {
   if (!isRecord(input)) {
-    return { ok: false, message: 'Please check the form and try again.' }
+    return { ok: false, message: "Please check the form and try again." };
   }
 
-  const name = cleanString(input.name, 120)
-  const company = cleanString(input.company, 160)
-  const email = cleanString(input.email, 254)?.toLowerCase() ?? null
-  const country = cleanString(input.country, 120)
-  const deviceType = cleanString(input.deviceType, 80)
-  const projectStage = cleanString(input.projectStage, 80)
-  const annualVolume = cleanString(input.annualVolume, 40)
-  const targetLaunch = cleanString(input.targetLaunch, 80)
-  const projectDescription = cleanString(input.projectDescription, 5000)
-  const website = cleanString(input.website, 200)
+  const name = cleanString(input.name, 120);
+  const company = cleanString(input.company, 160);
+  const email = cleanString(input.email, 254)?.toLowerCase() ?? null;
+  const country = cleanString(input.country, 120);
+  const deviceType = cleanString(input.deviceType, 80);
+  const projectStage = cleanString(input.projectStage, 80);
+  const annualVolume = cleanString(input.annualVolume, 40);
+  const targetLaunch = cleanString(input.targetLaunch, 80);
+  const projectDescription = cleanString(input.projectDescription, 5000);
+  const website = cleanString(input.website, 200);
 
   if (!name || !company || !email || !EMAIL_PATTERN.test(email)) {
-    return { ok: false, message: 'Enter your name, company and a valid work email.' }
+    return {
+      ok: false,
+      message: "Enter your name, company and a valid work email.",
+    };
   }
 
   if (
@@ -91,14 +97,15 @@ export function parseContactInquiry(input: unknown): ParseResult {
     !annualVolume ||
     !isOneOf(annualVolume, ANNUAL_VOLUMES)
   ) {
-    return { ok: false, message: 'Please check the form and try again.' }
+    return { ok: false, message: "Please check the form and try again." };
   }
 
   const targetMarkets = Array.isArray(input.targetMarkets)
     ? input.targetMarkets.filter(
-        (market): market is string => typeof market === 'string' && TARGET_MARKETS.has(market),
+        (market): market is string =>
+          typeof market === "string" && TARGET_MARKETS.has(market),
       )
-    : []
+    : [];
 
   return {
     ok: true,
@@ -116,49 +123,51 @@ export function parseContactInquiry(input: unknown): ParseResult {
       requestNda: input.requestNda === true,
       website,
     },
-  }
+  };
 }
 
 const MARKET_LABELS: Record<string, string> = {
-  us: 'United States',
-  eu: 'European Union',
-  au: 'Australia',
-  other: 'Other',
-}
+  us: "United States",
+  eu: "European Union",
+  au: "Australia",
+  other: "Other",
+};
 
 export function formatInquiryMessage(inquiry: ContactInquiry) {
-  const markets = inquiry.targetMarkets.map((market) => MARKET_LABELS[market]).join(', ') || 'Not specified'
+  const markets =
+    inquiry.targetMarkets.map((market) => MARKET_LABELS[market]).join(", ") ||
+    "Not specified";
 
   return [
-    'A new project inquiry was submitted through tronious.com.',
-    '',
+    "A new project inquiry was submitted through tronious.com.",
+    "",
     `Name: ${inquiry.name}`,
     `Company: ${inquiry.company}`,
     `Work email: ${inquiry.email}`,
-    `Country: ${inquiry.country || 'Not specified'}`,
+    `Country: ${inquiry.country || "Not specified"}`,
     `Device type: ${inquiry.deviceType}`,
     `Project stage: ${inquiry.projectStage}`,
     `Target markets: ${markets}`,
     `Expected annual volume: ${inquiry.annualVolume}`,
-    `Target launch: ${inquiry.targetLaunch || 'Not specified'}`,
-    `Mutual NDA requested: ${inquiry.requestNda ? 'Yes' : 'No'}`,
-    '',
-    'Project description:',
-    inquiry.projectDescription || 'Not provided',
-  ].join('\n')
+    `Target launch: ${inquiry.targetLaunch || "Not specified"}`,
+    `Mutual NDA requested: ${inquiry.requestNda ? "Yes" : "No"}`,
+    "",
+    "Project description:",
+    inquiry.projectDescription || "Not provided",
+  ].join("\n");
 }
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, (character) => {
     const entities: Record<string, string> = {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      "'": '&#39;',
-      '"': '&quot;',
-    }
-    return entities[character]
-  })
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      '"': "&quot;",
+    };
+    return entities[character];
+  });
 }
 
 function detailCell(label: string, value: string) {
@@ -166,7 +175,7 @@ function detailCell(label: string, value: string) {
     <td width="50%" valign="top" style="padding:0 8px 16px 0;">
       <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#627287;">${escapeHtml(label)}</div>
       <div style="padding-top:4px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:22px;font-weight:600;color:#14212e;">${escapeHtml(value)}</div>
-    </td>`
+    </td>`;
 }
 
 /**
@@ -174,19 +183,23 @@ function detailCell(label: string, value: string) {
  * while still reading cleanly in Gmail, Apple Mail and mobile clients.
  */
 export function formatInquiryHtml(inquiry: ContactInquiry) {
-  const name = escapeHtml(inquiry.name)
-  const company = escapeHtml(inquiry.company)
-  const email = escapeHtml(inquiry.email)
+  const name = escapeHtml(inquiry.name);
+  const company = escapeHtml(inquiry.company);
+  const email = escapeHtml(inquiry.email);
   const markets =
-    inquiry.targetMarkets.map((market) => MARKET_LABELS[market]).join(', ') || 'Not specified'
-  const description = escapeHtml(inquiry.projectDescription || 'Not provided').replace(
-    /\r?\n/g,
-    '<br>',
-  )
-  const replySubject = encodeURIComponent(`Re: Project inquiry from ${inquiry.company}`)
-  const ndaBackground = inquiry.requestNda ? '#fff2db' : '#eaf0f6'
-  const ndaColour = inquiry.requestNda ? '#9a5b00' : '#3c4c60'
-  const ndaLabel = inquiry.requestNda ? 'Mutual NDA requested' : 'No NDA requested'
+    inquiry.targetMarkets.map((market) => MARKET_LABELS[market]).join(", ") ||
+    "Not specified";
+  const description = escapeHtml(
+    inquiry.projectDescription || "Not provided",
+  ).replace(/\r?\n/g, "<br>");
+  const replySubject = encodeURIComponent(
+    `Re: Project inquiry from ${inquiry.company}`,
+  );
+  const ndaBackground = inquiry.requestNda ? "#fff2db" : "#eaf0f6";
+  const ndaColour = inquiry.requestNda ? "#9a5b00" : "#3c4c60";
+  const ndaLabel = inquiry.requestNda
+    ? "Mutual NDA requested"
+    : "No NDA requested";
 
   return `<!doctype html>
 <html lang="en">
@@ -224,7 +237,7 @@ export function formatInquiryHtml(inquiry: ContactInquiry) {
                   <tr>
                     <td style="padding:20px 22px;">
                       <div style="font-family:Arial,Helvetica,sans-serif;font-size:20px;line-height:26px;font-weight:700;color:#14212e;">${name}</div>
-                      <div style="padding-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:21px;color:#56657a;">${company}${inquiry.country ? ` &nbsp;&middot;&nbsp; ${escapeHtml(inquiry.country)}` : ''}</div>
+                      <div style="padding-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:21px;color:#56657a;">${company}${inquiry.country ? ` &nbsp;&middot;&nbsp; ${escapeHtml(inquiry.country)}` : ""}</div>
                       <div style="padding-top:10px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;"><a href="mailto:${email}?subject=${replySubject}" style="font-weight:700;color:#1f5fbf;text-decoration:none;">${email}</a></div>
                     </td>
                   </tr>
@@ -239,9 +252,9 @@ export function formatInquiryHtml(inquiry: ContactInquiry) {
             <tr>
               <td style="padding:4px 32px 12px;">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-                  <tr>${detailCell('Device type', inquiry.deviceType)}${detailCell('Project stage', inquiry.projectStage)}</tr>
-                  <tr>${detailCell('Target markets', markets)}${detailCell('Expected annual volume', inquiry.annualVolume)}</tr>
-                  <tr>${detailCell('Target launch', inquiry.targetLaunch || 'Not specified')}${detailCell('Country', inquiry.country || 'Not specified')}</tr>
+                  <tr>${detailCell("Device type", inquiry.deviceType)}${detailCell("Project stage", inquiry.projectStage)}</tr>
+                  <tr>${detailCell("Target markets", markets)}${detailCell("Expected annual volume", inquiry.annualVolume)}</tr>
+                  <tr>${detailCell("Target launch", inquiry.targetLaunch || "Not specified")}${detailCell("Country", inquiry.country || "Not specified")}</tr>
                 </table>
                 <span style="display:inline-block;padding:7px 11px;background-color:${ndaBackground};font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;font-weight:700;color:${ndaColour};">${ndaLabel}</span>
               </td>
@@ -274,5 +287,5 @@ export function formatInquiryHtml(inquiry: ContactInquiry) {
       </tr>
     </table>
   </body>
-</html>`
+</html>`;
 }
