@@ -1,36 +1,37 @@
-import type { Metadata } from 'next'
-import manufacturingImage from '@/public/images/precision-assembly.png'
-import ManufacturingTransfer from '@/components/ManufacturingTransfer'
-import ProductionFlowFigure from '@/components/figures/ProductionFlowFigure'
-import Button from '@/components/ui/Button'
-import Card from '@/components/ui/Card'
-import JumpNav from '@/components/ui/JumpNav'
-import MediaPanel from '@/components/ui/MediaPanel'
-import Reveal from '@/components/ui/Reveal'
-import Section from '@/components/ui/Section'
-import SectionHead from '@/components/ui/SectionHead'
+import type { Metadata } from "next";
+import manufacturingImage from "@/public/images/precision-assembly.jpg";
+import ManufacturingTransfer from "@/components/ManufacturingTransfer";
+import ProductionFlowFigure from "@/components/figures/ProductionFlowFigure";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
+import JumpNav from "@/components/ui/JumpNav";
+import MediaPanel from "@/components/ui/MediaPanel";
+import Reveal from "@/components/ui/Reveal";
+import Section from "@/components/ui/Section";
+import SectionHead from "@/components/ui/SectionHead";
 
 export const metadata: Metadata = {
-  title: 'Manufacturing | TRONIOUS',
+  title: "Manufacturing | TRONIOUS",
   description:
-    'A controlled design transfer, then volume production where every unit is tested, traceable and released against a device history record.',
-  alternates: { canonical: '/manufacturing' },
-}
+    "A controlled design transfer, then volume production where every unit is tested, traceable and released against a device history record.",
+  alternates: { canonical: "/manufacturing" },
+};
 
 const JUMP_LINKS = [
-  { href: '#m-dt', label: 'Design transfer' },
-  { href: '#m-flow', label: 'Production flow' },
-  { href: '#m-qc', label: 'Quality controls' },
-  { href: '#m-scale', label: 'Scaling' },
-]
+  { href: "#m-dt", label: "Design transfer" },
+  { href: "#m-flow", label: "Production flow" },
+  { href: "#m-qc", label: "Quality controls" },
+  { href: "#m-scale", label: "Scaling" },
+];
 
 const QUALITY_CONTROLS = [
   {
-    title: 'Full traceability',
-    detail: 'Every unit is serialised and linked to its component lots, test results and operators, so any issue can be traced in minutes.',
+    title: "Full traceability",
+    detail:
+      "Every unit is serialised and linked to its component lots, test results and operators, so any issue can be traced in minutes.",
   },
   {
-    title: 'Device history records',
+    title: "Device history records",
     detail: (
       <>
         Electronic records for every unit and lot, available to you on request.
@@ -38,48 +39,51 @@ const QUALITY_CONTROLS = [
     ),
   },
   {
-    title: 'Process monitoring',
+    title: "Process monitoring",
     detail: (
       <>
-        Statistical process control on key parameters, with yield and defect data reported to you
-        on an agreed schedule.
+        Statistical process control on key parameters, with yield and defect
+        data reported to you on an agreed schedule.
       </>
     ),
   },
   {
-    title: 'Nonconformance & CAPA',
-    detail: 'Defects are contained, investigated for root cause and corrected through our CAPA system.',
+    title: "Nonconformance & CAPA",
+    detail:
+      "Defects are contained, investigated for root cause and corrected through our CAPA system.",
   },
   {
-    title: 'Change control',
-    detail: 'No change to parts, suppliers or processes without impact assessment and your written approval.',
+    title: "Change control",
+    detail:
+      "No change to parts, suppliers or processes without impact assessment and your written approval.",
   },
   {
-    title: 'Complaint support',
-    detail: 'We investigate returned units and supply the data you need for complaint handling and regulatory reporting.',
+    title: "Complaint support",
+    detail:
+      "We investigate returned units and supply the data you need for complaint handling and regulatory reporting.",
   },
-]
+];
 
 const SCALE_STAGES = [
   {
-    title: 'Pilot',
-    action: 'Prove',
-    profile: 'Pilot lots',
-    setup: ['Flexible cell', 'Engineers on the line', 'Rapid fixes'],
+    title: "Pilot",
+    action: "Prove",
+    profile: "Pilot lots",
+    setup: ["Flexible cell", "Engineers on the line", "Rapid fixes"],
   },
   {
-    title: 'Launch',
-    action: 'Stabilise',
-    profile: 'Commercial launch',
-    setup: ['Dedicated workstations', 'Validated testers'],
+    title: "Launch",
+    action: "Stabilise",
+    profile: "Commercial launch",
+    setup: ["Dedicated workstations", "Validated testers"],
   },
   {
-    title: 'Volume',
-    action: 'Scale',
-    profile: 'Sustained demand',
-    setup: ['Dedicated line', 'Automated test', 'Safety-stock agreements'],
+    title: "Volume",
+    action: "Scale",
+    profile: "Sustained demand",
+    setup: ["Dedicated line", "Automated test", "Safety-stock agreements"],
   },
-]
+];
 
 export default function Manufacturing() {
   return (
@@ -120,9 +124,9 @@ export default function Manufacturing() {
             <div data-manufacturing-deliverables="">
               <span>Transfer output</span>
               <p>
-                Device master record, supplier approvals, first article reports, process FMEA,
-                validation protocols and reports, validated test methods, training records and pilot
-                build data.
+                Device master record, supplier approvals, first article reports,
+                process FMEA, validation protocols and reports, validated test
+                methods, training records and pilot build data.
               </p>
             </div>
           </Reveal>
@@ -158,10 +162,14 @@ export default function Manufacturing() {
             <Reveal key={item.title} delay={index * 60} className="h-full">
               <Card className="flex h-full flex-col p-6">
                 <div data-control-card-head="">
-                  <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  <span aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   <span>Controlled</span>
                 </div>
-                <h3 className="font-display text-lg font-semibold text-text-primary">{item.title}</h3>
+                <h3 className="font-display text-lg font-semibold text-text-primary">
+                  {item.title}
+                </h3>
                 <p className="mt-2 flex-1 text-text-secondary">{item.detail}</p>
               </Card>
             </Reveal>
@@ -180,10 +188,12 @@ export default function Manufacturing() {
         <ol data-scaling-path="">
           {SCALE_STAGES.map((stage, index) => (
             <Reveal as="li" key={stage.title} delay={index * 80}>
-              <span data-scaling-number="">{String(index + 1).padStart(2, '0')}</span>
+              <span data-scaling-number="">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <Card className="h-full p-6">
                 <div data-scaling-card-head="">
-                  <span>Stage {String(index + 1).padStart(2, '0')}</span>
+                  <span>Stage {String(index + 1).padStart(2, "0")}</span>
                   <span>{stage.action}</span>
                 </div>
                 <h3>{stage.title}</h3>
@@ -194,7 +204,9 @@ export default function Manufacturing() {
                 <div data-scaling-setup="">
                   <span data-scaling-label="">Production setup</span>
                   <ul>
-                    {stage.setup.map((item) => <li key={item}>{item}</li>)}
+                    {stage.setup.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
                   </ul>
                 </div>
               </Card>
@@ -217,13 +229,16 @@ export default function Manufacturing() {
               <span data-scale-cta-label="">Manufacturing transfer</span>
               <p>
                 <strong>Already in production elsewhere?</strong>
-                We also take over manufacturing of cleared devices from other manufacturers.
+                We also take over manufacturing of cleared devices from other
+                manufacturers.
               </p>
             </div>
-            <Button href="/contact" variant="primary">Talk to us about a transfer</Button>
+            <Button href="/contact" variant="primary">
+              Talk to us about a transfer
+            </Button>
           </div>
         </Reveal>
       </Section>
     </>
-  )
+  );
 }

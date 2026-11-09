@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import heroImage from "@/public/images/therapy-device-development.png";
+import heroImage from "@/public/images/therapy-device-development.jpg";
 import Section from "@/components/ui/Section";
 import SectionHead from "@/components/ui/SectionHead";
 import Button from "@/components/ui/Button";
@@ -257,8 +257,8 @@ export default function Home() {
               <div>
                 <h3>One connected development loop</h3>
                 <p>
-                  Engineering, regulatory and manufacturing choices stay
-                  aligned from prototype to production.
+                  Engineering, regulatory and manufacturing choices stay aligned
+                  from prototype to production.
                 </p>
               </div>
             </Reveal>
